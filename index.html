@@ -1,1122 +1,1194 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Muhammad Anees — VR/AR Developer & Data Scientist</title>
+<title>Muhammad Anees — VR/AR/MR Developer & Data Scientist</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-/* ═══════════════════════════════════════════
-   PREMIUM COLOR SYSTEM — Deep Midnight + Gold
-═══════════════════════════════════════════ */
 :root{
-  /* Backgrounds */
-  --bg0:#07080f;
-  --bg1:#0d0f1d;
-  --bg2:#11142a;
-  --bg3:#171b35;
+  --ink:#05060e;
+  --ink1:#090b18;
+  --ink2:#0d1022;
+  --ink3:#12152c;
+  --ink4:#181c36;
 
-  /* Primary — Electric Violet */
-  --v1:#7c3aed;
-  --v2:#8b5cf6;
-  --v3:#a78bfa;
-  --v-glow:rgba(124,58,237,0.35);
+  --pu:#6d28d9;
+  --pu2:#8b5cf6;
+  --pu3:#c4b5fd;
+  --pu-a:rgba(109,40,217,0.14);
+  --pu-b:rgba(109,40,217,0.07);
+  --pu-glow:rgba(109,40,217,0.35);
 
-  /* Accent — Amber Gold */
-  --g1:#f59e0b;
-  --g2:#fbbf24;
-  --g3:#fde68a;
-  --g-glow:rgba(245,158,11,0.3);
+  --cy:#0891b2;
+  --cy2:#06b6d4;
+  --cy3:#67e8f9;
+  --cy-a:rgba(6,182,212,0.12);
+  --cy-glow:rgba(6,182,212,0.3);
 
-  /* Secondary — Teal */
-  --t1:#0d9488;
-  --t2:#14b8a6;
-  --t3:#5eead4;
-  --t-glow:rgba(20,184,166,0.28);
+  --go:#d97706;
+  --go2:#f59e0b;
+  --go3:#fcd34d;
+  --go-a:rgba(245,158,11,0.1);
 
-  /* Highlight — Rose */
-  --r1:#e11d48;
-  --r2:#f43f5e;
-  --r3:#fda4af;
+  --ro:#e11d48;
+  --ro2:#f43f5e;
+  --ro3:#fda4af;
+  --ro-a:rgba(244,63,94,0.1);
 
-  /* Text */
-  --tx0:#f8faff;
-  --tx1:#c5cae0;
-  --tx2:#7b82a8;
-  --tx3:#4a5078;
+  --gr:#059669;
+  --gr2:#10b981;
+  --gr3:#6ee7b7;
+  --gr-a:rgba(16,185,129,0.1);
 
-  /* Borders */
-  --b1:rgba(124,58,237,0.18);
-  --b2:rgba(124,58,237,0.08);
+  --tx:#eef0fc;
+  --tx1:#a8b2d8;
+  --tx2:#5a6494;
+  --tx3:#2e3560;
 
-  --radius:14px;
-  --radius-sm:8px;
+  --br:rgba(109,40,217,0.15);
+  --br2:rgba(109,40,217,0.07);
+
+  --r:14px;--r-sm:8px;
 }
-
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{
-  font-family:'Outfit',sans-serif;
-  background:var(--bg0);
-  color:var(--tx0);
-  min-height:100vh;
-  overflow-x:hidden;
-}
+body{font-family:'Inter',sans-serif;background:var(--ink);color:var(--tx);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
 
-/* Grain overlay */
-body::after{
-  content:'';position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events:none;z-index:9998;opacity:0.6;
-}
-
-/* Mesh background */
-.mesh{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
+/* ── AMBIENT ── */
+.bg-wrap{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.bg-mesh{
+  position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 80% 60% at 70% -10%, rgba(124,58,237,0.18) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at -10% 60%, rgba(20,184,166,0.12) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 40% at 50% 100%, rgba(245,158,11,0.08) 0%, transparent 50%),
-    var(--bg0);
+    radial-gradient(ellipse 1000px 700px at 75% -5%, rgba(109,40,217,0.16) 0%,transparent 65%),
+    radial-gradient(ellipse 800px 600px at -5% 50%, rgba(6,182,212,0.1) 0%,transparent 60%),
+    radial-gradient(ellipse 600px 500px at 50% 110%, rgba(245,158,11,0.07) 0%,transparent 55%),
+    var(--ink);
 }
-
-/* Subtle dot grid */
-.dots{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:radial-gradient(circle, rgba(124,58,237,0.2) 1px, transparent 1px);
-  background-size:40px 40px;
-  opacity:0.35;
+.bg-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(var(--br2) 1px,transparent 1px),linear-gradient(90deg,var(--br2) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%);
 }
+.scanlines{position:fixed;inset:0;z-index:9999;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.025) 2px,rgba(0,0,0,0.025) 4px);}
 
-/* ═══ NAV ═══ */
+/* ── NAV ── */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
+  position:fixed;top:0;left:0;right:0;z-index:500;
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 3rem;height:64px;
-  background:rgba(7,8,15,0.75);
-  backdrop-filter:blur(24px);
-  border-bottom:1px solid var(--b1);
+  padding:0 2.5rem;height:62px;
+  background:rgba(5,6,14,0.82);
+  backdrop-filter:blur(24px) saturate(1.6);
+  border-bottom:1px solid var(--br);
 }
-.nav-brand{
-  display:flex;align-items:center;gap:0.75rem;
-}
-.nav-monogram{
-  width:36px;height:36px;border-radius:8px;
-  background:linear-gradient(135deg,var(--v1),var(--t1));
+.nav-brand{display:flex;align-items:center;gap:0.7rem;cursor:pointer;}
+.nav-logo{
+  width:34px;height:34px;border-radius:8px;
+  background:linear-gradient(135deg,var(--pu),var(--cy2));
   display:flex;align-items:center;justify-content:center;
-  font-family:'Outfit',sans-serif;font-weight:900;font-size:0.95rem;
-  color:#fff;letter-spacing:-0.03em;
-  box-shadow:0 0 20px var(--v-glow);
+  font-family:'Syne',sans-serif;font-weight:800;font-size:0.82rem;color:#fff;
+  box-shadow:0 0 18px rgba(109,40,217,0.45);
 }
-.nav-name{
-  font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;
-  color:var(--tx0);letter-spacing:-0.01em;
-}
-.nav-links{display:flex;gap:0.25rem;list-style:none;}
-.nav-links a{
-  color:var(--tx2);text-decoration:none;
-  font-size:0.82rem;font-weight:500;
-  letter-spacing:0.04em;text-transform:uppercase;
-  padding:0.4rem 0.9rem;border-radius:6px;
+.nav-title{font-family:'Syne',sans-serif;font-weight:700;font-size:0.92rem;color:var(--tx);letter-spacing:-0.01em;}
+.nav-menu{display:flex;gap:0.1rem;list-style:none;}
+.nav-menu a{
+  color:var(--tx2);text-decoration:none;font-size:0.77rem;font-weight:500;
+  letter-spacing:0.05em;text-transform:uppercase;
+  padding:0.38rem 0.88rem;border-radius:6px;
   transition:all 0.2s;
 }
-.nav-links a:hover{color:var(--tx0);background:rgba(124,58,237,0.12);}
-.nav-cta{
-  display:flex;align-items:center;gap:0.5rem;
-  padding:0.45rem 1.1rem;border-radius:8px;
-  background:linear-gradient(135deg,var(--v1),var(--v2));
-  color:#fff;font-size:0.8rem;font-weight:600;
-  text-decoration:none;letter-spacing:0.03em;
-  box-shadow:0 0 20px var(--v-glow);
-  transition:all 0.2s;
+.nav-menu a:hover,.nav-menu a.active{color:var(--tx);background:var(--pu-a);}
+.nav-hire{
+  display:flex;align-items:center;gap:0.4rem;
+  padding:0.4rem 1.1rem;border-radius:7px;
+  background:linear-gradient(135deg,var(--pu),var(--pu2));
+  color:#fff;font-family:'Syne',sans-serif;font-size:0.77rem;font-weight:700;
+  text-decoration:none;letter-spacing:0.04em;
+  box-shadow:0 0 22px var(--pu-glow);transition:all 0.22s;
 }
-.nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 30px var(--v-glow);}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;}
-.hamburger span{width:22px;height:2px;background:var(--v3);border-radius:2px;transition:all .3s;}
-.mobile-nav{
-  display:none;position:fixed;top:64px;left:0;right:0;
-  background:rgba(7,8,15,0.97);
-  backdrop-filter:blur(24px);
-  border-bottom:1px solid var(--b1);
-  padding:1.5rem 2rem;z-index:199;
-  flex-direction:column;gap:0.8rem;
+.nav-hire:hover{transform:translateY(-1px);box-shadow:0 6px 32px var(--pu-glow);}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:6px;}
+.hamburger span{width:20px;height:1.5px;background:var(--pu3);border-radius:2px;transition:all .3s;}
+.mob-nav{
+  display:none;position:fixed;top:62px;left:0;right:0;
+  background:rgba(5,6,14,0.97);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--br);
+  padding:1.2rem 2rem;z-index:499;flex-direction:column;gap:0.7rem;
 }
-.mobile-nav.open{display:flex;}
-.mobile-nav a{
-  color:var(--tx1);text-decoration:none;font-size:0.95rem;
-  padding:0.6rem 0;border-bottom:1px solid var(--b2);
-}
+.mob-nav.open{display:flex;}
+.mob-nav a{color:var(--tx1);text-decoration:none;font-size:0.88rem;padding:0.5rem 0;border-bottom:1px solid var(--br2);}
 
-/* ═══ HERO ═══ */
-.hero{
-  position:relative;z-index:1;
-  min-height:100vh;
-  display:flex;align-items:center;
-  padding:7rem 3rem 5rem;
-}
-.hero-inner{
-  max-width:1280px;margin:0 auto;width:100%;
-  display:grid;grid-template-columns:1fr 380px;
-  gap:5rem;align-items:center;
-}
+/* ── PAGES ── */
+.page{display:none;position:relative;z-index:1;min-height:100vh;padding:7rem 2.5rem 5rem;}
+.page.active{display:block;}
+.pg-max{max-width:1200px;margin:0 auto;}
 
-/* Pill badge */
-.pill{
-  display:inline-flex;align-items:center;gap:0.5rem;
-  background:rgba(124,58,237,0.1);
-  border:1px solid rgba(124,58,237,0.3);
-  border-radius:100px;
-  padding:0.35rem 1rem 0.35rem 0.6rem;
-  margin-bottom:1.8rem;
-}
-.pill-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--g1);
-  box-shadow:0 0 8px var(--g-glow);
-  animation:pulse 2s ease-in-out infinite;
-}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.6;transform:scale(0.8);}}
-.pill span{font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--v3);}
+/* ── COMMON SECTION HEADERS ── */
+.s-eye{font-family:'JetBrains Mono',monospace;font-size:0.66rem;color:var(--pu3);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.5rem;}
+.s-h{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.7rem,3.5vw,2.5rem);letter-spacing:-0.03em;margin-bottom:0.8rem;}
+.s-h .hi{background:linear-gradient(100deg,var(--pu3),var(--cy3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.s-rule{width:44px;height:2px;border-radius:2px;margin-bottom:3rem;background:linear-gradient(90deg,var(--pu),var(--cy2),transparent);}
 
-.hero-eyebrow{
-  font-family:'Space Mono',monospace;
-  font-size:0.8rem;color:var(--g2);
-  letter-spacing:0.12em;text-transform:uppercase;
-  margin-bottom:1rem;
-}
-h1.hero-name{
-  font-family:'Outfit',sans-serif;font-weight:900;
-  font-size:clamp(3rem,7vw,5.5rem);
-  line-height:0.95;letter-spacing:-0.04em;
-  margin-bottom:1.5rem;
-}
-h1.hero-name .first{color:var(--tx0);}
-h1.hero-name .last{
-  display:block;
-  background:linear-gradient(100deg,var(--v3) 0%,var(--g2) 60%,var(--t3) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-.hero-roles{
-  display:flex;flex-wrap:wrap;gap:0.5rem;
-  margin-bottom:1.8rem;
-}
-.role-chip{
-  font-size:0.82rem;font-weight:600;
-  padding:0.35rem 0.9rem;border-radius:6px;
-  letter-spacing:0.02em;
-}
-.role-vr{background:rgba(124,58,237,0.15);color:var(--v3);border:1px solid rgba(124,58,237,0.25);}
-.role-ds{background:rgba(20,184,166,0.12);color:var(--t3);border:1px solid rgba(20,184,166,0.22);}
-.role-phd{background:rgba(245,158,11,0.1);color:var(--g2);border:1px solid rgba(245,158,11,0.22);}
+/* ── CARDS ── */
+.card{background:var(--ink2);border:1px solid var(--br);border-radius:var(--r);padding:1.55rem;position:relative;overflow:hidden;transition:all 0.3s;}
+.card:hover{transform:translateY(-4px);}
+.card-pu{border-color:rgba(109,40,217,0.15);}
+.card-pu:hover{border-color:rgba(109,40,217,0.4);box-shadow:0 10px 40px rgba(109,40,217,0.13);}
+.card-cy{border-color:rgba(6,182,212,0.12);}
+.card-cy:hover{border-color:rgba(6,182,212,0.32);box-shadow:0 10px 40px rgba(6,182,212,0.1);}
+.card-go{border-color:rgba(245,158,11,0.12);}
+.card-go:hover{border-color:rgba(245,158,11,0.32);box-shadow:0 10px 40px rgba(245,158,11,0.1);}
+.card-gr{border-color:rgba(16,185,129,0.12);}
+.card-gr:hover{border-color:rgba(16,185,129,0.32);box-shadow:0 10px 40px rgba(16,185,129,0.1);}
 
-.hero-bio{
-  font-size:1rem;color:var(--tx1);line-height:1.85;
-  max-width:540px;margin-bottom:2.5rem;font-weight:300;
-}
-.hero-bio strong{color:var(--tx0);font-weight:600;}
+.c-topline{position:absolute;top:0;left:20%;right:20%;height:1px;opacity:0;transition:opacity 0.3s;}
+.card:hover .c-topline{opacity:1;}
+.card-pu .c-topline{background:linear-gradient(90deg,transparent,var(--pu2),transparent);}
+.card-cy .c-topline{background:linear-gradient(90deg,transparent,var(--cy2),transparent);}
+.card-go .c-topline{background:linear-gradient(90deg,transparent,var(--go2),transparent);}
+.card-gr .c-topline{background:linear-gradient(90deg,transparent,var(--gr2),transparent);}
 
-.cta-row{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem;}
-.btn{
-  display:inline-flex;align-items:center;gap:0.5rem;
-  padding:0.78rem 1.7rem;border-radius:var(--radius-sm);
-  font-family:'Outfit',sans-serif;font-weight:700;font-size:0.88rem;
-  text-decoration:none;letter-spacing:0.02em;
-  transition:all 0.25s;border:none;cursor:pointer;
-}
-.btn-grad{
-  background:linear-gradient(135deg,var(--v1) 0%,var(--v2) 50%,var(--t1) 100%);
-  color:#fff;
-  box-shadow:0 4px 24px var(--v-glow);
-}
-.btn-grad:hover{transform:translateY(-2px);box-shadow:0 8px 36px var(--v-glow);}
-.btn-gold{
-  background:linear-gradient(135deg,var(--g1),var(--g2));
-  color:#07080f;
-}
-.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 28px var(--g-glow);}
-.btn-ghost{
-  background:transparent;
-  border:1px solid var(--b1);
-  color:var(--tx1);
-}
-.btn-ghost:hover{border-color:var(--v3);color:var(--v3);}
+.c-ico{width:44px;height:44px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:0.95rem;}
+.ci-pu{background:rgba(109,40,217,0.1);border:1px solid rgba(109,40,217,0.18);}
+.ci-cy{background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.15);}
+.ci-go{background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.15);}
+.ci-gr{background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.15);}
+.ci-ro{background:rgba(244,63,94,0.07);border:1px solid rgba(244,63,94,0.15);}
 
-.social-strip{display:flex;gap:0.6rem;flex-wrap:wrap;}
-.s-link{
-  display:flex;align-items:center;gap:0.45rem;
-  background:var(--bg2);border:1px solid var(--b1);
-  border-radius:8px;padding:0.42rem 0.85rem;
-  font-size:0.78rem;color:var(--tx2);text-decoration:none;
-  transition:all 0.22s;font-weight:500;
-}
-.s-link:hover{border-color:var(--v3);color:var(--v3);background:rgba(124,58,237,0.08);}
+.card h3{font-family:'Syne',sans-serif;font-weight:700;font-size:0.93rem;margin-bottom:0.45rem;color:var(--tx);}
+.card p{color:var(--tx1);font-size:0.81rem;line-height:1.75;font-weight:300;}
 
-/* Avatar card */
-.avatar-card{
-  background:var(--bg2);
-  border:1px solid var(--b1);
-  border-radius:20px;
-  padding:2rem 1.5rem;
-  display:flex;flex-direction:column;align-items:center;gap:1.5rem;
-  box-shadow:0 0 60px rgba(124,58,237,0.12);
-  position:relative;overflow:hidden;
-}
-.avatar-card::before{
-  content:'';position:absolute;top:-40px;right:-40px;
-  width:180px;height:180px;border-radius:50%;
-  background:radial-gradient(circle,rgba(124,58,237,0.2),transparent 70%);
-}
-.avatar-img{
-  width:140px;height:140px;border-radius:16px;
-  background:linear-gradient(135deg,var(--v1),var(--t1));
-  padding:2.5px;
-  box-shadow:0 0 40px var(--v-glow);
-}
-.avatar-img-inner{
-  width:100%;height:100%;border-radius:14px;
-  background:var(--bg3);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Outfit',sans-serif;font-weight:900;font-size:3.5rem;
-  color:var(--v3);
-}
-.avatar-name{
-  text-align:center;
-  font-family:'Outfit',sans-serif;font-weight:800;font-size:1.1rem;
-  color:var(--tx0);margin-bottom:0.2rem;
-}
-.avatar-sub{
-  font-size:0.78rem;color:var(--tx2);text-align:center;
-  font-family:'Space Mono',monospace;letter-spacing:0.04em;
-}
-.stats-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;width:100%;
-}
-.stat-box{
-  background:var(--bg3);border:1px solid var(--b1);
-  border-radius:10px;padding:0.8rem;text-align:center;
-}
-.stat-val{
-  font-family:'Outfit',sans-serif;font-weight:800;font-size:1.5rem;
-  line-height:1;margin-bottom:0.25rem;
-}
-.stat-val.v{color:var(--v3);}
-.stat-val.g{color:var(--g2);}
-.stat-val.t{color:var(--t3);}
-.stat-val.r{color:var(--r3);}
-.stat-lbl{font-size:0.65rem;color:var(--tx3);text-transform:uppercase;letter-spacing:0.07em;font-weight:600;}
-.avail-badge{
-  width:100%;display:flex;align-items:center;justify-content:center;gap:0.5rem;
-  background:rgba(20,184,166,0.08);border:1px solid rgba(20,184,166,0.2);
-  border-radius:8px;padding:0.6rem;
-  font-size:0.75rem;font-weight:600;color:var(--t3);letter-spacing:0.06em;
-}
-.avail-dot{width:7px;height:7px;border-radius:50%;background:var(--t2);animation:pulse 1.5s infinite;}
+/* ── TAGS ── */
+.tags{display:flex;flex-wrap:wrap;gap:0.25rem;margin-top:0.85rem;}
+.tag{font-family:'JetBrains Mono',monospace;font-size:0.59rem;padding:0.17rem 0.5rem;border-radius:4px;letter-spacing:0.04em;}
+.tp{background:rgba(109,40,217,0.09);color:var(--pu3);border:1px solid rgba(109,40,217,0.18);}
+.tc{background:rgba(6,182,212,0.07);color:var(--cy3);border:1px solid rgba(6,182,212,0.15);}
+.tg{background:rgba(245,158,11,0.07);color:var(--go3);border:1px solid rgba(245,158,11,0.15);}
+.tr{background:rgba(244,63,94,0.07);color:var(--ro3);border:1px solid rgba(244,63,94,0.15);}
+.tgr{background:rgba(16,185,129,0.07);color:var(--gr3);border:1px solid rgba(16,185,129,0.15);}
 
-/* ═══ SECTIONS ═══ */
-section{position:relative;z-index:1;padding:6rem 3rem;}
-.s-max{max-width:1280px;margin:0 auto;}
-.s-tag{
-  font-family:'Space Mono',monospace;font-size:0.7rem;
-  color:var(--v3);letter-spacing:0.15em;text-transform:uppercase;
-  margin-bottom:0.5rem;
-}
-.s-title{
-  font-family:'Outfit',sans-serif;font-weight:900;
-  font-size:clamp(1.8rem,4vw,2.8rem);
-  letter-spacing:-0.03em;margin-bottom:1rem;
-}
-.s-title .hi{
-  background:linear-gradient(100deg,var(--v3),var(--g2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.s-rule{
-  width:56px;height:3px;border-radius:2px;margin-bottom:3rem;
-  background:linear-gradient(90deg,var(--v1),var(--t1),transparent);
-}
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:0.45rem;padding:0.72rem 1.6rem;border-radius:var(--r-sm);font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;text-decoration:none;letter-spacing:0.03em;transition:all 0.25s;border:none;cursor:pointer;}
+.btn-pu{background:linear-gradient(135deg,var(--pu),var(--pu2));color:#fff;box-shadow:0 4px 24px var(--pu-glow);}
+.btn-pu:hover{transform:translateY(-2px);box-shadow:0 8px 38px var(--pu-glow);}
+.btn-cy{background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.28);color:var(--cy3);}
+.btn-cy:hover{background:rgba(6,182,212,0.2);box-shadow:var(--cy-glow);}
+.btn-go{background:linear-gradient(135deg,var(--go),var(--go2));color:#07080f;}
+.btn-go:hover{transform:translateY(-2px);}
+.btn-ghost{background:transparent;border:1px solid var(--br);color:var(--tx1);}
+.btn-ghost:hover{border-color:var(--pu3);color:var(--pu3);}
 
-/* ═══ CATEGORY TABS ═══ */
-.cat-row{
-  display:flex;gap:0.6rem;flex-wrap:wrap;
-  margin-bottom:3rem;
-  background:var(--bg2);
-  border:1px solid var(--b1);
-  border-radius:12px;
-  padding:0.5rem;
-  width:fit-content;
-}
-.c-tab{
-  padding:0.65rem 1.4rem;border-radius:9px;
-  font-family:'Outfit',sans-serif;font-weight:700;font-size:0.85rem;
-  cursor:pointer;transition:all 0.25s;
-  border:none;background:transparent;color:var(--tx2);
-  display:flex;align-items:center;gap:0.5rem;
-}
-.c-tab:hover{color:var(--tx0);background:rgba(124,58,237,0.1);}
-.c-tab.on-vr{
-  background:linear-gradient(135deg,var(--v1),rgba(124,58,237,0.6));
-  color:#fff;
-  box-shadow:0 4px 20px var(--v-glow);
-}
-.c-tab.on-ds{
-  background:linear-gradient(135deg,var(--t1),rgba(20,184,166,0.6));
-  color:#fff;
-  box-shadow:0 4px 20px var(--t-glow);
-}
-.c-tab.on-phd{
-  background:linear-gradient(135deg,#92400e,var(--g1));
-  color:#fff;
-  box-shadow:0 4px 20px var(--g-glow);
-}
-.c-panel{display:none;}
-.c-panel.on{display:block;animation:fadeUp 0.4s ease;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+/* ═══════════════════════════════════
+   PAGE 1 — HOME
+═══════════════════════════════════ */
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 340px;gap:5rem;align-items:center;}
 
-/* ═══ CARDS ═══ */
-.grid-3{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.4rem;}
-.grid-2{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:1.4rem;}
+.signal{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.22);border-radius:100px;padding:0.3rem 1rem 0.3rem 0.5rem;margin-bottom:1.8rem;}
+.signal-dot{width:7px;height:7px;border-radius:50%;background:var(--cy2);box-shadow:0 0 8px var(--cy2);animation:blink 1.8s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.signal span{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--cy3);letter-spacing:0.1em;}
 
-.card{
-  background:var(--bg2);border:1px solid var(--b1);
-  border-radius:var(--radius);padding:1.7rem;
-  transition:all 0.3s;position:relative;overflow:hidden;
-}
-.card::after{
-  content:'';position:absolute;inset:0;border-radius:var(--radius);
-  opacity:0;transition:opacity 0.3s;pointer-events:none;
-}
-.card:hover{transform:translateY(-5px);}
-.card.cv{border-color:rgba(124,58,237,0.18);}
-.card.cv:hover{border-color:rgba(124,58,237,0.4);box-shadow:0 8px 40px rgba(124,58,237,0.15);}
-.card.ct{border-color:rgba(20,184,166,0.15);}
-.card.ct:hover{border-color:rgba(20,184,166,0.35);box-shadow:0 8px 40px rgba(20,184,166,0.12);}
-.card.cg{border-color:rgba(245,158,11,0.15);}
-.card.cg:hover{border-color:rgba(245,158,11,0.35);box-shadow:0 8px 40px rgba(245,158,11,0.12);}
+.hero-tag{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--go2);letter-spacing:0.12em;margin-bottom:0.9rem;}
+h1.hero-name{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.8rem,6.5vw,5rem);line-height:0.96;letter-spacing:-0.04em;margin-bottom:1.4rem;}
+.n-first{color:var(--tx);}
+.n-last{display:block;background:linear-gradient(110deg,var(--pu3) 0%,var(--cy3) 50%,var(--go3) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 
-/* Card accent strip */
-.card .strip{
-  position:absolute;top:0;left:0;right:0;height:2px;
-  opacity:0;transition:opacity 0.3s;
-}
-.card:hover .strip{opacity:1;}
-.card.cv .strip{background:linear-gradient(90deg,transparent,var(--v2),transparent);}
-.card.ct .strip{background:linear-gradient(90deg,transparent,var(--t2),transparent);}
-.card.cg .strip{background:linear-gradient(90deg,transparent,var(--g2),transparent);}
+.role-stack{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.7rem;}
+.rchip{font-family:'Syne',sans-serif;font-size:0.77rem;font-weight:700;padding:0.3rem 0.85rem;border-radius:6px;}
+.rc-vr{background:var(--pu-a);color:var(--pu3);border:1px solid rgba(109,40,217,0.22);}
+.rc-ds{background:var(--cy-a);color:var(--cy3);border:1px solid rgba(6,182,212,0.18);}
+.rc-ph{background:var(--go-a);color:var(--go3);border:1px solid rgba(245,158,11,0.18);}
+.rc-web{background:var(--gr-a);color:var(--gr3);border:1px solid rgba(16,185,129,0.18);}
 
-.c-ico{
-  width:46px;height:46px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.3rem;margin-bottom:1rem;flex-shrink:0;
-}
-.c-ico.v{background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.2);}
-.c-ico.t{background:rgba(20,184,166,0.1);border:1px solid rgba(20,184,166,0.18);}
-.c-ico.g{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.18);}
-.c-ico.r{background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.18);}
+.hero-bio{font-size:0.95rem;color:var(--tx1);line-height:1.9;max-width:530px;margin-bottom:2.2rem;font-weight:300;}
+.hero-bio strong{color:var(--tx);font-weight:600;}
 
-.card h3{
-  font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;
-  margin-bottom:0.5rem;color:var(--tx0);
-}
-.card p{color:var(--tx2);font-size:0.86rem;line-height:1.7;font-weight:300;}
+.cta-row{display:flex;gap:0.85rem;flex-wrap:wrap;margin-bottom:2.2rem;}
+.soc-row{display:flex;flex-wrap:wrap;gap:0.45rem;}
+.soc{display:flex;align-items:center;gap:0.38rem;background:var(--ink2);border:1px solid var(--br);border-radius:7px;padding:0.36rem 0.78rem;font-size:0.72rem;color:var(--tx2);text-decoration:none;transition:all 0.2s;font-weight:500;}
+.soc:hover{border-color:var(--pu3);color:var(--pu3);background:var(--pu-b);}
 
-/* Tags */
-.tag-row{display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:1rem;}
-.tag{
-  font-family:'Space Mono',monospace;font-size:0.65rem;
-  padding:0.2rem 0.55rem;border-radius:4px;letter-spacing:0.04em;
-}
-.tv{background:rgba(124,58,237,0.1);color:var(--v3);border:1px solid rgba(124,58,237,0.2);}
-.tt{background:rgba(20,184,166,0.08);color:var(--t3);border:1px solid rgba(20,184,166,0.18);}
-.tg{background:rgba(245,158,11,0.08);color:var(--g2);border:1px solid rgba(245,158,11,0.18);}
-.tr{background:rgba(244,63,94,0.08);color:var(--r3);border:1px solid rgba(244,63,94,0.18);}
+/* Profile card */
+.profile-card{background:var(--ink2);border:1px solid var(--br);border-radius:18px;padding:1.7rem 1.35rem;display:flex;flex-direction:column;align-items:center;gap:1.3rem;position:relative;overflow:hidden;box-shadow:0 0 80px rgba(109,40,217,0.1);}
+.profile-card::before{content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(109,40,217,0.16),transparent 70%);}
+.profile-card::after{content:'';position:absolute;bottom:-60px;left:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(6,182,212,0.1),transparent 70%);}
+.p-avatar-wrap{width:130px;height:130px;border-radius:15px;background:linear-gradient(135deg,var(--pu),var(--cy2));padding:2.5px;box-shadow:0 0 38px rgba(109,40,217,0.4);flex-shrink:0;}
+.p-avatar-inner{width:100%;height:100%;border-radius:13px;background:var(--ink3);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.p-avatar-inner img{width:100%;height:100%;object-fit:cover;border-radius:13px;}
+.p-avatar-fallback{font-family:'Syne',sans-serif;font-weight:800;font-size:2.8rem;color:var(--pu3);}
+.p-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;text-align:center;color:var(--tx);}
+.p-sub{font-family:'JetBrains Mono',monospace;font-size:0.63rem;color:var(--tx2);text-align:center;margin-top:0.15rem;letter-spacing:0.06em;}
+.p-loc{font-size:0.72rem;color:var(--tx2);text-align:center;margin-top:0.2rem;}
+.p-stats{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;width:100%;}
+.p-stat{background:var(--ink3);border:1px solid var(--br);border-radius:9px;padding:0.72rem;text-align:center;}
+.p-val{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;line-height:1;}
+.p-val.pu{color:var(--pu3);}
+.p-val.cy{color:var(--cy3);}
+.p-val.go{color:var(--go3);}
+.p-val.ro{color:var(--ro3);}
+.p-val.gr{color:var(--gr3);}
+.p-lbl{font-family:'JetBrains Mono',monospace;font-size:0.58rem;color:var(--tx3);text-transform:uppercase;letter-spacing:0.07em;margin-top:0.18rem;}
+.p-status{width:100%;display:flex;align-items:center;justify-content:center;gap:0.45rem;background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.18);border-radius:8px;padding:0.52rem;font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:500;color:var(--gr3);letter-spacing:0.07em;}
+.p-status-dot{width:6px;height:6px;border-radius:50%;background:var(--gr2);box-shadow:0 0 6px var(--gr2);animation:blink 1.5s infinite;}
+.p-cv-btns{display:flex;flex-direction:column;gap:0.5rem;width:100%;}
+.p-cv-btn{display:flex;align-items:center;justify-content:center;gap:0.4rem;padding:0.55rem;border-radius:8px;font-family:'Syne',sans-serif;font-size:0.73rem;font-weight:700;text-decoration:none;transition:all 0.2s;letter-spacing:0.03em;}
+.pcv-vr{background:var(--pu-a);border:1px solid rgba(109,40,217,0.25);color:var(--pu3);}
+.pcv-vr:hover{background:rgba(109,40,217,0.22);}
+.pcv-ds{background:var(--cy-a);border:1px solid rgba(6,182,212,0.22);color:var(--cy3);}
+.pcv-ds:hover{background:rgba(6,182,212,0.2);}
 
-/* ═══ SKILL BARS ═══ */
-.sk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.4rem;margin-top:2rem;}
-.sk-card{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--radius);padding:1.5rem;}
-.sk-card h4{
-  font-family:'Outfit',sans-serif;font-weight:700;font-size:0.8rem;
-  letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1.2rem;
-}
-.sk{margin-bottom:1rem;}
-.sk-row{display:flex;justify-content:space-between;margin-bottom:0.35rem;font-size:0.82rem;}
-.sk-n{color:var(--tx1);font-weight:500;}
-.sk-p{font-family:'Space Mono',monospace;font-size:0.7rem;}
-.sk-bar{height:5px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;}
-.sk-fill{height:100%;border-radius:3px;transition:width 1.3s cubic-bezier(0.4,0,0.2,1);}
-.fv{background:linear-gradient(90deg,var(--v1),var(--v3));}
-.ft{background:linear-gradient(90deg,var(--t1),var(--t3));}
-.fg{background:linear-gradient(90deg,#92400e,var(--g2));}
+/* ═══════════════════════════════════
+   PAGE 2 — ABOUT
+═══════════════════════════════════ */
+.about-grid{display:grid;grid-template-columns:280px 1fr;gap:3rem;align-items:start;margin-bottom:4rem;}
+.about-profile{background:var(--ink2);border:1px solid var(--br);border-radius:var(--r);overflow:hidden;position:sticky;top:80px;}
+.ap-img-wrap{width:100%;height:240px;background:linear-gradient(135deg,var(--pu-a),var(--cy-a));display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.ap-img-wrap img{width:100%;height:100%;object-fit:cover;}
+.ap-img-placeholder{font-family:'Syne',sans-serif;font-weight:800;font-size:4rem;color:var(--pu3);}
+.ap-info{padding:1.3rem;}
+.ap-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;color:var(--tx);margin-bottom:0.25rem;}
+.ap-title{font-size:0.78rem;color:var(--pu3);font-weight:500;margin-bottom:1rem;}
+.ap-row{display:flex;align-items:flex-start;gap:0.5rem;padding:0.4rem 0;border-bottom:1px solid var(--br2);font-size:0.78rem;}
+.ap-row:last-child{border:none;}
+.ap-label{color:var(--tx3);min-width:80px;font-size:0.73rem;flex-shrink:0;}
+.ap-val{color:var(--tx1);font-family:'JetBrains Mono',monospace;font-size:0.7rem;word-break:break-all;}
 
-/* ═══ TIMELINE ═══ */
-.tl{position:relative;padding-left:2.2rem;}
-.tl::before{
-  content:'';position:absolute;left:4px;top:0;bottom:0;width:1.5px;
-  background:linear-gradient(180deg,var(--v2) 0%,var(--t2) 50%,transparent 100%);
-}
-.tl-item{position:relative;margin-bottom:2.8rem;}
-.tl-dot{
-  position:absolute;left:-2.48rem;top:0.2rem;
-  width:12px;height:12px;border-radius:50%;
-  border:2px solid var(--v2);background:var(--bg0);
-  box-shadow:0 0 10px var(--v-glow);
-}
-.tl-dot.t{border-color:var(--t2);box-shadow:0 0 10px var(--t-glow);}
-.tl-dot.g{border-color:var(--g1);box-shadow:0 0 10px var(--g-glow);}
-.tl-when{
-  font-family:'Space Mono',monospace;font-size:0.68rem;
-  color:var(--tx3);letter-spacing:0.08em;margin-bottom:0.4rem;
-}
-.tl-role{font-family:'Outfit',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:0.15rem;}
-.tl-co{font-size:0.85rem;font-weight:600;margin-bottom:0.5rem;}
-.tl-co.v{color:var(--v3);}
-.tl-co.t{color:var(--t3);}
-.tl-co.g{color:var(--g2);}
-.tl-body{color:var(--tx2);font-size:0.84rem;line-height:1.75;font-weight:300;}
+.about-content h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.2rem;margin-bottom:0.8rem;color:var(--tx);}
+.about-content p{color:var(--tx1);font-size:0.9rem;line-height:1.9;margin-bottom:1.2rem;font-weight:300;}
+.about-content p strong{color:var(--tx);font-weight:600;}
+.about-content blockquote{border-left:2px solid var(--pu2);padding-left:1.2rem;margin:1.5rem 0;color:var(--tx2);font-size:0.88rem;line-height:1.85;font-style:italic;}
 
-/* ═══ PROJECTS ═══ */
-.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.4rem;}
-.pj{
-  background:var(--bg2);border:1px solid var(--b1);
-  border-radius:var(--radius);overflow:hidden;
-  transition:all 0.3s;display:flex;flex-direction:column;
-}
-.pj:hover{transform:translateY(-5px);border-color:rgba(124,58,237,0.35);box-shadow:0 12px 48px rgba(124,58,237,0.12);}
-.pj-top{
-  height:100px;display:flex;align-items:center;justify-content:center;
-  font-size:2.5rem;
-  position:relative;
-}
-.pj-body{padding:1.4rem;flex:1;display:flex;flex-direction:column;}
-.pj-body h3{font-family:'Outfit',sans-serif;font-weight:700;font-size:0.98rem;margin-bottom:0.4rem;}
-.pj-body p{color:var(--tx2);font-size:0.83rem;line-height:1.65;flex:1;font-weight:300;}
-.pj-link{
-  display:inline-flex;align-items:center;gap:0.4rem;
-  margin-top:1rem;font-size:0.78rem;font-weight:700;
-  text-decoration:none;letter-spacing:0.05em;text-transform:uppercase;
-  transition:gap 0.2s;
-}
-.pj-link::after{content:'→';}
-.pj-link:hover{gap:0.7rem;}
-.pj-link.lv{color:var(--v3);}
-.pj-link.lt{color:var(--t3);}
-.pj-link.lg{color:var(--g2);}
-.pj-link.lr{color:var(--r3);}
+/* Timeline */
+.tl{position:relative;padding-left:2rem;}
+.tl::before{content:'';position:absolute;left:3px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--pu2),var(--cy2),transparent);}
+.tl-item{position:relative;margin-bottom:2.4rem;}
+.tl-dot{position:absolute;left:-2.18rem;top:0.22rem;width:10px;height:10px;border-radius:50%;border:1.5px solid var(--pu2);background:var(--ink);box-shadow:0 0 10px rgba(109,40,217,0.4);}
+.tl-dot.cy{border-color:var(--cy2);box-shadow:0 0 10px var(--cy-glow);}
+.tl-dot.go{border-color:var(--go2);box-shadow:0 0 10px rgba(245,158,11,0.3);}
+.tl-dot.gr{border-color:var(--gr2);box-shadow:0 0 10px rgba(16,185,129,0.3);}
+.tl-when{font-family:'JetBrains Mono',monospace;font-size:0.63rem;color:var(--tx3);letter-spacing:0.07em;margin-bottom:0.3rem;}
+.tl-role{font-family:'Syne',sans-serif;font-weight:700;font-size:0.98rem;margin-bottom:0.12rem;}
+.tl-co{font-size:0.8rem;font-weight:600;margin-bottom:0.4rem;}
+.tl-co.pu{color:var(--pu3);}
+.tl-co.cy{color:var(--cy3);}
+.tl-co.go{color:var(--go3);}
+.tl-co.gr{color:var(--gr3);}
+.tl-body{color:var(--tx2);font-size:0.8rem;line-height:1.8;font-weight:300;}
 
-/* ═══ ACHIEVEMENTS ═══ */
-.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
-.ach{
-  background:var(--bg2);border:1px solid var(--b1);
-  border-radius:12px;padding:1.1rem 1.4rem;
-  display:flex;align-items:center;gap:1rem;
-  transition:all 0.25s;
-}
-.ach:hover{border-color:rgba(245,158,11,0.3);transform:translateX(5px);box-shadow:0 4px 20px rgba(245,158,11,0.08);}
-.ach-ico{font-size:1.6rem;flex-shrink:0;}
-.ach-txt strong{font-family:'Outfit',sans-serif;font-weight:700;font-size:0.9rem;display:block;margin-bottom:0.15rem;}
-.ach-txt span{font-size:0.77rem;color:var(--tx3);}
+/* Social work */
+.sw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0.85rem;}
+.sw-item{background:var(--ink2);border:1px solid var(--br);border-radius:10px;padding:0.9rem 1.1rem;display:flex;align-items:center;gap:0.8rem;transition:all 0.22s;}
+.sw-item:hover{border-color:rgba(16,185,129,0.3);transform:translateX(4px);}
+.sw-ico{font-size:1.4rem;flex-shrink:0;}
+.sw-txt strong{font-family:'Syne',sans-serif;font-weight:700;font-size:0.84rem;display:block;margin-bottom:0.1rem;}
+.sw-txt span{font-size:0.72rem;color:var(--tx3);}
 
-/* ═══ CONTACT ═══ */
+/* ═══════════════════════════════════
+   PAGE 3 — PROJECTS
+═══════════════════════════════════ */
+.proj-filter{display:flex;gap:0.45rem;flex-wrap:wrap;margin-bottom:2.5rem;background:var(--ink2);border:1px solid var(--br);border-radius:11px;padding:0.42rem;width:fit-content;}
+.pf-btn{padding:0.55rem 1.2rem;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.78rem;cursor:pointer;transition:all 0.22s;border:none;background:transparent;color:var(--tx2);}
+.pf-btn:hover{color:var(--tx);background:var(--pu-a);}
+.pf-btn.on{background:linear-gradient(135deg,var(--pu),rgba(109,40,217,0.5));color:#fff;box-shadow:0 4px 18px rgba(109,40,217,0.3);}
+.pf-btn.on-cy{background:linear-gradient(135deg,var(--cy),rgba(6,182,212,0.5));color:#fff;box-shadow:0 4px 18px var(--cy-glow);}
+.pf-btn.on-go{background:linear-gradient(135deg,var(--go),rgba(245,158,11,0.5));color:#fff;}
+
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.2rem;}
+.pj{background:var(--ink2);border:1px solid var(--br);border-radius:var(--r);overflow:hidden;transition:all 0.3s;display:flex;flex-direction:column;}
+.pj:hover{transform:translateY(-5px);border-color:rgba(109,40,217,0.38);box-shadow:0 16px 52px rgba(109,40,217,0.12);}
+.pj-head{height:88px;display:flex;align-items:center;justify-content:space-between;padding:0 1.3rem;position:relative;overflow:hidden;}
+.pj-emoji{font-size:2.1rem;}
+.pj-badges{display:flex;flex-direction:column;gap:0.28rem;align-items:flex-end;}
+.pb{font-family:'JetBrains Mono',monospace;font-size:0.54rem;letter-spacing:0.06em;padding:0.16rem 0.52rem;border-radius:100px;display:flex;align-items:center;gap:0.28rem;}
+.pb-meta{background:rgba(109,40,217,0.15);color:var(--pu3);border:1px solid rgba(109,40,217,0.22);}
+.pb-ios{background:rgba(6,182,212,0.1);color:var(--cy3);border:1px solid rgba(6,182,212,0.18);}
+.pb-android{background:rgba(16,185,129,0.08);color:var(--gr3);border:1px solid rgba(16,185,129,0.16);}
+.pb-web{background:rgba(245,158,11,0.08);color:var(--go3);border:1px solid rgba(245,158,11,0.16);}
+.pb-itch{background:rgba(244,63,94,0.08);color:var(--ro3);border:1px solid rgba(244,63,94,0.16);}
+.pb-res{background:rgba(6,182,212,0.08);color:var(--cy3);border:1px solid rgba(6,182,212,0.16);}
+
+.pj-body{padding:1.2rem;flex:1;display:flex;flex-direction:column;}
+.pj-body h3{font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:0.38rem;}
+.pj-body p{color:var(--tx1);font-size:0.79rem;line-height:1.7;flex:1;font-weight:300;}
+.pj-links{display:flex;gap:0.45rem;flex-wrap:wrap;margin-top:0.9rem;}
+.pjl{display:inline-flex;align-items:center;gap:0.32rem;font-family:'Syne',sans-serif;font-size:0.7rem;font-weight:700;text-decoration:none;letter-spacing:0.05em;text-transform:uppercase;padding:0.32rem 0.8rem;border-radius:6px;transition:all 0.2s;}
+.pjl-pu{color:var(--pu3);background:var(--pu-a);border:1px solid rgba(109,40,217,0.2);}
+.pjl-pu:hover{background:rgba(109,40,217,0.22);}
+.pjl-cy{color:var(--cy3);background:var(--cy-a);border:1px solid rgba(6,182,212,0.18);}
+.pjl-cy:hover{background:rgba(6,182,212,0.2);}
+.pjl-go{color:var(--go3);background:var(--go-a);border:1px solid rgba(245,158,11,0.18);}
+.pjl-go:hover{background:rgba(245,158,11,0.2);}
+.pjl-ro{color:var(--ro3);background:var(--ro-a);border:1px solid rgba(244,63,94,0.18);}
+.pjl-ro:hover{background:rgba(244,63,94,0.2);}
+.pjl-gr{color:var(--gr3);background:var(--gr-a);border:1px solid rgba(16,185,129,0.18);}
+.pjl-gr:hover{background:rgba(16,185,129,0.2);}
+
+/* WebXR embed */
+.wxr-box{background:var(--ink2);border:1px solid rgba(6,182,212,0.18);border-radius:var(--r);overflow:hidden;margin-top:1.2rem;}
+.wxr-head{padding:0.95rem 1.3rem;display:flex;align-items:center;gap:0.7rem;border-bottom:1px solid rgba(6,182,212,0.12);background:rgba(6,182,212,0.04);}
+.wxr-head-txt h3{font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;color:var(--cy3);}
+.wxr-head-txt p{font-size:0.76rem;color:var(--tx2);margin-top:0.08rem;}
+.wxr-badge{margin-left:auto;background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.24);border-radius:100px;padding:0.22rem 0.7rem;font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--cy2);letter-spacing:0.08em;flex-shrink:0;}
+.wxr-frame{width:100%;height:480px;background:var(--ink3);}
+.wxr-frame iframe{width:100%;height:100%;border:none;display:block;}
+.wxr-note{padding:0.65rem 1.3rem;font-size:0.72rem;color:var(--tx2);background:rgba(0,0,0,0.18);display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;}
+.wxr-note a{color:var(--cy3);text-decoration:none;margin-left:auto;}
+
+/* ═══════════════════════════════════
+   PAGE 4 — SKILLS
+═══════════════════════════════════ */
+.skills-tabs{display:flex;gap:0.45rem;flex-wrap:wrap;margin-bottom:2.8rem;background:var(--ink2);border:1px solid var(--br);border-radius:11px;padding:0.42rem;width:fit-content;}
+.sk-tab{padding:0.58rem 1.3rem;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.8rem;cursor:pointer;transition:all 0.25s;border:none;background:transparent;color:var(--tx2);}
+.sk-tab:hover{color:var(--tx);background:var(--pu-a);}
+.sk-tab.on-vr{background:linear-gradient(135deg,var(--pu),rgba(109,40,217,0.5));color:#fff;box-shadow:0 4px 18px rgba(109,40,217,0.3);}
+.sk-tab.on-ds{background:linear-gradient(135deg,var(--cy),rgba(6,182,212,0.5));color:#fff;box-shadow:0 4px 18px var(--cy-glow);}
+.sk-tab.on-ph{background:linear-gradient(135deg,var(--go),rgba(245,158,11,0.5));color:#fff;}
+.sk-panel{display:none;animation:rise 0.38s ease;}
+.sk-panel.on{display:block;}
+@keyframes rise{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+.g3{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.1rem;}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:1.1rem;}
+
+/* Skill bars */
+.sk-bars-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.1rem;margin-top:2rem;}
+.sk-bar-card{background:var(--ink2);border:1px solid var(--br);border-radius:var(--r);padding:1.35rem;}
+.sk-bar-card h4{font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.15rem;}
+.sk{margin-bottom:0.9rem;}
+.sk-row{display:flex;justify-content:space-between;margin-bottom:0.3rem;font-size:0.79rem;}
+.sk-n{color:var(--tx1);font-weight:400;}
+.sk-pct{font-family:'JetBrains Mono',monospace;font-size:0.66rem;}
+.sk-track{height:4px;background:rgba(255,255,255,0.04);border-radius:3px;overflow:hidden;}
+.sk-fill{height:100%;border-radius:3px;transition:width 1.5s cubic-bezier(0.4,0,0.2,1);}
+.sf-pu{background:linear-gradient(90deg,var(--pu),var(--pu3));}
+.sf-cy{background:linear-gradient(90deg,var(--cy),var(--cy3));}
+.sf-go{background:linear-gradient(90deg,var(--go),var(--go3));}
+
+/* Live panel */
+.live-panel{background:var(--ink2);border:1px solid rgba(109,40,217,0.18);border-radius:var(--r);padding:1.35rem;}
+.live-panel h4{font-family:'Syne',sans-serif;font-weight:700;font-size:0.76rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--pu3);margin-bottom:0.95rem;}
+.live-list{display:flex;flex-direction:column;gap:0.5rem;}
+.live-link{display:flex;align-items:center;gap:0.65rem;background:var(--ink3);border:1px solid var(--br);border-radius:8px;padding:0.7rem 0.9rem;text-decoration:none;color:var(--tx1);transition:all 0.2s;font-size:0.79rem;font-weight:500;}
+.live-link:hover{border-color:var(--pu3);color:var(--pu3);background:var(--pu-b);}
+.ll-ico{font-size:1rem;flex-shrink:0;}
+.ll-arrow{margin-left:auto;color:var(--tx3);font-size:0.68rem;transition:transform 0.2s;}
+.live-link:hover .ll-arrow{transform:translateX(3px);color:var(--pu3);}
+.ll-webxr{margin-left:auto;background:rgba(6,182,212,0.09);border:1px solid rgba(6,182,212,0.2);border-radius:100px;padding:0.14rem 0.5rem;font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--cy3);letter-spacing:0.06em;}
+
+/* Achievements */
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:0.85rem;}
+.ach{background:var(--ink2);border:1px solid var(--br);border-radius:10px;padding:0.95rem 1.2rem;display:flex;align-items:center;gap:0.85rem;transition:all 0.22s;}
+.ach:hover{border-color:rgba(245,158,11,0.28);transform:translateX(4px);box-shadow:0 4px 18px rgba(245,158,11,0.07);}
+.ach-ico{font-size:1.45rem;flex-shrink:0;}
+.ach-txt strong{font-family:'Syne',sans-serif;font-weight:700;font-size:0.83rem;display:block;margin-bottom:0.1rem;}
+.ach-txt span{font-size:0.7rem;color:var(--tx3);}
+
+/* ═══════════════════════════════════
+   PAGE 5 — CONTACT
+═══════════════════════════════════ */
 .con-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
-.con-left h3{font-family:'Outfit',sans-serif;font-weight:800;font-size:1.6rem;margin-bottom:0.8rem;}
-.con-left p{color:var(--tx2);line-height:1.8;margin-bottom:2rem;font-size:0.95rem;}
-.con-links{display:flex;flex-direction:column;gap:0.6rem;}
-.con-link{
-  display:flex;align-items:center;gap:0.8rem;
-  color:var(--tx1);text-decoration:none;
-  background:var(--bg2);border:1px solid var(--b1);
-  border-radius:10px;padding:0.85rem 1.1rem;
-  transition:all 0.25s;font-size:0.86rem;font-weight:500;
-}
-.con-link:hover{border-color:var(--v3);color:var(--v3);background:rgba(124,58,237,0.06);}
-.con-right{display:flex;flex-direction:column;gap:1rem;}
-.info-box{
-  background:var(--bg2);border:1px solid var(--b1);
-  border-radius:12px;padding:1.3rem;
-}
-.info-box h4{
-  font-family:'Space Mono',monospace;font-size:0.65rem;
-  color:var(--tx3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.9rem;
-}
-.info-r{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:0.45rem 0;border-bottom:1px solid var(--b2);font-size:0.84rem;
-}
-.info-r:last-child{border:none;}
-.info-r span:first-child{color:var(--tx3);font-weight:400;}
-.info-r span:last-child{font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--v3);}
+.con-left h3{font-family:'Syne',sans-serif;font-weight:800;font-size:1.45rem;margin-bottom:0.7rem;}
+.con-left p{color:var(--tx1);line-height:1.85;margin-bottom:1.8rem;font-size:0.9rem;}
+.con-links{display:flex;flex-direction:column;gap:0.5rem;}
+.con-link{display:flex;align-items:center;gap:0.72rem;color:var(--tx1);text-decoration:none;background:var(--ink2);border:1px solid var(--br);border-radius:9px;padding:0.78rem 1rem;transition:all 0.22s;font-size:0.82rem;font-weight:500;}
+.con-link:hover{border-color:var(--pu3);color:var(--pu3);background:var(--pu-b);}
+.con-right{display:flex;flex-direction:column;gap:0.85rem;}
+.info-box{background:var(--ink2);border:1px solid var(--br);border-radius:11px;padding:1.15rem;}
+.info-box h4{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--tx3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.82rem;}
+.i-row{display:flex;justify-content:space-between;align-items:center;padding:0.38rem 0;border-bottom:1px solid var(--br2);font-size:0.79rem;}
+.i-row:last-child{border:none;}
+.i-row span:first-child{color:var(--tx2);}
+.i-row span:last-child{font-family:'JetBrains Mono',monospace;font-size:0.67rem;color:var(--pu3);}
+.quick-tags{display:flex;flex-wrap:wrap;gap:0.38rem;margin-top:0.5rem;}
 
-/* ═══ SECTION BG ALT ═══ */
-.alt{background:linear-gradient(180deg,rgba(13,15,29,0.5) 0%,rgba(7,8,15,0) 100%);}
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--br);padding:1.7rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;position:relative;z-index:1;}
+footer p{color:var(--tx3);font-size:0.74rem;}
+.f-links{display:flex;gap:1.1rem;}
+.f-links a{color:var(--tx3);text-decoration:none;font-size:0.74rem;transition:color .2s;cursor:pointer;}
+.f-links a:hover{color:var(--pu3);}
 
-/* ═══ FOOTER ═══ */
-footer{
-  border-top:1px solid var(--b1);
-  padding:2rem 3rem;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
-  position:relative;z-index:1;
-}
-footer p{color:var(--tx3);font-size:0.8rem;}
-.f-links{display:flex;gap:1.4rem;}
-.f-links a{color:var(--tx3);text-decoration:none;font-size:0.8rem;transition:color .2s;}
-.f-links a:hover{color:var(--v3);}
-
-/* ═══ LIVE APP LINKS PANEL ═══ */
-.live-panel{
-  background:var(--bg2);border:1px solid rgba(124,58,237,0.2);
-  border-radius:var(--radius);padding:1.5rem;
-}
-.live-panel h4{
-  font-family:'Outfit',sans-serif;font-weight:700;font-size:0.82rem;
-  letter-spacing:0.08em;text-transform:uppercase;
-  color:var(--v3);margin-bottom:1.1rem;
-}
-.live-list{display:flex;flex-direction:column;gap:0.6rem;}
-.live-link{
-  display:flex;align-items:center;gap:0.75rem;
-  background:var(--bg3);border:1px solid var(--b1);
-  border-radius:9px;padding:0.8rem 1rem;
-  text-decoration:none;color:var(--tx1);
-  transition:all 0.22s;font-size:0.84rem;font-weight:500;
-}
-.live-link:hover{border-color:var(--v3);color:var(--v3);background:rgba(124,58,237,0.06);}
-.live-link .ico{font-size:1.1rem;flex-shrink:0;}
-.live-link .arrow{margin-left:auto;color:var(--tx3);font-size:0.75rem;transition:transform 0.2s;}
-.live-link:hover .arrow{transform:translateX(3px);color:var(--v3);}
-
-/* ═══ RESPONSIVE ═══ */
+/* ── RESPONSIVE ── */
 @media(max-width:960px){
-  nav{padding:0 1.5rem;}
-  .nav-links,.nav-cta{display:none;}
+  nav{padding:0 1.4rem;}
+  .nav-menu,.nav-hire{display:none;}
   .hamburger{display:flex;}
-  .hero{padding:6rem 1.5rem 4rem;}
+  .page{padding:5.5rem 1.4rem 4rem;}
   .hero-inner{grid-template-columns:1fr;gap:2.5rem;}
-  .avatar-card{flex-direction:row;flex-wrap:wrap;justify-content:center;}
-  section{padding:4rem 1.5rem;}
+  .about-grid{grid-template-columns:1fr;}
+  .about-profile{position:static;}
   .con-grid{grid-template-columns:1fr;}
-  footer{padding:1.5rem;}
-  .cat-row{width:100%;}
+  .skills-tabs,.proj-filter{width:100%;}
+  footer{padding:1.4rem;}
 }
 @media(max-width:600px){
-  .grid-3,.proj-grid,.ach-grid{grid-template-columns:1fr;}
-  .stats-grid{grid-template-columns:1fr 1fr;}
-  h1.hero-name{font-size:2.8rem;}
+  .g3,.proj-grid,.ach-grid,.sw-grid{grid-template-columns:1fr;}
+  h1.hero-name{font-size:2.6rem;}
+  .wxr-frame{height:320px;}
 }
 </style>
 </head>
 <body>
-<div class="mesh"></div>
-<div class="dots"></div>
+<div class="bg-wrap"><div class="bg-mesh"></div><div class="bg-grid"></div></div>
+<div class="scanlines"></div>
 
 <!-- ═══ NAV ═══ -->
 <nav>
-  <div class="nav-brand">
-    <div class="nav-monogram">MA</div>
-    <span class="nav-name">Muhammad Anees</span>
+  <div class="nav-brand" onclick="goPage('home')">
+    <div class="nav-logo">MA</div>
+    <span class="nav-title">Muhammad Anees</span>
   </div>
-  <ul class="nav-links">
-    <li><a href="#hero">Home</a></li>
-    <li><a href="#domains">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact">Contact</a></li>
+  <ul class="nav-menu">
+    <li><a href="#" onclick="goPage('home')" id="nm-home" class="active">Home</a></li>
+    <li><a href="#" onclick="goPage('about')" id="nm-about">About</a></li>
+    <li><a href="#" onclick="goPage('projects')" id="nm-projects">Projects</a></li>
+    <li><a href="#" onclick="goPage('skills')" id="nm-skills">Skills</a></li>
+    <li><a href="#" onclick="goPage('contact')" id="nm-contact">Contact</a></li>
   </ul>
-  <a href="mailto:animalik272@gmail.com" class="nav-cta">Hire Me ↗</a>
-  <div class="hamburger" onclick="toggleMenu()">
+  <a href="mailto:animalik272@gmail.com" class="nav-hire">Hire Me ↗</a>
+  <div class="hamburger" onclick="toggleMob()">
     <span></span><span></span><span></span>
   </div>
 </nav>
-<div class="mobile-nav" id="mobileNav">
-  <a href="#hero" onclick="closeMenu()">Home</a>
-  <a href="#domains" onclick="closeMenu()">Skills</a>
-  <a href="#experience" onclick="closeMenu()">Experience</a>
-  <a href="#projects" onclick="closeMenu()">Projects</a>
-  <a href="#contact" onclick="closeMenu()">Contact</a>
+<div class="mob-nav" id="mobNav">
+  <a href="#" onclick="goPage('home');closeMob()">🏠 Home</a>
+  <a href="#" onclick="goPage('about');closeMob()">👤 About</a>
+  <a href="#" onclick="goPage('projects');closeMob()">🚀 Projects</a>
+  <a href="#" onclick="goPage('skills');closeMob()">⚡ Skills</a>
+  <a href="#" onclick="goPage('contact');closeMob()">📬 Contact</a>
 </div>
 
-<!-- ═══ HERO ═══ -->
-<section class="hero" id="hero">
+<!-- ═══════════════════════════════════
+     PAGE: HOME
+═══════════════════════════════════ -->
+<div class="page active" id="pg-home">
   <div class="hero-inner">
     <div>
-      <div class="pill"><div class="pill-dot"></div><span>Open to Opportunities</span></div>
-      <div class="hero-eyebrow">// MS Data Science · VR/AR Developer · PhD Aspirant</div>
+      <div class="signal"><div class="signal-dot"></div><span>Available for opportunities</span></div>
+      <div class="hero-tag">// 5+ Years XR · 100+ Projects · MS Data Science · PhD Aspirant</div>
       <h1 class="hero-name">
-        <span class="first">Muhammad</span>
-        <span class="last">Anees</span>
+        <span class="n-first">Muhammad</span>
+        <span class="n-last">Anees</span>
       </h1>
-      <div class="hero-roles">
-        <span class="role-chip role-vr">🥽 VR / AR / MR Developer</span>
-        <span class="role-chip role-ds">📊 Data Scientist & ML Engineer</span>
-        <span class="role-chip role-phd">🎓 PhD Research Aspirant</span>
+      <div class="role-stack">
+        <span class="rchip rc-vr">🥽 VR / AR / MR Developer</span>
+        <span class="rchip rc-ds">📊 Data Scientist & ML Engineer</span>
+        <span class="rchip rc-ph">🎓 PhD Research Aspirant</span>
+        <span class="rchip rc-web">🌐 WebXR Developer</span>
+        <span class="rchip rc-vr" style="background:rgba(244,63,94,0.1);color:var(--ro3);border-color:rgba(244,63,94,0.18);">🎮 Multiplayer Game Dev</span>
       </div>
       <p class="hero-bio">
-        <strong>4+ years of hands-on experience</strong> in VR, AR, and Mixed Reality development — with games live on <strong>Meta Quest, App Store & Play Store</strong>. MS Data Science graduate (Bahria University) skilled in Machine Learning, Deep Learning & NLP. Passionate about merging immersive technology with intelligent data systems.
+        <strong>5+ years of hands-on experience</strong> across VR, AR, Mixed Reality, Multiplayer & WebXR — with <strong>100+ projects delivered</strong> and live titles on <strong>Meta Quest, App Store, Play Store & itch.io</strong>. MS Data Science graduate (Bahria University) with deep expertise in Machine Learning, Deep Learning & NLP. Based in <strong>Islamabad, Pakistan</strong>.
       </p>
       <div class="cta-row">
-        <a href="#domains" class="btn btn-grad">Explore My Work</a>
-        <a href="https://drive.google.com/drive/folders/14fCjlWRmGfCeL58mP4B6tp8ceVHRvntV" target="_blank" class="btn btn-gold">Portfolio Drive ↗</a>
-        <a href="#contact" class="btn btn-ghost">Contact</a>
+        <a href="#" onclick="goPage('projects')" class="btn btn-pu">View Projects</a>
+        <a href="https://drive.google.com/drive/folders/14fCjlWRmGfCeL58mP4B6tp8ceVHRvntV" target="_blank" class="btn btn-cy">Portfolio Drive ↗</a>
+        <a href="#" onclick="goPage('contact')" class="btn btn-ghost">Contact Me</a>
       </div>
-      <div class="social-strip">
-        <a href="https://www.linkedin.com/in/muhammad-aneesb72404210" target="_blank" class="s-link">🔗 LinkedIn</a>
-        <a href="mailto:animalik272@gmail.com" class="s-link">✉️ Email</a>
-        <a href="https://apps.apple.com/pk/app/logic-escape/id6761766461" target="_blank" class="s-link">🍎 App Store</a>
-        <a href="https://play.google.com/store/apps/details?id=com.KonceptSol.cartcarriage" target="_blank" class="s-link">🤖 Play Store</a>
-        <a href="https://www.meta.com/en-gb/experiences/nexus-arcade/6962116033836064/" target="_blank" class="s-link">🥽 Meta Quest</a>
+      <div class="soc-row">
+        <a href="https://www.linkedin.com/in/muhammad-aneesb72404210" target="_blank" class="soc">🔗 LinkedIn</a>
+        <a href="mailto:animalik272@gmail.com" class="soc">✉️ Email</a>
+        <a href="https://apps.apple.com/pk/app/logic-escape/id6761766461" target="_blank" class="soc">🍎 App Store</a>
+        <a href="https://play.google.com/store/apps/details?id=com.KonceptSol.cartcarriage" target="_blank" class="soc">🤖 Play Store</a>
+        <a href="https://www.meta.com/en-gb/experiences/nexus-arcade/6962116033836064/" target="_blank" class="soc">🥽 Meta Quest</a>
+        <a href="https://saltysharks.itch.io/pharaohs-vault-escape-room" target="_blank" class="soc">🎮 itch.io</a>
       </div>
     </div>
 
-    <div class="avatar-card">
-      <div class="avatar-img">
-        <div class="avatar-img-inner">MA</div>
+    <div class="profile-card">
+      <div class="p-avatar-wrap">
+        <div class="p-avatar-inner">
+          <span class="p-avatar-fallback">MA</span>
+        </div>
       </div>
       <div>
-        <div class="avatar-name">Muhammad Anees</div>
-        <div class="avatar-sub">Islamabad, Pakistan</div>
+        <div class="p-name">Muhammad Anees</div>
+        <div class="p-sub">VR/AR/MR · Data Science · WebXR</div>
+        <div class="p-loc">📍 Islamabad, Pakistan</div>
       </div>
-      <div class="stats-grid">
-        <div class="stat-box"><div class="stat-val v">4+</div><div class="stat-lbl">Years Exp.</div></div>
-        <div class="stat-box"><div class="stat-val g">6+</div><div class="stat-lbl">Live Apps</div></div>
-        <div class="stat-box"><div class="stat-val t">3.52</div><div class="stat-lbl">BS CGPA</div></div>
-        <div class="stat-box"><div class="stat-val r">3</div><div class="stat-lbl">Awards</div></div>
+      <div class="p-stats">
+        <div class="p-stat"><div class="p-val pu">5+</div><div class="p-lbl">Years XR</div></div>
+        <div class="p-stat"><div class="p-val cy">100+</div><div class="p-lbl">Projects</div></div>
+        <div class="p-stat"><div class="p-val go">7+</div><div class="p-lbl">Live Apps</div></div>
+        <div class="p-stat"><div class="p-val gr">3.52</div><div class="p-lbl">BS CGPA</div></div>
       </div>
-      <div class="avail-badge">
-        <div class="avail-dot"></div>
-        AVAILABLE FOR HIRE
+      <div class="p-status"><div class="p-status-dot"></div>AVAILABLE FOR HIRE</div>
+      <div class="p-cv-btns">
+        <a href="https://drive.google.com/drive/folders/14fCjlWRmGfCeL58mP4B6tp8ceVHRvntV" target="_blank" class="p-cv-btn pcv-vr">🥽 VR/AR CV Download</a>
+        <a href="https://drive.google.com/drive/folders/14fCjlWRmGfCeL58mP4B6tp8ceVHRvntV" target="_blank" class="p-cv-btn pcv-ds">📊 Data Science CV Download</a>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ═══ DOMAINS / SKILLS ═══ -->
-<section id="domains" class="alt">
-  <div class="s-max">
-    <div class="s-tag">// expertise domains</div>
-    <h2 class="s-title">Three <span class="hi">Core Domains</span></h2>
+<!-- ═══════════════════════════════════
+     PAGE: ABOUT
+═══════════════════════════════════ -->
+<div class="page" id="pg-about">
+  <div class="pg-max">
+    <div class="s-eye">// about me</div>
+    <h2 class="s-h">Who I <span class="hi">Am</span></h2>
     <div class="s-rule"></div>
 
-    <div class="cat-row">
-      <button class="c-tab on-vr" onclick="switchTab('vr',this)">🥽 VR / AR / Game Dev</button>
-      <button class="c-tab" onclick="switchTab('ds',this)">📊 Data Science & ML</button>
-      <button class="c-tab" onclick="switchTab('phd',this)">🎓 PhD Research</button>
-    </div>
-
-    <!-- ── VR / AR ── -->
-    <div class="c-panel on" id="p-vr">
-      <div class="grid-3">
-        <div class="card cv"><div class="strip"></div>
-          <div class="c-ico v">🥽</div>
-          <h3>VR Game Development</h3>
-          <p>Expert-level VR prototyping, scripting & Meta Quest publishing. End-to-end pipeline from storyline to live store deployment with performance-optimized Unity builds.</p>
-          <div class="tag-row"><span class="tag tv">Meta Quest</span><span class="tag tv">VR Scripting</span><span class="tag tv">Unity</span><span class="tag tv">Game Prototyping</span></div>
+    <div class="about-grid">
+      <div class="about-profile">
+        <div class="ap-img-wrap">
+          <span class="ap-img-placeholder">MA</span>
         </div>
-        <div class="card cv"><div class="strip"></div>
-          <div class="c-ico v">🔮</div>
-          <h3>Mixed Reality (MR)</h3>
-          <p>Built MR experiences at FI Consultancy blending physical & virtual worlds. Handled MR scripting, environment design & interaction systems published on Meta Quest.</p>
-          <div class="tag-row"><span class="tag tv">Mixed Reality</span><span class="tag tv">MR Scripting</span><span class="tag tv">Environment Design</span></div>
-        </div>
-        <div class="card cv"><div class="strip"></div>
-          <div class="c-ico v">📱</div>
-          <h3>Augmented Reality (AR)</h3>
-          <p>Built AR applications at Quantum Edge LLC published on Meta Quest & Google Play Store — including API integration and client-facing feature delivery.</p>
-          <div class="tag-row"><span class="tag tv">AR Dev</span><span class="tag tv">API Integration</span><span class="tag tv">Client Work</span></div>
-        </div>
-        <div class="card cv"><div class="strip"></div>
-          <div class="c-ico v">🎮</div>
-          <h3>Unity Game Development</h3>
-          <p>Co-Lead Game Developer at Koncept Solution. Storyline design, Unity animations, game mechanics & published mobile games to Google Play Store.</p>
-          <div class="tag-row"><span class="tag tv">Unity</span><span class="tag tv">C# Scripting</span><span class="tag tv">Animations</span><span class="tag tv">Mobile Games</span></div>
-        </div>
-        <div class="card cv"><div class="strip"></div>
-          <div class="c-ico r">📲</div>
-          <h3>React Native</h3>
-          <p>Built "Smart Builders" construction cost estimator app during internship at Enabling Systems using React Native & Firebase — fully functional & deployed.</p>
-          <div class="tag-row"><span class="tag tr">React Native</span><span class="tag tr">Firebase</span><span class="tag tr">Mobile Dev</span></div>
-        </div>
-        <div class="card cv"><div class="strip"></div>
-          <div class="c-ico t">🌐</div>
-          <h3>WordPress & Web Dev</h3>
-          <p>Freelance WordPress development for clients across 2017–2020. Solid web fundamentals and programming skills built through real project delivery.</p>
-          <div class="tag-row"><span class="tag tt">WordPress</span><span class="tag tt">Web Dev</span><span class="tag tt">Freelance</span></div>
+        <div class="ap-info">
+          <div class="ap-name">Muhammad Anees</div>
+          <div class="ap-title">VR/AR/MR Developer · Data Scientist</div>
+          <div class="ap-row"><span class="ap-label">D.O.B</span><span class="ap-val">20 Dec 1999</span></div>
+          <div class="ap-row"><span class="ap-label">Location</span><span class="ap-val">Islamabad, Pakistan</span></div>
+          <div class="ap-row"><span class="ap-label">Home</span><span class="ap-val">D.I. Khan, KPK</span></div>
+          <div class="ap-row"><span class="ap-label">Nationality</span><span class="ap-val">Pakistani</span></div>
+          <div class="ap-row"><span class="ap-label">Languages</span><span class="ap-val">English · Urdu · Saraiki</span></div>
+          <div class="ap-row"><span class="ap-label">Phone</span><span class="ap-val">+92 335 742 8855</span></div>
+          <div class="ap-row"><span class="ap-label">WhatsApp</span><span class="ap-val">+92 344 677 2741</span></div>
+          <div class="ap-row"><span class="ap-label">Email</span><span class="ap-val">animalik272@gmail.com</span></div>
+          <div class="ap-row"><span class="ap-label">WeChat</span><span class="ap-val">animalik272</span></div>
+          <div class="ap-row"><span class="ap-label">Passport</span><span class="ap-val">CH1711281</span></div>
+          <div class="ap-row"><span class="ap-label">NIC</span><span class="ap-val">12101-0267128-7</span></div>
         </div>
       </div>
 
-      <div class="sk-grid">
-        <div class="sk-card">
-          <h4 style="color:var(--v3)">VR / AR / MR Skills</h4>
-          <div class="sk"><div class="sk-row"><span class="sk-n">Unity / VR Development</span><span class="sk-p" style="color:var(--v3)">93%</span></div><div class="sk-bar"><div class="sk-fill fv" style="width:93%"></div></div></div>
-          <div class="sk"><div class="sk-row"><span class="sk-n">Mixed Reality (MR)</span><span class="sk-p" style="color:var(--v3)">87%</span></div><div class="sk-bar"><div class="sk-fill fv" style="width:87%"></div></div></div>
-          <div class="sk"><div class="sk-row"><span class="sk-n">Augmented Reality (AR)</span><span class="sk-p" style="color:var(--v3)">82%</span></div><div class="sk-bar"><div class="sk-fill fv" style="width:82%"></div></div></div>
-          <div class="sk"><div class="sk-row"><span class="sk-n">C# / Game Scripting</span><span class="sk-p" style="color:var(--v3)">85%</span></div><div class="sk-bar"><div class="sk-fill fv" style="width:85%"></div></div></div>
-          <div class="sk"><div class="sk-row"><span class="sk-n">Meta Quest Publishing</span><span class="sk-p" style="color:var(--v3)">90%</span></div><div class="sk-bar"><div class="sk-fill fv" style="width:90%"></div></div></div>
+      <div class="about-content">
+        <h3>Personal Statement</h3>
+        <p>Seeking a career in <strong>Virtual Reality (VR), Mixed Reality (MR), Augmented Reality (AR), Multiplayer, and WebXR development</strong> — aiming to leverage skills and knowledge to contribute to innovative immersive technology projects. With a passion for creating compelling XR experiences and <strong>5+ years in the field with 100+ projects delivered</strong>, I'm committed to working in environments that foster creativity and technological advancement.</p>
+
+        <p>As an <strong>MS Data Science graduate from Bahria University</strong>, I bridge the gap between immersive technology and intelligent data systems. My background in Machine Learning, Deep Learning, and NLP uniquely positions me to build the next generation of AI-powered XR experiences.</p>
+
+        <blockquote>"My long-term vision is to pursue a PhD in Data Science or AI, merging my practical XR expertise with cutting-edge research to solve real societal challenges."</blockquote>
+
+        <h3 style="margin-top:2rem;">Education</h3>
+        <div class="tl" style="margin-top:1.2rem;">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-when">2022 — 2024</div>
+            <div class="tl-role">MS Data Science</div>
+            <div class="tl-co pu">Bahria University, Islamabad</div>
+            <div class="tl-body">CGPA: 3.25/4.0 (75%) · Thesis: "Amend complementary and integrative health approaches for untangling prevalent health issues" — applied SVM, Random Forest, Gradient Boosting, KNN, Naïve Bayes & Feed-Forward Neural Networks.</div>
+            <div class="tags" style="margin-top:0.6rem"><span class="tag tp">ML</span><span class="tag tp">Deep Learning</span><span class="tag tp">NLP</span><span class="tag tp">Healthcare AI</span></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot cy"></div>
+            <div class="tl-when">August 2017 — August 2021</div>
+            <div class="tl-role">BSIT — 3rd Position Holder</div>
+            <div class="tl-co cy">International Islamic University, Islamabad</div>
+            <div class="tl-body">CGPA: 3.52/4.0 (77%) · Distinct Student Award · 3rd Position in entire batch · Final Year Project: Smart Builders House Estimation & Care App (React Native + Firebase).</div>
+            <div class="tags" style="margin-top:0.6rem"><span class="tag tc">React Native</span><span class="tag tc">Firebase</span><span class="tag tgr">Top Graduate</span></div>
+          </div>
         </div>
-        <div class="live-panel">
-          <h4>🚀 Live Published Apps</h4>
-          <div class="live-list">
-            <a href="https://apps.apple.com/pk/app/logic-escape/id6761766461" target="_blank" class="live-link"><span class="ico">🍎</span>Logic Escape — Apple App Store<span class="arrow">→</span></a>
-            <a href="https://www.meta.com/experiences/6738439822877580" target="_blank" class="live-link"><span class="ico">🥽</span>Violet Flame VR — Meta Quest<span class="arrow">→</span></a>
-            <a href="https://www.meta.com/en-gb/experiences/nexus-arcade/6962116033836064/" target="_blank" class="live-link"><span class="ico">🕹️</span>Nexus Arcade — Meta Quest<span class="arrow">→</span></a>
-            <a href="https://www.meta.com/experiences/mindful-moments/24210209858630331/" target="_blank" class="live-link"><span class="ico">🧘</span>Mindful Moments MR — Meta Quest<span class="arrow">→</span></a>
-            <a href="https://play.google.com/store/apps/details?id=com.KonceptSol.cartcarriage" target="_blank" class="live-link"><span class="ico">🤖</span>Cart Carriage — Google Play Store<span class="arrow">→</span></a>
+
+        <h3 style="margin-top:2.5rem;">Work Experience</h3>
+        <div class="tl" style="margin-top:1.2rem;">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-when">JUNE 2023 — PRESENT · Current</div>
+            <div class="tl-role">VR & AR Developer</div>
+            <div class="tl-co pu">Quantum Edge LLC</div>
+            <div class="tl-body">Building and publishing VR & AR games on Meta Quest and Google Play Store. Full development cycle: storyline creation, Unity scripting, animations, API integration, client meetings, and store publishing.</div>
+            <div class="tags" style="margin-top:0.6rem"><span class="tag tp">Unity</span><span class="tag tp">AR Dev</span><span class="tag tp">Meta Quest</span><span class="tag tp">API Integration</span><span class="tag tp">WebXR</span></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-when">MAY 2023 — JUNE 2025</div>
+            <div class="tl-role">VR & MR Developer</div>
+            <div class="tl-co pu">FI Consultancy, Islamabad</div>
+            <div class="tl-body">Developed VR and Mixed Reality experiences for Meta Quest platform. Handled prototyping, scripting, Unity animations, and live deployment. <strong>Employee of the Month 2024.</strong></div>
+            <div class="tags" style="margin-top:0.6rem"><span class="tag tp">VR Dev</span><span class="tag tp">Mixed Reality</span><span class="tag tp">Meta Quest</span><span class="tag tp">Multiplayer</span></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-when">APRIL 2022 — JUNE 2023</div>
+            <div class="tl-role">Co-Lead Game Developer</div>
+            <div class="tl-co pu">Koncept Solution IT Company, Rawalpindi</div>
+            <div class="tl-body">Led game development team. Delivered games to Google Play Store. Responsible for storyline, Unity mechanics, scripting, environment design, and team coordination. <strong>Employee of the Month 2023.</strong></div>
+            <div class="tags" style="margin-top:0.6rem"><span class="tag tp">Unity</span><span class="tag tp">Play Store</span><span class="tag tp">Team Lead</span><span class="tag tp">Game Scripting</span></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot go"></div>
+            <div class="tl-when">AUGUST 2021 — FEBRUARY 2022</div>
+            <div class="tl-role">CS & Mathematics Teacher</div>
+            <div class="tl-co go">APS Chagmalai, SWTD</div>
+            <div class="tl-body">Taught Computer Science, Mathematics, and Science subjects. Received the <strong>Best Teacher Award</strong> for exceptional performance and student engagement.</div>
+            <div class="tags" style="margin-top:0.6rem"><span class="tag tg">Teaching</span><span class="tag tg">CS Education</span><span class="tag tg">Best Teacher Award</span></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot cy"></div>
+            <div class="tl-when">JANUARY 2021 — AUGUST 2021</div>
+            <div class="tl-role">React Native Intern</div>
+            <div class="tl-co cy">Enabling Systems (Pvt) Ltd, Rawalpindi</div>
+            <div class="tl-body">Completed final-year project — built construction cost estimator mobile app using React Native and Firebase backend.</div>
+            <div class="tags" style="margin-top:0.6rem"><span class="tag tc">React Native</span><span class="tag tc">Firebase</span><span class="tag tc">Mobile Dev</span></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot cy"></div>
+            <div class="tl-when">SEPTEMBER 2017 — AUGUST 2020</div>
+            <div class="tl-role">WordPress Developer & Freelancer</div>
+            <div class="tl-co cy">Self-Employed</div>
+            <div class="tl-body">Developed client websites using WordPress while building strong programming and web fundamentals through real freelance projects.</div>
+            <div class="tags" style="margin-top:0.6rem"><span class="tag tc">WordPress</span><span class="tag tc">Web Development</span><span class="tag tc">Freelance</span></div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:2.5rem;">Social Work & Community</h3>
+        <div class="sw-grid" style="margin-top:1.2rem;">
+          <div class="sw-item"><div class="sw-ico">❤️</div><div class="sw-txt"><strong>Polio Plus Chair</strong><span>Rotaract Club of Rawalpindi City · 2021–2023</span></div></div>
+          <div class="sw-item"><div class="sw-ico">📚</div><div class="sw-txt"><strong>Qalam Movement</strong><span>Education Volunteer · 2021–2022</span></div></div>
+          <div class="sw-item"><div class="sw-ico">🌱</div><div class="sw-txt"><strong>Taleem o Tarbiat Foundation</strong><span>Volunteer · 2020–2021</span></div></div>
+          <div class="sw-item"><div class="sw-ico">🤝</div><div class="sw-txt"><strong>Musa Khar Welfare Trust</strong><span>Volunteer · 2023</span></div></div>
+        </div>
+
+        <h3 style="margin-top:2.5rem;">Workshops & Seminars</h3>
+        <div class="sw-grid" style="margin-top:1.2rem;">
+          <div class="sw-item"><div class="sw-ico">🌍</div><div class="sw-txt"><strong>International Workshop</strong><span>Programming, Mobile & Web Dev · IIU Islamabad · Oct 2020</span></div></div>
+          <div class="sw-item"><div class="sw-ico">🤖</div><div class="sw-txt"><strong>AI & Machine Learning Seminar</strong><span>Bahria University Islamabad · Oct 2023</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE: PROJECTS
+═══════════════════════════════════ -->
+<div class="page" id="pg-projects">
+  <div class="pg-max">
+    <div class="s-eye">// published & live work</div>
+    <h2 class="s-h">Featured <span class="hi">Projects</span></h2>
+    <div class="s-rule"></div>
+
+    <div class="proj-filter">
+      <button class="pf-btn on" onclick="filterProj('all',this)">All Projects</button>
+      <button class="pf-btn" onclick="filterProj('meta',this)">🥽 Meta Quest</button>
+      <button class="pf-btn" onclick="filterProj('mobile',this)">📱 Mobile</button>
+      <button class="pf-btn" onclick="filterProj('webxr',this)">🌐 WebXR</button>
+      <button class="pf-btn" onclick="filterProj('research',this)">🔬 Research</button>
+    </div>
+
+    <div class="proj-grid" id="projGrid">
+      <!-- Pharaoh's Vault — HERO FEATURED -->
+      <div class="pj" data-cat="meta webxr">
+        <div class="pj-head" style="background:linear-gradient(135deg,rgba(6,182,212,0.35),rgba(109,40,217,0.2));">
+          <span class="pj-emoji">🏛️</span>
+          <div class="pj-badges">
+            <span class="pb pb-meta">Meta Quest</span>
+            <span class="pb pb-web">WebXR</span>
+            <span class="pb pb-itch">itch.io</span>
+          </div>
+        </div>
+        <div class="pj-body">
+          <h3>Pharaoh's Vault Escape Room</h3>
+          <p>Ancient Egypt themed VR escape room published on Meta Quest, WebXR browser & itch.io — playable without a headset download. Full puzzle design, immersive room layout, and multi-platform deployment.</p>
+          <div class="tags"><span class="tag tp">VR</span><span class="tag tc">WebXR</span><span class="tag tp">Meta Quest</span><span class="tag tr">Escape Room</span></div>
+          <div class="pj-links">
+            <a href="https://www.meta.com/experiences/pharaohs-vault-escape-room/1129026526966891/" target="_blank" class="pjl pjl-pu">🥽 Meta</a>
+            <a href="https://saltysharks.itch.io/pharaohs-vault-escape-room" target="_blank" class="pjl pjl-ro">🎮 itch.io</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- MyCre Adventures -->
+      <div class="pj" data-cat="mobile">
+        <div class="pj-head" style="background:linear-gradient(135deg,rgba(16,185,129,0.28),rgba(6,182,212,0.15));">
+          <span class="pj-emoji">🌟</span>
+          <div class="pj-badges">
+            <span class="pb pb-ios">iOS · App Store</span>
+          </div>
+        </div>
+        <div class="pj-body">
+          <h3>MyCre Adventures</h3>
+          <p>iOS adventure game live on the Apple App Store (US). Full Unity development, App Store publishing, and ongoing feature updates.</p>
+          <div class="tags"><span class="tag tgr">iOS</span><span class="tag tgr">Adventure</span><span class="tag tgr">App Store</span></div>
+          <div class="pj-links">
+            <a href="https://apps.apple.com/us/app/mycre-adventures/id6717614238" target="_blank" class="pjl pjl-gr">🍎 App Store</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logic Escape -->
+      <div class="pj" data-cat="mobile">
+        <div class="pj-head" style="background:linear-gradient(135deg,rgba(6,182,212,0.22),rgba(245,158,11,0.12));">
+          <span class="pj-emoji">🍎</span>
+          <div class="pj-badges">
+            <span class="pb pb-ios">iOS · App Store</span>
+          </div>
+        </div>
+        <div class="pj-body">
+          <h3>Logic Escape</h3>
+          <p>Puzzle escape room game live on Apple App Store, globally available on iOS. Full puzzle design, Unity build, and end-to-end App Store publishing.</p>
+          <div class="tags"><span class="tag tc">iOS</span><span class="tag tg">Puzzle Game</span><span class="tag tg">App Store</span></div>
+          <div class="pj-links">
+            <a href="https://apps.apple.com/pk/app/logic-escape/id6761766461" target="_blank" class="pjl pjl-cy">🍎 App Store</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Violet Flame -->
+      <div class="pj" data-cat="meta">
+        <div class="pj-head" style="background:linear-gradient(135deg,rgba(109,40,217,0.32),rgba(6,182,212,0.15));">
+          <span class="pj-emoji">🥽</span>
+          <div class="pj-badges"><span class="pb pb-meta">Meta Quest</span></div>
+        </div>
+        <div class="pj-body">
+          <h3>Violet Flame VR Experience</h3>
+          <p>Immersive VR game published live on Meta Quest. Full development cycle — concept, Unity scripting, optimization, and Meta store deployment.</p>
+          <div class="tags"><span class="tag tp">VR</span><span class="tag tp">Meta Quest</span><span class="tag tp">Unity</span></div>
+          <div class="pj-links">
+            <a href="https://www.meta.com/experiences/6738439822877580" target="_blank" class="pjl pjl-pu">🥽 Meta Quest</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nexus Arcade -->
+      <div class="pj" data-cat="meta">
+        <div class="pj-head" style="background:linear-gradient(135deg,rgba(109,40,217,0.28),rgba(245,158,11,0.1));">
+          <span class="pj-emoji">🕹️</span>
+          <div class="pj-badges"><span class="pb pb-meta">Meta Quest</span></div>
+        </div>
+        <div class="pj-body">
+          <h3>Nexus Arcade</h3>
+          <p>Multi-game VR arcade experience on Meta Quest. Actively maintained with regular updates and expanding content library.</p>
+          <div class="tags"><span class="tag tp">VR Arcade</span><span class="tag tp">Meta Quest</span><span class="tag tp">Unity</span></div>
+          <div class="pj-links">
+            <a href="https://www.meta.com/en-gb/experiences/nexus-arcade/6962116033836064/" target="_blank" class="pjl pjl-pu">🥽 Meta Quest</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mindful Moments -->
+      <div class="pj" data-cat="meta">
+        <div class="pj-head" style="background:linear-gradient(135deg,rgba(6,182,212,0.22),rgba(109,40,217,0.12));">
+          <span class="pj-emoji">🧘</span>
+          <div class="pj-badges"><span class="pb pb-meta">Meta Quest · MR</span></div>
+        </div>
+        <div class="pj-body">
+          <h3>Mindful Moments MR</h3>
+          <p>Mixed Reality wellness application on Meta Quest combining real-world and virtual environments for immersive mindfulness and meditation experiences.</p>
+          <div class="tags"><span class="tag tp">Mixed Reality</span><span class="tag tc">Wellness</span><span class="tag tp">Meta Quest</span></div>
+          <div class="pj-links">
+            <a href="https://www.meta.com/experiences/mindful-moments/24210209858630331/" target="_blank" class="pjl pjl-cy">🥽 Meta Quest</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cart Carriage -->
+      <div class="pj" data-cat="mobile">
+        <div class="pj-head" style="background:linear-gradient(135deg,rgba(245,158,11,0.18),rgba(109,40,217,0.12));">
+          <span class="pj-emoji">🛒</span>
+          <div class="pj-badges"><span class="pb pb-android">Android · Play Store</span></div>
+        </div>
+        <div class="pj-body">
+          <h3>Cart Carriage</h3>
+          <p>Android mobile game published on Google Play Store by Koncept Solution — complete storyline, Unity animations, and optimized game performance.</p>
+          <div class="tags"><span class="tag tgr">Android</span><span class="tag tg">Play Store</span><span class="tag tp">Unity</span></div>
+          <div class="pj-links">
+            <a href="https://play.google.com/store/apps/details?id=com.KonceptSol.cartcarriage" target="_blank" class="pjl pjl-go">🤖 Play Store</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Healthcare ML Thesis -->
+      <div class="pj" data-cat="research">
+        <div class="pj-head" style="background:linear-gradient(135deg,rgba(6,182,212,0.18),rgba(6,182,212,0.06));">
+          <span class="pj-emoji">🏥</span>
+          <div class="pj-badges"><span class="pb pb-res">MS Research · 2024</span></div>
+        </div>
+        <div class="pj-body">
+          <h3>Healthcare ML Thesis</h3>
+          <p>MS Data Science thesis: SVM, Random Forest, Gradient Boosting, KNN, Naïve Bayes & Feed-Forward Neural Networks applied to complementary health data. Full research paper with Python implementation.</p>
+          <div class="tags"><span class="tag tc">ML</span><span class="tag tc">Deep Learning</span><span class="tag tc">Healthcare AI</span><span class="tag tg">Research</span><span class="tag tp">Python</span></div>
+          <div class="pj-links">
+            <a href="https://drive.google.com/drive/folders/14fCjlWRmGfCeL58mP4B6tp8ceVHRvntV" target="_blank" class="pjl pjl-cy">📁 Portfolio Drive</a>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ── DATA SCIENCE ── -->
-    <div class="c-panel" id="p-ds">
-      <div class="grid-3">
-        <div class="card ct"><div class="strip"></div>
-          <div class="c-ico t">🤖</div>
-          <h3>Machine Learning</h3>
-          <p>Trained SVM, Random Forest, Gradient Boosting, KNN, and Naïve Bayes models applied to healthcare datasets for pattern recognition and outcome prediction.</p>
-          <div class="tag-row"><span class="tag tt">SVM</span><span class="tag tt">Random Forest</span><span class="tag tt">Gradient Boosting</span><span class="tag tt">KNN</span><span class="tag tt">Naïve Bayes</span></div>
+    <!-- WebXR Live Demo -->
+    <div class="wxr-box">
+      <div class="wxr-head">
+        <div class="wxr-head-txt">
+          <h3>🌐 Play Pharaoh's Vault — Live WebXR Demo</h3>
+          <p>Experience the game directly in your browser — no downloads required</p>
         </div>
-        <div class="card ct"><div class="strip"></div>
-          <div class="c-ico t">🧠</div>
+        <span class="wxr-badge">LIVE WEBXR</span>
+      </div>
+      <div class="wxr-frame">
+        <iframe src="https://itch.io/embed-upload/17173620?color=05060e" allowfullscreen></iframe>
+      </div>
+      <div class="wxr-note">
+        🥽 For full VR: open in a WebXR-compatible browser with VR headset connected. Flat mode also available.
+        <a href="https://saltysharks.itch.io/pharaohs-vault-escape-room" target="_blank">Open full page ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE: SKILLS
+═══════════════════════════════════ -->
+<div class="page" id="pg-skills">
+  <div class="pg-max">
+    <div class="s-eye">// expertise domains</div>
+    <h2 class="s-h">Skills & <span class="hi">Expertise</span></h2>
+    <div class="s-rule"></div>
+
+    <div class="skills-tabs">
+      <button class="sk-tab on-vr" onclick="switchSkTab('vr',this)">🥽 VR / AR / XR</button>
+      <button class="sk-tab" onclick="switchSkTab('ds',this)">📊 Data Science & ML</button>
+      <button class="sk-tab" onclick="switchSkTab('ph',this)">🎓 PhD Research</button>
+    </div>
+
+    <!-- VR/AR/XR TAB -->
+    <div class="sk-panel on" id="skp-vr">
+      <div class="g3">
+        <div class="card card-pu"><div class="c-topline"></div>
+          <div class="c-ico ci-pu">🥽</div>
+          <h3>VR Game Development</h3>
+          <p>Expert-level VR prototyping, scripting & Meta Quest publishing. End-to-end pipeline from concept to live store deployment with 100+ projects delivered over 5+ years.</p>
+          <div class="tags"><span class="tag tp">Meta Quest</span><span class="tag tp">VR Scripting</span><span class="tag tp">Unity</span><span class="tag tp">Game Prototyping</span></div>
+        </div>
+        <div class="card card-pu"><div class="c-topline"></div>
+          <div class="c-ico ci-pu">🔮</div>
+          <h3>Mixed Reality (MR)</h3>
+          <p>Built MR experiences at FI Consultancy blending physical & virtual worlds. Handled MR scripting, environment design & real-world interaction systems published on Meta Quest.</p>
+          <div class="tags"><span class="tag tp">Mixed Reality</span><span class="tag tp">MR Scripting</span><span class="tag tp">Environment Design</span><span class="tag tp">Passthrough</span></div>
+        </div>
+        <div class="card card-pu"><div class="c-topline"></div>
+          <div class="c-ico ci-pu">📱</div>
+          <h3>Augmented Reality (AR)</h3>
+          <p>Built AR applications at Quantum Edge LLC published on Meta Quest & Google Play — API integration, client-facing feature delivery, and real-time AR overlays.</p>
+          <div class="tags"><span class="tag tp">AR Dev</span><span class="tag tp">API Integration</span><span class="tag tp">ARCore</span><span class="tag tp">Client Work</span></div>
+        </div>
+        <div class="card card-pu"><div class="c-topline"></div>
+          <div class="c-ico ci-cy">🌐</div>
+          <h3>WebXR Development</h3>
+          <p>Browser-based XR experiences playable on any device without downloads — including the live Pharaoh's Vault Escape Room deployed on itch.io as a WebXR game.</p>
+          <div class="tags"><span class="tag tc">WebXR</span><span class="tag tc">Browser XR</span><span class="tag tc">Cross-Platform</span><span class="tag tr">itch.io</span></div>
+        </div>
+        <div class="card card-pu"><div class="c-topline"></div>
+          <div class="c-ico ci-ro">🎮</div>
+          <h3>Multiplayer Game Development</h3>
+          <p>Developed multiplayer VR and game experiences with real-time networking, lobby systems, and synchronized gameplay mechanics across platforms.</p>
+          <div class="tags"><span class="tag tr">Multiplayer</span><span class="tag tr">Networking</span><span class="tag tr">Real-time</span><span class="tag tr">Lobby Systems</span></div>
+        </div>
+        <div class="card card-pu"><div class="c-topline"></div>
+          <div class="c-ico ci-pu">🎮</div>
+          <h3>Unity Game Development</h3>
+          <p>Co-Lead Developer at Koncept Solution. Storyline design, Unity animations, game mechanics, environment design & published mobile games to Play Store.</p>
+          <div class="tags"><span class="tag tp">Unity</span><span class="tag tp">C# Scripting</span><span class="tag tp">Animations</span><span class="tag tp">Mobile Games</span></div>
+        </div>
+      </div>
+
+      <div class="sk-bars-grid">
+        <div class="sk-bar-card">
+          <h4 style="color:var(--pu3)">XR Development Skills</h4>
+          <div class="sk"><div class="sk-row"><span class="sk-n">Unity / VR Development</span><span class="sk-pct" style="color:var(--pu3)">95%</span></div><div class="sk-track"><div class="sk-fill sf-pu" style="width:95%"></div></div></div>
+          <div class="sk"><div class="sk-row"><span class="sk-n">Mixed Reality (MR)</span><span class="sk-pct" style="color:var(--pu3)">88%</span></div><div class="sk-track"><div class="sk-fill sf-pu" style="width:88%"></div></div></div>
+          <div class="sk"><div class="sk-row"><span class="sk-n">Augmented Reality (AR)</span><span class="sk-pct" style="color:var(--pu3)">85%</span></div><div class="sk-track"><div class="sk-fill sf-pu" style="width:85%"></div></div></div>
+          <div class="sk"><div class="sk-row"><span class="sk-n">C# / Game Scripting</span><span class="sk-pct" style="color:var(--pu3)">90%</span></div><div class="sk-track"><div class="sk-fill sf-pu" style="width:90%"></div></div></div>
+          <div class="sk"><div class="sk-row"><span class="sk-n">Multiplayer Networking</span><span class="sk-pct" style="color:var(--pu3)">80%</span></div><div class="sk-track"><div class="sk-fill sf-pu" style="width:80%"></div></div></div>
+          <div class="sk"><div class="sk-row"><span class="sk-n">WebXR</span><span class="sk-pct" style="color:var(--pu3)">80%</span></div><div class="sk-track"><div class="sk-fill sf-pu" style="width:80%"></div></div></div>
+          <div class="sk"><div class="sk-row"><span class="sk-n">Meta Quest Publishing</span><span class="sk-pct" style="color:var(--pu3)">92%</span></div><div class="sk-track"><div class="sk-fill sf-pu" style="width:92%"></div></div></div>
+        </div>
+        <div class="live-panel">
+          <h4>🚀 Live Published Apps</h4>
+          <div class="live-list">
+            <a href="https://apps.apple.com/us/app/mycre-adventures/id6717614238" target="_blank" class="live-link"><span class="ll-ico">🌟</span>MyCre Adventures — Apple App Store<span class="ll-arrow">→</span></a>
+            <a href="https://apps.apple.com/pk/app/logic-escape/id6761766461" target="_blank" class="live-link"><span class="ll-ico">🍎</span>Logic Escape — Apple App Store<span class="ll-arrow">→</span></a>
+            <a href="https://www.meta.com/experiences/6738439822877580" target="_blank" class="live-link"><span class="ll-ico">🥽</span>Violet Flame VR — Meta Quest<span class="ll-arrow">→</span></a>
+            <a href="https://www.meta.com/en-gb/experiences/nexus-arcade/6962116033836064/" target="_blank" class="live-link"><span class="ll-ico">🕹️</span>Nexus Arcade — Meta Quest<span class="ll-arrow">→</span></a>
+            <a href="https://www.meta.com/experiences/mindful-moments/24210209858630331/" target="_blank" class="live-link"><span class="ll-ico">🧘</span>Mindful Moments MR — Meta Quest<span class="ll-arrow">→</span></a>
+            <a href="https://www.meta.com/experiences/pharaohs-vault-escape-room/1129026526966891/" target="_blank" class="live-link"><span class="ll-ico">🏛️</span>Pharaoh's Vault — Meta Quest<span class="ll-webxr">WebXR</span></a>
+            <a href="https://saltysharks.itch.io/pharaohs-vault-escape-room" target="_blank" class="live-link"><span class="ll-ico">🎮</span>Pharaoh's Vault — itch.io (WebXR)<span class="ll-arrow">→</span></a>
+            <a href="https://play.google.com/store/apps/details?id=com.KonceptSol.cartcarriage" target="_blank" class="live-link"><span class="ll-ico">🤖</span>Cart Carriage — Google Play Store<span class="ll-arrow">→</span></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Achievements -->
+      <div style="margin-top:3rem;">
+        <div class="s-eye">// recognition</div>
+        <h3 class="s-h" style="font-size:1.5rem;">Awards & <span class="hi">Achievements</span></h3>
+        <div class="s-rule"></div>
+        <div class="ach-grid">
+          <div class="ach"><div class="ach-ico">🥇</div><div class="ach-txt"><strong>Employee of the Month</strong><span>FI Consultancy, Islamabad — 2024</span></div></div>
+          <div class="ach"><div class="ach-ico">🏆</div><div class="ach-txt"><strong>Employee of the Month</strong><span>Koncept Solutions International — 2023</span></div></div>
+          <div class="ach"><div class="ach-ico">👨‍🏫</div><div class="ach-txt"><strong>Best Teacher Award</strong><span>APS Chagmalai SWTD — 2022</span></div></div>
+          <div class="ach"><div class="ach-ico">🥉</div><div class="ach-txt"><strong>3rd Position Holder — BSIT</strong><span>International Islamic University — 2021</span></div></div>
+          <div class="ach"><div class="ach-ico">⭐</div><div class="ach-txt"><strong>Distinct Student Award</strong><span>International Islamic University — 2021</span></div></div>
+          <div class="ach"><div class="ach-ico">🌍</div><div class="ach-txt"><strong>International Workshop</strong><span>Programming & Web Dev · IIU · Oct 2020</span></div></div>
+          <div class="ach"><div class="ach-ico">🤖</div><div class="ach-txt"><strong>AI & ML Seminar</strong><span>Bahria University Islamabad — Oct 2023</span></div></div>
+          <div class="ach"><div class="ach-ico">❤️</div><div class="ach-txt"><strong>Polio Plus Chair</strong><span>Rotaract Club Rawalpindi City — 2021–2023</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DATA SCIENCE TAB -->
+    <div class="sk-panel" id="skp-ds">
+      <div class="g3">
+        <div class="card card-cy"><div class="c-topline"></div>
+          <div class="c-ico ci-cy">🤖</div>
+          <h3>Machine Learning</h3>
+          <p>Trained SVM, Random Forest, Gradient Boosting, KNN, and Naïve Bayes models applied to healthcare datasets for pattern recognition and outcome prediction in MS thesis.</p>
+          <div class="tags"><span class="tag tc">SVM</span><span class="tag tc">Random Forest</span><span class="tag tc">Gradient Boosting</span><span class="tag tc">KNN</span><span class="tag tc">Naïve Bayes</span></div>
+        </div>
+        <div class="card card-cy"><div class="c-topline"></div>
+          <div class="c-ico ci-cy">🧠</div>
           <h3>Deep Learning</h3>
           <p>Designed and trained Feed-Forward Neural Networks in Python. Architecture design, hyperparameter tuning, and evaluation metrics for research-grade outcomes.</p>
-          <div class="tag-row"><span class="tag tt">FFNN</span><span class="tag tt">Python</span><span class="tag tt">Model Training</span><span class="tag tt">Hyperparameters</span></div>
+          <div class="tags"><span class="tag tc">FFNN</span><span class="tag tc">Python</span><span class="tag tc">Model Training</span><span class="tag tc">Hyperparameters</span></div>
         </div>
-        <div class="card ct"><div class="strip"></div>
-          <div class="c-ico t">💬</div>
+        <div class="card card-cy"><div class="c-topline"></div>
+          <div class="c-ico ci-cy">💬</div>
           <h3>Natural Language Processing</h3>
           <p>Applied NLP techniques, text preprocessing, and language models — MS coursework with focus on real-world NLP methodologies and smart text analytics.</p>
-          <div class="tag-row"><span class="tag tt">Text Preprocessing</span><span class="tag tt">NLP Models</span><span class="tag tt">Pattern Recognition</span></div>
+          <div class="tags"><span class="tag tc">Text Preprocessing</span><span class="tag tc">NLP Models</span><span class="tag tc">Pattern Recognition</span></div>
         </div>
-        <div class="card ct"><div class="strip"></div>
-          <div class="c-ico t">📊</div>
+        <div class="card card-cy"><div class="c-topline"></div>
+          <div class="c-ico ci-cy">📊</div>
           <h3>Data Analysis & Visualization</h3>
-          <p>Skilled in data preprocessing, EDA, and Power BI for interactive dashboards. Communicates data-driven insights clearly to technical and non-technical audiences.</p>
-          <div class="tag-row"><span class="tag tt">Power BI</span><span class="tag tt">EDA</span><span class="tag tt">Data Preprocessing</span></div>
+          <p>Skilled in data preprocessing, EDA, and Power BI for interactive dashboards. Communicates data-driven insights clearly to both technical and non-technical stakeholders.</p>
+          <div class="tags"><span class="tag tc">Power BI</span><span class="tag tc">EDA</span><span class="tag tc">Data Preprocessing</span></div>
         </div>
-        <div class="card ct"><div class="strip"></div>
-          <div class="c-ico g">🔬</div>
+        <div class="card card-cy"><div class="c-topline"></div>
+          <div class="c-ico ci-go">🔬</div>
           <h3>MS Thesis Research</h3>
-          <p>Completed: "Amend complementary and integrative health approaches for untangling prevalent health issues" — ML + DL models applied to healthcare analytics.</p>
-          <div class="tag-row"><span class="tag tg">Healthcare AI</span><span class="tag tg">Research</span><span class="tag tg">Big Data</span></div>
+          <p>Completed thesis: "Amend complementary and integrative health approaches for untangling prevalent health issues" — ML + DL models applied to real healthcare analytics data.</p>
+          <div class="tags"><span class="tag tg">Healthcare AI</span><span class="tag tg">Research</span><span class="tag tg">Big Data</span><span class="tag tg">Python</span></div>
         </div>
-        <div class="card ct"><div class="strip"></div>
-          <div class="c-ico t">🐍</div>
+        <div class="card card-cy"><div class="c-topline"></div>
+          <div class="c-ico ci-cy">🐍</div>
           <h3>Technical Stack</h3>
-          <p>Python for full data science pipelines. MS Office, database technologies, research methodology, operating systems — complete professional toolkit.</p>
-          <div class="tag-row"><span class="tag tt">Python</span><span class="tag tt">MS Office</span><span class="tag tt">Database Tech</span><span class="tag tt">OS</span></div>
+          <p>Python for full data science pipelines. Power BI, MS Office, database technologies, operating systems, dataset preprocessing, and model training — complete professional toolkit.</p>
+          <div class="tags"><span class="tag tc">Python</span><span class="tag tc">Power BI</span><span class="tag tc">Database Tech</span><span class="tag tc">Model Training</span></div>
         </div>
       </div>
-      <div class="sk-grid">
-        <div class="sk-card">
-          <h4 style="color:var(--t3)">ML / AI Skills</h4>
-          <div class="sk"><div class="sk-row"><span class="sk-n">Machine Learning</span><span class="sk-p" style="color:var(--t3)">85%</span></div><div class="sk-bar"><div class="sk-fill ft" style="width:85%"></div></div></div>
-          <div class="sk"><div class="sk-row"><span class="sk-n">Deep Learning</span><span class="sk-p" style="color:var(--t3)">76%</span></div><div class="sk-bar"><div class="sk-fill ft" style="width:76%"></div></div></div>
-          <div class="sk"><div class="sk-row"><span class="sk-n">NLP</span><span class="sk-p" style="color:var(--t3)">70%</span></div><div class="sk-bar"><div class="sk-fill ft" style="width:70%"></div></div></div>
-          <div class="sk"><div class="sk-row"><span class="sk-n">Python</span><span class="sk-p" style="color:var(--t3)">82%</span></div><div class="sk-bar"><div class="sk-fill ft" style="width:82%"></div></div></div>
-          <div class="sk"><div class="sk-row"><span class="sk-n">Power BI</span><span class="sk-p" style="color:var(--t3)">73%</span></div><div class="sk-bar"><div class="sk-fill ft" style="width:73%"></div></div></div>
+      <div class="sk-bars-grid">
+        <div class="sk-bar-card">
+          <h4 style="color:var(--cy3)">ML / AI Skills</h4>
+          <div class="sk"><div class="sk-row"><span class="sk-n">Machine Learning</span><span class="sk-pct" style="color:var(--cy3)">85%</span></div><div class="sk-track"><div class="sk-fill sf-cy" style="width:85%"></div></div></div>
+          <div class="sk"><div class="sk-row"><span class="sk-n">Deep Learning</span><span class="sk-pct" style="color:var(--cy3)">76%</span></div><div class="sk-track"><div class="sk-fill sf-cy" style="width:76%"></div></div></div>
+          <div class="sk"><div class="sk-row"><span class="sk-n">NLP</span><span class="sk-pct" style="color:var(--cy3)">70%</span></div><div class="sk-track"><div class="sk-fill sf-cy" style="width:70%"></div></div></div>
+          <div class="sk"><div class="sk-row"><span class="sk-n">Python</span><span class="sk-pct" style="color:var(--cy3)">82%</span></div><div class="sk-track"><div class="sk-fill sf-cy" style="width:82%"></div></div></div>
+          <div class="sk"><div class="sk-row"><span class="sk-n">Power BI</span><span class="sk-pct" style="color:var(--cy3)">73%</span></div><div class="sk-track"><div class="sk-fill sf-cy" style="width:73%"></div></div></div>
         </div>
-        <div class="sk-card">
-          <h4 style="color:var(--t3)">Data Skills</h4>
-          <div class="sk"><div class="sk-row"><span class="sk-n">Data Preprocessing</span><span class="sk-p" style="color:var(--t3)">88%</span></div><div class="sk-bar"><div class="sk-fill ft" style="width:88%"></div></div></div>
-          <div class="sk"><div class="sk-row"><span class="sk-n">Data Visualization</span><span class="sk-p" style="color:var(--t3)">80%</span></div><div class="sk-bar"><div class="sk-fill ft" style="width:80%"></div></div></div>
-          <div class="sk"><div class="sk-row"><span class="sk-n">Pattern Recognition</span><span class="sk-p" style="color:var(--t3)">75%</span></div><div class="sk-bar"><div class="sk-fill ft" style="width:75%"></div></div></div>
-          <div class="sk"><div class="sk-row"><span class="sk-n">Big Data Analytics</span><span class="sk-p" style="color:var(--t3)">66%</span></div><div class="sk-bar"><div class="sk-fill ft" style="width:66%"></div></div></div>
-          <div class="sk"><div class="sk-row"><span class="sk-n">Research Writing</span><span class="sk-p" style="color:var(--t3)">83%</span></div><div class="sk-bar"><div class="sk-fill ft" style="width:83%"></div></div></div>
+        <div class="sk-bar-card">
+          <h4 style="color:var(--cy3)">Data Skills</h4>
+          <div class="sk"><div class="sk-row"><span class="sk-n">Data Preprocessing</span><span class="sk-pct" style="color:var(--cy3)">88%</span></div><div class="sk-track"><div class="sk-fill sf-cy" style="width:88%"></div></div></div>
+          <div class="sk"><div class="sk-row"><span class="sk-n">Data Visualization</span><span class="sk-pct" style="color:var(--cy3)">80%</span></div><div class="sk-track"><div class="sk-fill sf-cy" style="width:80%"></div></div></div>
+          <div class="sk"><div class="sk-row"><span class="sk-n">Pattern Recognition</span><span class="sk-pct" style="color:var(--cy3)">75%</span></div><div class="sk-track"><div class="sk-fill sf-cy" style="width:75%"></div></div></div>
+          <div class="sk"><div class="sk-row"><span class="sk-n">Big Data Analytics</span><span class="sk-pct" style="color:var(--cy3)">66%</span></div><div class="sk-track"><div class="sk-fill sf-cy" style="width:66%"></div></div></div>
+          <div class="sk"><div class="sk-row"><span class="sk-n">Research Writing</span><span class="sk-pct" style="color:var(--cy3)">83%</span></div><div class="sk-track"><div class="sk-fill sf-cy" style="width:83%"></div></div></div>
         </div>
       </div>
     </div>
 
-    <!-- ── PhD ── -->
-    <div class="c-panel" id="p-phd">
-      <div class="grid-3">
-        <div class="card cg"><div class="strip"></div>
-          <div class="c-ico g">🎯</div>
+    <!-- PhD TAB -->
+    <div class="sk-panel" id="skp-ph">
+      <div class="g3">
+        <div class="card card-go"><div class="c-topline"></div>
+          <div class="c-ico ci-go">🎯</div>
           <h3>Research Focus Areas</h3>
-          <p>Pursuing PhD in Data Science, Machine Learning, Deep Learning, NLP, and AI. Goal: cutting-edge research making meaningful contributions to humanity through intelligent systems.</p>
-          <div class="tag-row"><span class="tag tg">AI Research</span><span class="tag tg">ML Research</span><span class="tag tg">DL Research</span><span class="tag tg">NLP</span></div>
+          <p>Pursuing PhD in Data Science, Machine Learning, Deep Learning, NLP, and AI. Goal: cutting-edge research making meaningful societal contributions through intelligent systems.</p>
+          <div class="tags"><span class="tag tg">AI Research</span><span class="tag tg">ML Research</span><span class="tag tg">DL Research</span><span class="tag tg">NLP</span></div>
         </div>
-        <div class="card cg"><div class="strip"></div>
-          <div class="c-ico g">🏥</div>
+        <div class="card card-go"><div class="c-topline"></div>
+          <div class="c-ico ci-go">🏥</div>
           <h3>Healthcare AI Thesis</h3>
-          <p>MS thesis applied SVM, RF, Gradient Boosting & FFNN to complementary health data — demonstrating research design, Python implementation, and academic writing skills.</p>
-          <div class="tag-row"><span class="tag tg">Healthcare Data</span><span class="tag tg">Neural Networks</span><span class="tag tg">Python</span></div>
+          <p>MS thesis applied SVM, RF, Gradient Boosting & FFNN to complementary health data — demonstrating research design, Python implementation, and academic writing skills at graduate level.</p>
+          <div class="tags"><span class="tag tg">Healthcare Data</span><span class="tag tg">Neural Networks</span><span class="tag tg">Python</span><span class="tag tg">Academic Writing</span></div>
         </div>
-        <div class="card cg"><div class="strip"></div>
-          <div class="c-ico g">🌐</div>
-          <h3>Interdisciplinary Vision</h3>
-          <p>Unique combination of XR/interactive technology + data science creates novel research potential in intelligent simulation, behavioral analytics, and human-computer interaction.</p>
-          <div class="tag-row"><span class="tag tg">HCI</span><span class="tag tg">XR + AI</span><span class="tag tg">Intelligent Systems</span></div>
+        <div class="card card-go"><div class="c-topline"></div>
+          <div class="c-ico ci-go">🌐</div>
+          <h3>Interdisciplinary Vision: XR + AI</h3>
+          <p>Unique combination of XR/interactive technology + data science creates novel research potential in intelligent simulation, behavioral analytics, and human-computer interaction — a rare academic bridge.</p>
+          <div class="tags"><span class="tag tg">HCI</span><span class="tag tg">XR + AI</span><span class="tag tg">Intelligent Systems</span><span class="tag tg">Behavioral Analytics</span></div>
         </div>
-        <div class="card cg"><div class="strip"></div>
-          <div class="c-ico g">📝</div>
+        <div class="card card-go"><div class="c-topline"></div>
+          <div class="c-ico ci-go">📝</div>
           <h3>Academic Training</h3>
-          <p>International workshop on Programming, Mobile & Web Dev at IIU; AI/ML seminar at Bahria University. Strong academic record — 3rd position holder in BSIT.</p>
-          <div class="tag-row"><span class="tag tg">Workshops</span><span class="tag tg">Seminars</span><span class="tag tg">Research Writing</span></div>
+          <p>International workshop on Programming, Mobile & Web Dev at IIU; AI/ML seminar at Bahria University. Strong academic record — 3rd position holder in BSIT with Distinct Student Award.</p>
+          <div class="tags"><span class="tag tg">Workshops</span><span class="tag tg">Seminars</span><span class="tag tg">Research Writing</span><span class="tag tg">Academic Excellence</span></div>
         </div>
-        <div class="card cg"><div class="strip"></div>
-          <div class="c-ico g">🤝</div>
-          <h3>Teaching Experience</h3>
-          <p>Taught CS, Mathematics & Science at APS Chagmalai. Awarded Best Teacher — ability to mentor and communicate complex technical topics clearly proven in practice.</p>
-          <div class="tag-row"><span class="tag tg">Teaching</span><span class="tag tg">Mentorship</span><span class="tag tg">CS Education</span></div>
+        <div class="card card-go"><div class="c-topline"></div>
+          <div class="c-ico ci-go">🤝</div>
+          <h3>Teaching & Mentorship</h3>
+          <p>Awarded Best Teacher at APS Chagmalai — proven ability to mentor and communicate complex technical topics. Strong foundation for academic supervision and teaching assistant roles in PhD programs.</p>
+          <div class="tags"><span class="tag tg">Teaching</span><span class="tag tg">Mentorship</span><span class="tag tg">CS Education</span><span class="tag tg">TA Ready</span></div>
         </div>
-        <div class="card cg"><div class="strip"></div>
-          <div class="c-ico g">🌍</div>
-          <h3>Global Research Goal</h3>
-          <p>Seeking PhD positions at leading international universities. Motivated to solve real societal challenges through AI-driven research — combining academic rigor with 4+ years practical experience.</p>
-          <div class="tag-row"><span class="tag tg">International</span><span class="tag tg">Innovation</span><span class="tag tg">PhD Ready</span></div>
+        <div class="card card-go"><div class="c-topline"></div>
+          <div class="c-ico ci-go">🌍</div>
+          <h3>Global PhD Opportunities</h3>
+          <p>Actively seeking PhD positions at leading universities worldwide in <strong>Data Science, AI, ML, or Computer Science</strong> with focus on XR+AI integration. Open to positions with funding, scholarships, or RA roles.</p>
+          <div class="tags"><span class="tag tg">International</span><span class="tag tg">PhD Ready</span><span class="tag tg">Scholarship</span><span class="tag tg">Research Assistant</span></div>
+        </div>
+      </div>
+
+      <!-- PhD Research Statement Box -->
+      <div style="margin-top:2.5rem;background:var(--ink2);border:1px solid rgba(245,158,11,0.2);border-radius:var(--r);padding:2rem;">
+        <div class="s-eye">// research statement</div>
+        <h3 style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;margin-bottom:1.2rem;color:var(--go3);">Why PhD in Data Science / AI?</h3>
+        <p style="color:var(--tx1);font-size:0.9rem;line-height:1.9;margin-bottom:1rem;font-weight:300;">My 5+ years building immersive XR experiences have revealed a fundamental gap: current VR/AR systems respond to inputs but cannot <em>understand</em> users. I want to bridge this gap through PhD research combining AI behavioral modeling with XR interaction design — creating systems that adapt intelligently to users in real time.</p>
+        <p style="color:var(--tx1);font-size:0.9rem;line-height:1.9;margin-bottom:1.2rem;font-weight:300;">My MS thesis in healthcare ML gave me rigorous research training. My XR background gives me a unique applied lens. Together, I bring both the technical depth and practical insight needed to produce impactful, publishable research.</p>
+        <div class="tags">
+          <span class="tag tg">XR + Behavioral AI</span>
+          <span class="tag tg">Adaptive Systems</span>
+          <span class="tag tg">Human-Computer Interaction</span>
+          <span class="tag tg">Healthcare AI</span>
+          <span class="tag tg">Computer Vision</span>
+          <span class="tag tg">NLP</span>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ═══ EXPERIENCE ═══ -->
-<section id="experience">
-  <div class="s-max">
-    <div class="s-tag">// career timeline</div>
-    <h2 class="s-title">4+ Years <span class="hi">Work Experience</span></h2>
+<!-- ═══════════════════════════════════
+     PAGE: CONTACT
+═══════════════════════════════════ -->
+<div class="page" id="pg-contact">
+  <div class="pg-max">
+    <div class="s-eye">// get in touch</div>
+    <h2 class="s-h">Let's <span class="hi">Connect</span></h2>
     <div class="s-rule"></div>
-    <div class="tl">
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-when">JUNE 2023 — PRESENT &nbsp;·&nbsp; Current Role</div>
-        <div class="tl-role">VR & AR Developer</div>
-        <div class="tl-co v">Quantum Edge LLC</div>
-        <div class="tl-body">Building and publishing VR & AR games on Meta Quest and Google Play Store. Full development cycle: storyline creation, Unity scripting, animations, API integration, client meetings, and store publishing.</div>
-        <div class="tag-row" style="margin-top:0.7rem"><span class="tag tv">Unity</span><span class="tag tv">AR Dev</span><span class="tag tv">Meta Quest</span><span class="tag tv">API Integration</span><span class="tag tv">Client Work</span></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-when">MAY 2023 — JUNE 2025</div>
-        <div class="tl-role">VR & MR Developer</div>
-        <div class="tl-co v">FI Consultancy, Islamabad</div>
-        <div class="tl-body">Developed VR and Mixed Reality experiences for Meta Quest platform. Handled prototyping, scripting, Unity animations, and live deployment. Recognized as <strong>Employee of the Month (2024)</strong>.</div>
-        <div class="tag-row" style="margin-top:0.7rem"><span class="tag tv">VR Dev</span><span class="tag tv">Mixed Reality</span><span class="tag tv">Meta Quest</span><span class="tag tv">Unity Animations</span></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-when">APRIL 2022 — JUNE 2023</div>
-        <div class="tl-role">Co-Lead Game Developer</div>
-        <div class="tl-co v">Koncept Solution IT Company, Rawalpindi</div>
-        <div class="tl-body">Led game development team. Delivered games to Google Play Store — responsible for storyline, Unity mechanics, scripting, environment design, and team coordination. Earned <strong>Employee of the Month</strong>.</div>
-        <div class="tag-row" style="margin-top:0.7rem"><span class="tag tv">Unity</span><span class="tag tv">Play Store</span><span class="tag tv">Team Lead</span><span class="tag tv">Game Scripting</span></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot g"></div>
-        <div class="tl-when">AUGUST 2021 — FEBRUARY 2022</div>
-        <div class="tl-role">Computer Science & Math Teacher</div>
-        <div class="tl-co g">APS Chagmalai, SWTD</div>
-        <div class="tl-body">Taught Computer Science, Mathematics, and Science subjects. Received the <strong>Best Teacher Award</strong> for exceptional classroom performance and student engagement.</div>
-        <div class="tag-row" style="margin-top:0.7rem"><span class="tag tg">Teaching</span><span class="tag tg">CS Education</span><span class="tag tg">Best Teacher Award</span></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot t"></div>
-        <div class="tl-when">JANUARY 2021 — AUGUST 2021</div>
-        <div class="tl-role">React Native Intern</div>
-        <div class="tl-co t">Enabling Systems (Pvt) Ltd, Rawalpindi</div>
-        <div class="tl-body">Completed final-year project during internship — built a full construction cost estimator mobile app using React Native and Firebase backend. Mastered core mobile development concepts.</div>
-        <div class="tag-row" style="margin-top:0.7rem"><span class="tag tt">React Native</span><span class="tag tt">Firebase</span><span class="tag tt">Mobile Dev</span></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot t"></div>
-        <div class="tl-when">SEPTEMBER 2017 — AUGUST 2020</div>
-        <div class="tl-role">WordPress Developer & Freelancer</div>
-        <div class="tl-co t">Self-Employed</div>
-        <div class="tl-body">Developed client websites using WordPress while building strong programming and web development fundamentals through real freelance projects.</div>
-        <div class="tag-row" style="margin-top:0.7rem"><span class="tag tt">WordPress</span><span class="tag tt">Web Development</span><span class="tag tt">Freelance</span></div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ═══ PROJECTS ═══ -->
-<section id="projects" class="alt">
-  <div class="s-max">
-    <div class="s-tag">// published &amp; live work</div>
-    <h2 class="s-title">Featured <span class="hi">Projects</span></h2>
-    <div class="s-rule"></div>
-    <div class="proj-grid">
-      <div class="pj">
-        <div class="pj-top" style="background:linear-gradient(135deg,rgba(124,58,237,0.35),rgba(20,184,166,0.15));">🥽</div>
-        <div class="pj-body">
-          <h3>Violet Flame VR Experience</h3>
-          <p>Immersive VR game published live on Meta Quest. Full cycle — concept, Unity development, optimization, and Meta store deployment.</p>
-          <div class="tag-row"><span class="tag tv">VR</span><span class="tag tv">Meta Quest</span><span class="tag tv">Unity</span></div>
-          <a href="https://www.meta.com/experiences/6738439822877580" target="_blank" class="pj-link lv">View on Meta Quest</a>
-        </div>
-      </div>
-      <div class="pj">
-        <div class="pj-top" style="background:linear-gradient(135deg,rgba(124,58,237,0.3),rgba(245,158,11,0.12));">🕹️</div>
-        <div class="pj-body">
-          <h3>Nexus Arcade</h3>
-          <p>Multi-game VR arcade experience on Meta Quest. Actively maintained with regular updates and expanding content library.</p>
-          <div class="tag-row"><span class="tag tv">VR Arcade</span><span class="tag tv">Meta Quest</span><span class="tag tv">Unity</span></div>
-          <a href="https://www.meta.com/en-gb/experiences/nexus-arcade/6962116033836064/" target="_blank" class="pj-link lv">View on Meta</a>
-        </div>
-      </div>
-      <div class="pj">
-        <div class="pj-top" style="background:linear-gradient(135deg,rgba(20,184,166,0.25),rgba(124,58,237,0.15));">🧘</div>
-        <div class="pj-body">
-          <h3>Mindful Moments MR</h3>
-          <p>Mixed Reality wellness application on Meta Quest combining real-world and virtual environments for immersive mindfulness experiences.</p>
-          <div class="tag-row"><span class="tag tv">Mixed Reality</span><span class="tag tt">Wellness</span><span class="tag tv">Meta Quest</span></div>
-          <a href="https://www.meta.com/experiences/mindful-moments/24210209858630331/" target="_blank" class="pj-link lt">View on Meta</a>
-        </div>
-      </div>
-      <div class="pj">
-        <div class="pj-top" style="background:linear-gradient(135deg,rgba(20,184,166,0.22),rgba(245,158,11,0.12));">🍎</div>
-        <div class="pj-body">
-          <h3>Logic Escape</h3>
-          <p>Puzzle escape room game live on Apple App Store — available globally on iOS. Puzzle design, Unity build, and App Store publishing handled end-to-end.</p>
-          <div class="tag-row"><span class="tag tg">iOS</span><span class="tag tg">Puzzle Game</span><span class="tag tg">App Store</span></div>
-          <a href="https://apps.apple.com/pk/app/logic-escape/id6761766461" target="_blank" class="pj-link lg">View on App Store</a>
-        </div>
-      </div>
-      <div class="pj">
-        <div class="pj-top" style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(124,58,237,0.15));">🛒</div>
-        <div class="pj-body">
-          <h3>Cart Carriage</h3>
-          <p>Android mobile game published on Google Play Store by Koncept Solution — complete storyline, Unity animations, and optimized performance.</p>
-          <div class="tag-row"><span class="tag tg">Android</span><span class="tag tg">Play Store</span><span class="tag tv">Unity</span></div>
-          <a href="https://play.google.com/store/apps/details?id=com.KonceptSol.cartcarriage" target="_blank" class="pj-link lg">View on Play Store</a>
-        </div>
-      </div>
-      <div class="pj">
-        <div class="pj-top" style="background:linear-gradient(135deg,rgba(20,184,166,0.2),rgba(20,184,166,0.08));">🏥</div>
-        <div class="pj-body">
-          <h3>Healthcare ML Thesis</h3>
-          <p>MS thesis: SVM, Random Forest, Gradient Boosting, KNN, Naïve Bayes & Feed-Forward Neural Networks applied to health data analysis in Python.</p>
-          <div class="tag-row"><span class="tag tt">ML</span><span class="tag tt">Deep Learning</span><span class="tag tt">Healthcare AI</span><span class="tag tg">Research</span></div>
-          <a href="https://drive.google.com/drive/folders/14fCjlWRmGfCeL58mP4B6tp8ceVHRvntV" target="_blank" class="pj-link lt">View Portfolio Drive</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ ACHIEVEMENTS ═══ -->
-<section id="achievements">
-  <div class="s-max">
-    <div class="s-tag">// recognition &amp; awards</div>
-    <h2 class="s-title">Achievements <span class="hi">&amp; Awards</span></h2>
-    <div class="s-rule"></div>
-    <div class="ach-grid">
-      <div class="ach"><div class="ach-ico">🥇</div><div class="ach-txt"><strong>Employee of the Month</strong><span>FI Consultancy, Islamabad — 2024</span></div></div>
-      <div class="ach"><div class="ach-ico">🏆</div><div class="ach-txt"><strong>Employee of the Month</strong><span>Koncept Solutions International — 2023</span></div></div>
-      <div class="ach"><div class="ach-ico">👨‍🏫</div><div class="ach-txt"><strong>Best Teacher Award</strong><span>APS Chagmalai SWTD — 2022</span></div></div>
-      <div class="ach"><div class="ach-ico">🥉</div><div class="ach-txt"><strong>3rd Position Holder — BSIT</strong><span>International Islamic University, Islamabad — 2021</span></div></div>
-      <div class="ach"><div class="ach-ico">⭐</div><div class="ach-txt"><strong>Distinct Student Award</strong><span>International Islamic University, Islamabad — 2021</span></div></div>
-      <div class="ach"><div class="ach-ico">🌍</div><div class="ach-txt"><strong>International Workshop — Programming &amp; Web Dev</strong><span>IIU Islamabad — October 2020</span></div></div>
-      <div class="ach"><div class="ach-ico">🤖</div><div class="ach-txt"><strong>Seminar — AI &amp; Machine Learning</strong><span>Bahria University Islamabad — October 2023</span></div></div>
-      <div class="ach"><div class="ach-ico">❤️</div><div class="ach-txt"><strong>Polio Plus Chair — Rotaract Club</strong><span>Rawalpindi City — 2021–2023</span></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ CONTACT ═══ -->
-<section id="contact" class="alt">
-  <div class="s-max">
-    <div class="s-tag">// get in touch</div>
-    <h2 class="s-title">Let's <span class="hi">Connect</span></h2>
-    <div class="s-rule"></div>
     <div class="con-grid">
       <div class="con-left">
         <h3>Open to Opportunities</h3>
-        <p>Available for internships, entry-level Data Science roles, VR/AR developer positions, and PhD research opportunities worldwide. Reach out via any channel below.</p>
+        <p>Available for <strong>VR/AR/MR/WebXR developer roles</strong>, <strong>Data Science positions</strong>, <strong>Multiplayer game projects</strong>, and <strong>PhD research opportunities</strong> worldwide. Reach out via any channel below.</p>
         <div class="con-links">
           <a href="mailto:animalik272@gmail.com" class="con-link">✉️ animalik272@gmail.com</a>
           <a href="mailto:anikhan272@gmail.com" class="con-link">📧 anikhan272@gmail.com</a>
           <a href="tel:+923357428855" class="con-link">📞 +92 335 742 8855 (WhatsApp)</a>
           <a href="tel:+923446772741" class="con-link">📱 +92 344 677 2741</a>
-          <a href="https://www.linkedin.com/in/muhammad-aneesb72404210" target="_blank" class="con-link">🔗 LinkedIn — muhammad-aneesb72404210</a>
+          <a href="https://www.linkedin.com/in/muhammad-aneesb72404210" target="_blank" class="con-link">🔗 LinkedIn Profile</a>
           <a href="https://drive.google.com/drive/folders/14fCjlWRmGfCeL58mP4B6tp8ceVHRvntV" target="_blank" class="con-link">📁 Google Drive Portfolio</a>
+          <a href="https://saltysharks.itch.io/pharaohs-vault-escape-room" target="_blank" class="con-link">🎮 itch.io — WebXR Games</a>
         </div>
       </div>
       <div class="con-right">
         <div class="info-box">
           <h4>Personal Info</h4>
-          <div class="info-r"><span>Location</span><span>Islamabad / D.I. Khan, PK</span></div>
-          <div class="info-r"><span>Nationality</span><span>Pakistani</span></div>
-          <div class="info-r"><span>Languages</span><span>English · Urdu · Saraiki</span></div>
-          <div class="info-r"><span>WeChat ID</span><span>animalik272</span></div>
-          <div class="info-r"><span>Passport</span><span>CH1711281</span></div>
+          <div class="i-row"><span>Location</span><span>Islamabad, Pakistan</span></div>
+          <div class="i-row"><span>Home Address</span><span>D.I. Khan, KPK, PK</span></div>
+          <div class="i-row"><span>Nationality</span><span>Pakistani</span></div>
+          <div class="i-row"><span>Languages</span><span>English · Urdu · Saraiki</span></div>
+          <div class="i-row"><span>WeChat ID</span><span>animalik272</span></div>
+          <div class="i-row"><span>Passport</span><span>CH1711281</span></div>
         </div>
         <div class="info-box">
           <h4>Education</h4>
-          <div class="info-r"><span>MS Data Science</span><span>Bahria Univ · 3.25 CGPA · 2024</span></div>
-          <div class="info-r"><span>BSIT (3rd Position)</span><span>IIU Islamabad · 3.52 CGPA · 2021</span></div>
+          <div class="i-row"><span>MS Data Science</span><span>Bahria Univ · 3.25 · 2024</span></div>
+          <div class="i-row"><span>BSIT (3rd Pos.)</span><span>IIU Islamabad · 3.52 · 2021</span></div>
         </div>
         <div class="info-box">
           <h4>Quick Project Links</h4>
-          <div style="display:flex;flex-wrap:wrap;gap:0.45rem;margin-top:0.4rem;">
-            <a href="https://apps.apple.com/pk/app/logic-escape/id6761766461" target="_blank" class="tag tg" style="text-decoration:none;cursor:pointer;padding:0.35rem 0.75rem;">🍎 Logic Escape</a>
-            <a href="https://www.meta.com/experiences/6738439822877580" target="_blank" class="tag tv" style="text-decoration:none;cursor:pointer;padding:0.35rem 0.75rem;">🥽 VR Exp.</a>
-            <a href="https://www.meta.com/en-gb/experiences/nexus-arcade/6962116033836064/" target="_blank" class="tag tv" style="text-decoration:none;cursor:pointer;padding:0.35rem 0.75rem;">🕹️ Nexus Arcade</a>
-            <a href="https://www.meta.com/experiences/mindful-moments/24210209858630331/" target="_blank" class="tag tv" style="text-decoration:none;cursor:pointer;padding:0.35rem 0.75rem;">🧘 Mindful Moments</a>
-            <a href="https://play.google.com/store/apps/details?id=com.KonceptSol.cartcarriage" target="_blank" class="tag tg" style="text-decoration:none;cursor:pointer;padding:0.35rem 0.75rem;">🤖 Cart Carriage</a>
-            <a href="https://drive.google.com/drive/folders/14fCjlWRmGfCeL58mP4B6tp8ceVHRvntV" target="_blank" class="tag tt" style="text-decoration:none;cursor:pointer;padding:0.35rem 0.75rem;">📁 Portfolio</a>
+          <div class="quick-tags">
+            <a href="https://apps.apple.com/us/app/mycre-adventures/id6717614238" target="_blank" class="tag tgr" style="text-decoration:none;cursor:pointer;padding:0.3rem 0.65rem;">🌟 MyCre</a>
+            <a href="https://apps.apple.com/pk/app/logic-escape/id6761766461" target="_blank" class="tag tg" style="text-decoration:none;cursor:pointer;padding:0.3rem 0.65rem;">🍎 Logic Escape</a>
+            <a href="https://www.meta.com/experiences/6738439822877580" target="_blank" class="tag tp" style="text-decoration:none;cursor:pointer;padding:0.3rem 0.65rem;">🥽 Violet Flame</a>
+            <a href="https://www.meta.com/en-gb/experiences/nexus-arcade/6962116033836064/" target="_blank" class="tag tp" style="text-decoration:none;cursor:pointer;padding:0.3rem 0.65rem;">🕹️ Nexus Arcade</a>
+            <a href="https://www.meta.com/experiences/mindful-moments/24210209858630331/" target="_blank" class="tag tp" style="text-decoration:none;cursor:pointer;padding:0.3rem 0.65rem;">🧘 Mindful Moments</a>
+            <a href="https://www.meta.com/experiences/pharaohs-vault-escape-room/1129026526966891/" target="_blank" class="tag tc" style="text-decoration:none;cursor:pointer;padding:0.3rem 0.65rem;">🏛️ Pharaoh's Vault</a>
+            <a href="https://saltysharks.itch.io/pharaohs-vault-escape-room" target="_blank" class="tag tr" style="text-decoration:none;cursor:pointer;padding:0.3rem 0.65rem;">🎮 itch.io</a>
+            <a href="https://play.google.com/store/apps/details?id=com.KonceptSol.cartcarriage" target="_blank" class="tag tgr" style="text-decoration:none;cursor:pointer;padding:0.3rem 0.65rem;">🤖 Cart Carriage</a>
           </div>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>
 
 <footer>
-  <p>© 2025 Muhammad Anees — VR/AR Developer · Data Scientist · PhD Aspirant · Islamabad, Pakistan</p>
+  <p>© 2025 Muhammad Anees — VR/AR/MR/WebXR Developer · Data Scientist · PhD Aspirant · Islamabad, Pakistan</p>
   <div class="f-links">
-    <a href="#hero">Top</a>
-    <a href="#domains">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
+    <a onclick="goPage('home')">Home</a>
+    <a onclick="goPage('about')">About</a>
+    <a onclick="goPage('projects')">Projects</a>
+    <a onclick="goPage('skills')">Skills</a>
+    <a onclick="goPage('contact')">Contact</a>
   </div>
 </footer>
 
 <script>
-// Tab switching
-function switchTab(id, btn) {
-  ['vr','ds','phd'].forEach(t => {
-    document.getElementById('p-'+t).classList.remove('on');
-  });
-  document.querySelectorAll('.c-tab').forEach(t => {
-    t.classList.remove('on-vr','on-ds','on-phd');
-  });
-  document.getElementById('p-'+id).classList.add('on');
-  btn.classList.add({vr:'on-vr',ds:'on-ds',phd:'on-phd'}[id]);
+// ── PAGE NAVIGATION ──
+function goPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('pg-'+id).classList.add('active');
+  document.querySelectorAll('.nav-menu a').forEach(a=>a.classList.remove('active'));
+  const nm=document.getElementById('nm-'+id);
+  if(nm) nm.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  return false;
 }
 
-// Mobile nav
-function toggleMenu() { document.getElementById('mobileNav').classList.toggle('open'); }
-function closeMenu() { document.getElementById('mobileNav').classList.remove('open'); }
+// ── MOBILE NAV ──
+function toggleMob(){document.getElementById('mobNav').classList.toggle('open');}
+function closeMob(){document.getElementById('mobNav').classList.remove('open');}
 
-// Skill bar animation on scroll
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(e.isIntersecting) {
-      e.target.querySelectorAll('.sk-fill').forEach(b => {
-        const w = b.style.width;
-        b.style.width = '0';
-        setTimeout(() => { b.style.width = w; }, 150);
+// ── SKILLS TABS ──
+function switchSkTab(id,btn){
+  ['vr','ds','ph'].forEach(t=>{
+    document.getElementById('skp-'+t).classList.remove('on');
+  });
+  document.querySelectorAll('.sk-tab').forEach(t=>{
+    t.classList.remove('on-vr','on-ds','on-ph');
+  });
+  document.getElementById('skp-'+id).classList.add('on');
+  const map={vr:'on-vr',ds:'on-ds',ph:'on-ph'};
+  btn.classList.add(map[id]);
+  // re-animate bars
+  setTimeout(()=>{
+    document.querySelectorAll('#skp-'+id+' .sk-fill').forEach(b=>{
+      const w=b.style.width; b.style.width='0';
+      setTimeout(()=>{b.style.width=w;},80);
+    });
+  },50);
+}
+
+// ── PROJECT FILTER ──
+function filterProj(cat,btn){
+  document.querySelectorAll('.pf-btn').forEach(b=>{b.classList.remove('on','on-cy','on-go');});
+  btn.classList.add('on');
+  document.querySelectorAll('.pj').forEach(pj=>{
+    const cats=pj.dataset.cat||'';
+    pj.style.display=(cat==='all'||cats.includes(cat))?'flex':'none';
+  });
+}
+
+// ── SKILL BAR ANIMATIONS ──
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.sk-fill').forEach(b=>{
+        const w=b.style.width; b.style.width='0';
+        setTimeout(()=>{b.style.width=w;},100);
       });
     }
   });
-}, { threshold: 0.25 });
-document.querySelectorAll('.sk-card').forEach(c => obs.observe(c));
+},{threshold:0.25});
+document.querySelectorAll('.sk-bar-card').forEach(c=>barObs.observe(c));
 
-// Stagger entrance animations for cards
-const cardObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(e.isIntersecting) {
-      e.target.style.opacity = '1';
-      e.target.style.transform = 'translateY(0)';
+// ── ENTRANCE ANIMATIONS ──
+const entObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
     }
   });
-}, { threshold: 0.1 });
-document.querySelectorAll('.card,.pj,.ach,.tl-item').forEach((el, i) => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(20px)';
-  el.style.transition = `opacity 0.5s ease ${i*0.04}s, transform 0.5s ease ${i*0.04}s`;
-  cardObs.observe(el);
+},{threshold:0.06});
+document.querySelectorAll('.card,.pj,.ach,.tl-item,.info-box,.sw-item').forEach((el,i)=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(18px)';
+  el.style.transition=`opacity 0.5s ease ${i*0.03}s, transform 0.5s ease ${i*0.03}s`;
+  entObs.observe(el);
 });
 </script>
 </body>
