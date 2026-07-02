@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Projects — Muhammad Anees</title>
+<meta name="description" content="Portfolio of VR, MR, AR, WebXR and mobile projects by Muhammad Anees — live on Meta Quest, App Store, Google Play, itch.io and in development for HoloLens."/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-mark"><span>MA</span></div>
+      <div class="brand-text"><b>Muhammad Anees</b><small>XR Developer · Data Scientist</small></div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="skills.html">Skills</a>
+    </nav>
+    <a href="mailto:animalik272@gmail.com" class="nav-cta">Hire Me ↗</a>
+    <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="projects.html" class="active">Projects</a>
+    <a href="skills.html">Skills</a>
+  </div>
+</header>
+
+<section style="padding-bottom:2rem;">
+  <div class="wrap">
+    <div class="eyebrow">Portfolio</div>
+    <h1 class="sec-title">100+ Projects, <em>live across four platforms</em></h1>
+    <p class="sec-lede">A selection of published and in-progress work spanning VR, Mixed Reality, AR, multiplayer, WebXR and mobile — plus the healthcare ML research from my MS thesis.</p>
+
+    <div class="tab-row" id="tabRow">
+      <button class="tab-btn on" data-cat="all">All</button>
+      <button class="tab-btn" data-cat="vrmr">VR &amp; MR</button>
+      <button class="tab-btn" data-cat="webxr">AR &amp; WebXR</button>
+      <button class="tab-btn" data-cat="mobile">Mobile Apps</button>
+      <button class="tab-btn" data-cat="data">Data Science</button>
+      <button class="tab-btn" data-cat="holo">HoloLens</button>
+    </div>
+
+    <div class="proj-grid" id="projGrid">
+
+      <div class="pj" data-cat="vrmr">
+        <div class="pj-top" style="background:linear-gradient(135deg,var(--indigo-soft),var(--teal-soft));">🥽<span class="pj-plat">Meta Quest</span></div>
+        <div class="pj-body">
+          <h3>Violet Flame VR Experience</h3>
+          <p>Immersive VR experience published live on Meta Quest — full cycle from concept through Unity development, optimization and store deployment.</p>
+          <div class="tag-row"><span class="tag tag-i">VR</span><span class="tag tag-i">Unity</span><span class="tag tag-i">Meta Quest</span></div>
+          <a href="https://www.meta.com/experiences/6738439822877580" target="_blank" class="pj-link">View on Meta Quest</a>
+        </div>
+      </div>
+
+      <div class="pj" data-cat="vrmr">
+        <div class="pj-top" style="background:linear-gradient(135deg,var(--indigo-soft),var(--amber-soft));">🕹️<span class="pj-plat">Meta Quest</span></div>
+        <div class="pj-body">
+          <h3>Nexus Arcade</h3>
+          <p>Multi-game VR arcade experience on Meta Quest, actively maintained with regular updates and an expanding content library.</p>
+          <div class="tag-row"><span class="tag tag-i">VR Arcade</span><span class="tag tag-i">Unity</span><span class="tag tag-i">Meta Quest</span></div>
+          <a href="https://www.meta.com/en-gb/experiences/nexus-arcade/6962116033836064/" target="_blank" class="pj-link">View on Meta Quest</a>
+        </div>
+      </div>
+
+      <div class="pj" data-cat="vrmr">
+        <div class="pj-top" style="background:linear-gradient(135deg,var(--teal-soft),var(--indigo-soft));">🧘<span class="pj-plat">Meta Quest</span></div>
+        <div class="pj-body">
+          <h3>Mindful Moments MR</h3>
+          <p>Mixed Reality wellness application blending real-world and virtual environments for immersive mindfulness sessions.</p>
+          <div class="tag-row"><span class="tag tag-i">Mixed Reality</span><span class="tag tag-t">Wellness</span><span class="tag tag-i">Meta Quest</span></div>
+          <a href="https://www.meta.com/experiences/mindful-moments/24210209858630331/" target="_blank" class="pj-link">View on Meta Quest</a>
+        </div>
+      </div>
+
+      <div class="pj" data-cat="vrmr webxr">
+        <div class="pj-top" style="background:linear-gradient(135deg,var(--amber-soft),var(--indigo-soft));">🏺<span class="pj-plat">Meta Quest</span></div>
+        <div class="pj-body">
+          <h3>Pharaoh's Vault Escape Room</h3>
+          <p>Ancient-Egypt-themed VR puzzle escape room built for Meta Quest — environment design, puzzle logic and full Unity interaction system.</p>
+          <div class="tag-row"><span class="tag tag-i">VR</span><span class="tag tag-a">Puzzle Design</span><span class="tag tag-i">Meta Quest</span></div>
+          <a href="https://www.meta.com/experiences/pharaohs-vault-escape-room/1129026526966891/" target="_blank" class="pj-link">View on Meta Quest</a>
+        </div>
+      </div>
+
+      <div class="pj" data-cat="webxr">
+        <div class="pj-top" style="background:linear-gradient(135deg,var(--teal-soft),var(--amber-soft));">🌐<span class="pj-plat">WebXR</span></div>
+        <div class="pj-body">
+          <h3>Pharaoh's Vault — WebXR Build</h3>
+          <p>Browser-playable WebXR version of the escape room, published on itch.io — no headset or install required, runs straight from the browser.</p>
+          <div class="tag-row"><span class="tag tag-t">WebXR</span><span class="tag tag-t">Browser-Based</span><span class="tag tag-i">Unity</span></div>
+          <a href="https://saltysharks.itch.io/pharaohs-vault-escape-room" target="_blank" class="pj-link">Play on itch.io</a>
+        </div>
+      </div>
+
+      <div class="pj" data-cat="mobile">
+        <div class="pj-top" style="background:linear-gradient(135deg,var(--amber-soft),var(--teal-soft));">🍎<span class="pj-plat">App Store</span></div>
+        <div class="pj-body">
+          <h3>Logic Escape</h3>
+          <p>Puzzle escape-room game live on the Apple App Store, available globally on iOS — puzzle design, Unity build and App Store publishing handled end-to-end.</p>
+          <div class="tag-row"><span class="tag tag-a">iOS</span><span class="tag tag-a">Puzzle Game</span></div>
+          <a href="https://apps.apple.com/pk/app/logic-escape/id6761766461" target="_blank" class="pj-link">View on App Store</a>
+        </div>
+      </div>
+
+      <div class="pj" data-cat="mobile">
+        <div class="pj-top" style="background:linear-gradient(135deg,var(--indigo-soft),var(--teal-soft));">🧭<span class="pj-plat">App Store</span></div>
+        <div class="pj-body">
+          <h3>MyCre Adventures</h3>
+          <p>Adventure mobile app published on the Apple App Store — contributed to interactive features and gameplay systems.</p>
+          <div class="tag-row"><span class="tag tag-a">iOS</span><span class="tag tag-i">Adventure</span></div>
+          <a href="https://apps.apple.com/us/app/mycre-adventures/id6717614238" target="_blank" class="pj-link">View on App Store</a>
+        </div>
+      </div>
+
+      <div class="pj" data-cat="mobile">
+        <div class="pj-top" style="background:linear-gradient(135deg,var(--teal-soft),var(--indigo-soft));">🛒<span class="pj-plat">Play Store</span></div>
+        <div class="pj-body">
+          <h3>Cart Carriage</h3>
+          <p>Android mobile game published on Google Play by Koncept Solution — complete storyline, Unity animations and optimized performance.</p>
+          <div class="tag-row"><span class="tag tag-t">Android</span><span class="tag tag-i">Unity</span></div>
+          <a href="https://play.google.com/store/apps/details?id=com.KonceptSol.cartcarriage" target="_blank" class="pj-link">View on Play Store</a>
+        </div>
+      </div>
+
+      <div class="pj" data-cat="data">
+        <div class="pj-top" style="background:linear-gradient(135deg,var(--teal-soft),var(--teal-soft));">🏥<span class="pj-plat">Research</span></div>
+        <div class="pj-body">
+          <h3>Healthcare ML Thesis</h3>
+          <p>MS thesis: SVM, Random Forest, Gradient Boosting, KNN, Naïve Bayes and Feed-Forward Neural Networks applied to healthcare data analysis in Python.</p>
+          <div class="tag-row"><span class="tag tag-t">ML</span><span class="tag tag-t">Deep Learning</span><span class="tag tag-a">Healthcare AI</span></div>
+          <a href="https://drive.google.com/drive/folders/14fCjlWRmGfCeL58mP4B6tp8ceVHRvntV" target="_blank" class="pj-link">View Portfolio Drive</a>
+        </div>
+      </div>
+
+      <div class="pj" data-cat="holo">
+        <div class="pj-top" style="background:linear-gradient(135deg,var(--indigo-soft),var(--rose-soft));">🔷<span class="pj-plat">HoloLens</span></div>
+        <div class="pj-body">
+          <h3>HoloLens Mixed Reality</h3>
+          <p>Currently extending my Mixed Reality expertise from Meta Quest to Microsoft HoloLens — building enterprise-style spatial-computing prototypes and MR interaction systems.</p>
+          <div class="tag-row"><span class="tag tag-i">Mixed Reality</span><span class="tag tag-r">HoloLens</span><span class="tag tag-i">Spatial Computing</span></div>
+          <p class="pj-note">In development — details available on request.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:2.5rem;">
+      <a href="https://drive.google.com/drive/folders/14fCjlWRmGfCeL58mP4B6tp8ceVHRvntV" target="_blank" class="btn btn-outline">📁 See the Full Portfolio Drive</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <p>© 2026 Muhammad Anees — XR Developer · Data Scientist · Islamabad, Pakistan</p>
+    <div class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="skills.html">Skills</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){document.getElementById('mobileNav').classList.toggle('open');}
+
+document.querySelectorAll('#tabRow .tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#tabRow .tab-btn').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    const cat = btn.dataset.cat;
+    document.querySelectorAll('#projGrid .pj').forEach(pj=>{
+      const cats = pj.dataset.cat.split(' ');
+      pj.style.display = (cat==='all' || cats.includes(cat)) ? 'flex' : 'none';
+    });
+  });
+});
+</script>
+</body>
+</html>
