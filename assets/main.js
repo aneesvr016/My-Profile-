@@ -105,23 +105,103 @@ const PROJECTS = [
    tags:['HoloLens','Spatial Computing'], note:'In development. Details on request.'}
 ];
 
+
+/* Extra detail shown in the project popup (keyed by title). */
+const DETAILS = {
+  'MEDVR AI — Medical Training Lab':{role:'Lead developer',tech:['Unity','C#','Convai','Meta Quest','XR Interaction Toolkit'],
+    points:['Integrated a Convai conversational AI agent that speaks with the trainee in real time and explains the room, equipment and procedure.','Built physics-based interaction with medical instruments, surgical bed, surgical light and in-world UI panels.','Optimised for standalone Meta Quest and published on the Meta Store.'],
+    research:'Conversational agents as adaptive tutors in immersive clinical training.'},
+  'Archimedes — Multiplayer Science Lab':{role:'Lead developer',tech:['Unity','WebXR','Multiplayer networking','Convai'],
+    points:['Multiplayer sessions where several players perform physics experiments together in the browser.','A Convai-powered Archimedes character talks with players and guides each experiment.','Archimedes’ Screw: the character assembles it first as a demo, then players assemble the parts and rotate the handle to lift water.'],
+    research:'AI characters and collaborative play for learning in shared virtual spaces.'},
+  'Brains Boots & Beyond VR':{role:'Lead developer',tech:['Unity','C#','VR headsets','Avatar systems'],video:'gzjs31G0H6Q',
+    points:['Game-realistic virtual field where athletes read the play, decide under pressure and see the outcome.','Built for Australia’s National Science Week with Concinnity, the University of Southern Queensland (UniSQ) and the Western Clydesdales.','Featured on 7NEWS Australia.'],
+    research:'Measuring decision-making and cognitive load under pressure in VR.'},
+  'Healthcare ML — CIH Decision Support':{role:'First author · MS thesis',tech:['Python','scikit-learn','TensorFlow / Keras','Pandas'],
+    points:['Six classifiers compared: SVC, Random Forest, Gradient Boosting, KNN, Multinomial Naïve Bayes and a Neural Network.','Best accuracy 97.62% (Naïve Bayes and Gradient Boosting).','Follow-up logic adapts advice for stable, improved and worsened patients.']},
+  'Drug–Drug Interaction Prediction':{role:'Co-author',tech:['Python','CNN','DrugBank','NLP'],
+    points:['Predicts 65 DDI event types.','Features: SMILES structures, targets, enzymes, pathways; Jaccard similarity.','89.89% accuracy, 87.11% precision, 77.23% recall, 80.72% F1.']}
+};
+
 const CAT_LABELS = {all:'All', ai:'AI + XR', vr:'VR & MR', webxr:'WebXR', mobile:'Mobile', research:'Research', holo:'HoloLens'};
 
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+const isExt=l=>/^https?:/.test(l||'');
 
-function card(p){
-  const ext = p.link && /^https?:/.test(p.link);
-  return `<article class="pj c-${p.color}" data-cats="${p.cats.join(' ')}">
+function card(p,i){
+  return `<article class="pj c-${p.color} reveal" data-cats="${p.cats.join(' ')}" data-idx="${i}" tabindex="0" role="button" aria-label="Open details: ${esc(p.title)}">
     <div class="pj-top">${p.featured?'<span class="pj-star">AI + XR</span>':''}${ICONS[p.icon]||''}<span class="pj-plat">${esc(p.plat)}</span></div>
     <div class="pj-body">
       <h3>${esc(p.title)}</h3>
       <p>${esc(p.desc)}</p>
       <div class="tag-row">${p.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
-      ${p.link?`<a class="link" href="${p.link}"${ext?' target="_blank" rel="noopener"':''}>${esc(p.linkText)}</a>`:''}
-      ${p.note?`<p class="pj-note">${esc(p.note)}</p>`:''}
+      <span class="link">View details</span>
     </div></article>`;
 }
 
+/* ---------- MODAL ---------- */
+let lastFocus=null;
+function ensureModal(){
+  let m=document.getElementById('modal'); if(m) return m;
+  m=document.createElement('div'); m.id='modal'; m.className='modal'; m.hidden=true;
+  m.innerHTML='<div class="modal-backdrop" data-close></div><div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-x" data-close aria-label="Close">×</button><div class="modal-content"></div></div>';
+  document.body.appendChild(m);
+  m.addEventListener('click',e=>{if(e.target.closest('[data-close]')) closeModal();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!m.hidden) closeModal();});
+  return m;
+}
+function openModal(html){
+  const m=ensureModal(); lastFocus=document.activeElement;
+  m.querySelector('.modal-content').innerHTML=html; m.hidden=false;
+  requestAnimationFrame(()=>m.classList.add('open'));
+  document.body.style.overflow='hidden';
+  m.querySelector('.modal-x').focus();
+}
+function closeModal(){
+  const m=document.getElementById('modal'); if(!m) return;
+  m.classList.remove('open'); document.body.style.overflow='';
+  setTimeout(()=>{m.hidden=true;m.querySelector('.modal-content').innerHTML='';},250);
+  if(lastFocus) lastFocus.focus();
+}
+function projectModal(p){
+  const d=DETAILS[p.title]||{};
+  const media=d.video?`<div class="modal-video"><iframe src="https://www.youtube-nocookie.com/embed/${d.video}" title="Video: ${esc(p.title)}" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`
+    :`<div class="modal-art c-${p.color}">${ICONS[p.icon]||''}<span>${esc(p.plat)}</span></div>`;
+  return `${media}<div class="modal-body">
+    <div class="modal-meta">${esc(p.plat)}${d.role?' · '+esc(d.role):''}</div>
+    <h2 id="modalTitle">${esc(p.title)}</h2>
+    <p>${esc(p.desc)}</p>
+    ${d.points?`<ul class="feature-points">${d.points.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
+    ${d.research?`<div class="why"><b>Research angle:</b> ${esc(d.research)}</div>`:''}
+    <div class="tag-row">${(d.tech||p.tags).map(t=>`<span class="tag tag-i">${esc(t)}</span>`).join('')}</div>
+    <div class="modal-actions">
+      ${p.link?`<a class="btn btn-solid" href="${p.link}"${isExt(p.link)?' target="_blank" rel="noopener"':''}>${esc(p.linkText)} ↗</a>`:''}
+      ${p.note?`<span class="pj-note" style="margin:0">${esc(p.note)}</span>`:''}
+      <a class="btn btn-outline" href="${DRIVE}" target="_blank" rel="noopener">Video portfolio</a>
+    </div></div>`;
+}
+function contactModal(){
+  return `<div class="modal-body">
+    <div class="modal-meta">Get in touch</div>
+    <h2 id="modalTitle">Let’s work together</h2>
+    <p>Hiring for an XR role, or recruiting a PhD student for AI + XR research? Pick whichever channel suits you.</p>
+    <div class="con-list" style="margin-top:1.2rem">
+      <button class="con-link copy" data-copy="animalik272@gmail.com">animalik272@gmail.com<small>Copy email</small></button>
+      <a class="con-link" href="mailto:animalik272@gmail.com">Write an email<small>Mail app</small></a>
+      <a class="con-link" href="https://wa.me/923357428855" target="_blank" rel="noopener">+92 335 742 8855<small>WhatsApp</small></a>
+      <a class="con-link" href="https://www.linkedin.com/in/muhammad-anees-b72404210" target="_blank" rel="noopener">Muhammad Anees<small>LinkedIn</small></a>
+      <a class="con-link" href="assets/Muhammad_Anees_CV.pdf" download>Muhammad_Anees_CV.pdf<small>Download CV</small></a>
+    </div></div>`;
+}
+
+/* ---------- TOAST ---------- */
+function toast(msg){
+  let t=document.getElementById('toast');
+  if(!t){t=document.createElement('div');t.id='toast';t.className='toast';t.setAttribute('role','status');document.body.appendChild(t);}
+  t.textContent=msg; t.classList.add('show'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+/* ---------- PROJECT GRID ---------- */
 function renderProjects(){
   const grid=document.getElementById('projGrid'), row=document.getElementById('filterRow');
   if(!grid||!row) return;
@@ -132,29 +212,102 @@ function renderProjects(){
     `<button class="filter-btn${k==='all'?' on':''}" data-cat="${k}" aria-pressed="${k==='all'}">${CAT_LABELS[k]}<span class="n">${counts[k]}</span></button>`).join('');
   const apply=cat=>{
     row.querySelectorAll('.filter-btn').forEach(b=>{const on=b.dataset.cat===cat;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);});
-    grid.querySelectorAll('.pj').forEach(el=>{el.style.display=(cat==='all'||el.dataset.cats.split(' ').includes(cat))?'flex':'none';});
+    grid.querySelectorAll('.pj').forEach(el=>{
+      const show=cat==='all'||el.dataset.cats.split(' ').includes(cat);
+      el.style.display=show?'flex':'none';
+      if(show){el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');}
+    });
   };
   row.addEventListener('click',e=>{const b=e.target.closest('.filter-btn');if(b){apply(b.dataset.cat);history.replaceState(null,'','#'+b.dataset.cat);}});
   const hash=location.hash.slice(1);
   if(CAT_LABELS[hash]) apply(hash);
 }
 
+/* ---------- CAROUSEL ---------- */
+function initCarousel(){
+  document.querySelectorAll('.carousel').forEach(c=>{
+    const track=c.querySelector('.car-track'), slides=[...track.children], dots=c.querySelector('.car-dots');
+    let i=0, timer=null;
+    dots.innerHTML=slides.map((_,k)=>`<button aria-label="Go to slide ${k+1}"></button>`).join('');
+    const go=n=>{i=(n+slides.length)%slides.length;track.style.transform=`translateX(-${i*100}%)`;
+      [...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i));
+      slides.forEach((s,k)=>s.setAttribute('aria-hidden',k!==i));};
+    const play=()=>{stop();timer=setInterval(()=>go(i+1),6500);};
+    const stop=()=>clearInterval(timer);
+    c.querySelector('.car-prev').onclick=()=>{go(i-1);play();};
+    c.querySelector('.car-next').onclick=()=>{go(i+1);play();};
+    dots.onclick=e=>{const k=[...dots.children].indexOf(e.target);if(k>=0){go(k);play();}};
+    c.addEventListener('mouseenter',stop); c.addEventListener('mouseleave',play);
+    c.addEventListener('focusin',stop);
+    let x0=null;
+    track.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;stop();},{passive:true});
+    track.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)go(i+(dx<0?1:-1));x0=null;play();});
+    go(0); if(!matchMedia('(prefers-reduced-motion: reduce)').matches) play();
+  });
+}
+
+/* ---------- SCROLL ANIMATIONS ---------- */
+function initReveal(){
+  const sel='.sec-title,.sec-lede,.eyebrow,.card,.feature,.pub,.q,.tl-item,.ach,.skill-group,.stat-strip,.cta-band,.obj,.video-band,.chip-cloud,.tbl-wrap,.carousel,.snap';
+  document.querySelectorAll(sel).forEach(el=>{if(!el.closest('.modal')&&!el.closest('.hero')&&!el.closest('.car-track'))el.classList.add('reveal');});
+  const els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('in'));return;}
+  const io=new IntersectionObserver(es=>es.forEach(en=>{
+    if(en.isIntersecting){
+      const sib=[...en.target.parentElement.children].filter(x=>x.classList.contains('reveal'));
+      en.target.style.transitionDelay=Math.min(sib.indexOf(en.target),6)*70+'ms';
+      en.target.classList.add('in'); io.unobserve(en.target);}
+  }),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(e=>io.observe(e));
+}
+function initCounters(){
+  const nums=document.querySelectorAll('[data-count]');
+  const io=new IntersectionObserver(es=>es.forEach(en=>{
+    if(!en.isIntersecting) return; io.unobserve(en.target);
+    const el=en.target, end=+el.dataset.count, suf=el.dataset.suffix||'', t0=performance.now(), dur=1400;
+    const step=t=>{const k=Math.min((t-t0)/dur,1),v=Math.round(end*(1-Math.pow(1-k,3)));el.textContent=v+suf;if(k<1)requestAnimationFrame(step);};
+    requestAnimationFrame(step);
+  }),{threshold:.5});
+  nums.forEach(n=>io.observe(n));
+}
+function initTyper(){
+  document.querySelectorAll('[data-words]').forEach(el=>{
+    const words=JSON.parse(el.dataset.words); let w=0,c=0,del=false;
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=words[0];return;}
+    const tick=()=>{const word=words[w];
+      el.textContent=word.slice(0,c);
+      if(!del&&c<word.length){c++;setTimeout(tick,70);}
+      else if(!del){del=true;setTimeout(tick,1800);}
+      else if(c>0){c--;setTimeout(tick,35);}
+      else{del=false;w=(w+1)%words.length;setTimeout(tick,300);}};
+    tick();
+  });
+}
+function initChrome(){
+  const bar=document.createElement('div'); bar.className='progress'; document.body.appendChild(bar);
+  const top=document.createElement('button'); top.className='to-top'; top.setAttribute('aria-label','Back to top'); top.innerHTML='↑'; document.body.appendChild(top);
+  top.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+  const nav=document.querySelector('.site-nav');
+  const on=()=>{const h=document.documentElement, p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);
+    bar.style.transform=`scaleX(${p})`; top.classList.toggle('show',h.scrollTop>600); nav.classList.toggle('scrolled',h.scrollTop>10);};
+  addEventListener('scroll',on,{passive:true}); on();
+}
 function initNav(){
   const btn=document.querySelector('.hamburger'), nav=document.getElementById('mobileNav');
   if(btn&&nav) btn.addEventListener('click',()=>{const o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o);});
 }
 
-function initTabs(){
-  document.querySelectorAll('[data-tabs]').forEach(group=>{
-    group.addEventListener('click',e=>{
-      const b=e.target.closest('.filter-btn'); if(!b) return;
-      group.querySelectorAll('.filter-btn').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b);});
-      document.querySelectorAll('.tab-panel').forEach(p=>p.hidden=p.id!==b.dataset.tab);
-    });
-  });
-}
-
-document.addEventListener('DOMContentLoaded',()=>{initNav();renderProjects();initTabs();
+document.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('[data-icon]').forEach(el=>{el.innerHTML=ICONS[el.dataset.icon]||'';});
+  initNav(); renderProjects(); initCarousel(); initReveal(); initCounters(); initTyper(); initChrome();
+  document.body.classList.add('loaded');
   const y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();
+  // Popups: project cards, [data-project] buttons, contact buttons, copy buttons
+  document.addEventListener('click',e=>{
+    const pj=e.target.closest('.pj[data-idx]'); if(pj){openModal(projectModal(PROJECTS[+pj.dataset.idx]));return;}
+    const dp=e.target.closest('[data-project]'); if(dp){e.preventDefault();const p=PROJECTS.find(x=>x.title===dp.dataset.project);if(p)openModal(projectModal(p));return;}
+    const ct=e.target.closest('[data-contact]'); if(ct){e.preventDefault();openModal(contactModal());return;}
+    const cp=e.target.closest('[data-copy]'); if(cp){navigator.clipboard?.writeText(cp.dataset.copy).then(()=>toast('Email copied ✓'),()=>toast(cp.dataset.copy));}
+  });
+  document.addEventListener('keydown',e=>{const pj=e.target.closest&&e.target.closest('.pj[data-idx]');if(pj&&(e.key==='Enter'||e.key===' ')){e.preventDefault();pj.click();}});
 });
