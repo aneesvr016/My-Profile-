@@ -4,706 +4,123 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Projects — Muhammad Anees</title>
-<meta name="description" content="Portfolio of VR, MR, AR, WebXR and mobile projects by Muhammad Anees — live on Meta Quest, App Store, Google Play, itch.io and in development for HoloLens."/>
-<style>
-/* ============================================================
-   MUHAMMAD ANEES — PORTFOLIO
-   Design tokens: warm paper light theme, aperture/portal motif
-============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
-
-:root{
-  /* backgrounds */
-  --paper:#faf7f1;
-  --paper-alt:#f2ece0;
-  --surface:#ffffff;
-  --surface-line:#efe9dd;
-
-  /* ink */
-  --ink:#1c1a16;
-  --ink-soft:#5c574d;
-  --ink-faint:#948d80;
-
-  /* accents */
-  --indigo:#4740d4;
-  --indigo-deep:#332c9e;
-  --indigo-soft:#edecfb;
-  --teal:#0d8c7c;
-  --teal-soft:#e4f4f0;
-  --amber:#b6791f;
-  --amber-soft:#faf0dd;
-  --rose:#b23a52;
-  --rose-soft:#f9e9ec;
-
-  --border:rgba(28,26,22,0.12);
-  --border-soft:rgba(28,26,22,0.07);
-  --radius:16px;
-  --radius-sm:10px;
-  --shadow:0 10px 34px rgba(60,50,20,0.08);
-  --shadow-lg:0 24px 60px rgba(50,40,20,0.12);
-}
-
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{
-  font-family:'Inter',sans-serif;
-  background:var(--paper);
-  color:var(--ink);
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-}
-a{color:inherit;}
-img{display:block;max-width:100%;}
-ul{list-style:none;}
-
-/* texture: faint paper grain */
-body::before{
-  content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-}
-/* mesh: soft color wash so the theme reads immediately, even in light mode */
-body::after{
-  content:'';position:fixed;inset:0;z-index:-3;pointer-events:none;
-  background:
-    radial-gradient(ellipse 60% 45% at 85% -8%, rgba(71,64,212,0.10) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at -5% 18%, rgba(13,140,124,0.09) 0%, transparent 55%),
-    radial-gradient(ellipse 45% 35% at 60% 95%, rgba(182,121,31,0.08) 0%, transparent 55%),
-    var(--paper);
-}
-
-.wrap{max-width:1180px;margin:0 auto;padding:0 2.4rem;}
-
-/* ============ NAV ============ */
-header.site-nav{
-  position:sticky;top:0;z-index:500;
-  background:rgba(250,247,241,0.86);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--border-soft);
-}
-.nav-inner{
-  max-width:1180px;margin:0 auto;padding:0 2.4rem;
-  height:76px;display:flex;align-items:center;justify-content:space-between;
-}
-.brand{display:flex;align-items:center;gap:0.8rem;text-decoration:none;}
-.brand-mark{
-  width:42px;height:42px;border-radius:50%;
-  background:conic-gradient(from 200deg, var(--indigo), var(--teal), var(--amber), var(--indigo));
-  display:flex;align-items:center;justify-content:center;position:relative;
-}
-.brand-mark::after{
-  content:'';position:absolute;inset:3px;border-radius:50%;background:var(--paper);
-}
-.brand-mark span{
-  position:relative;z-index:1;font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--ink);
-}
-.brand-text{display:flex;flex-direction:column;line-height:1.15;}
-.brand-text b{font-family:'Fraunces',serif;font-weight:700;font-size:1.02rem;letter-spacing:-0.01em;}
-.brand-text small{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint);}
-
-.nav-links{display:flex;align-items:center;gap:0.3rem;}
-.nav-links a{
-  text-decoration:none;color:var(--ink-soft);font-size:0.86rem;font-weight:500;
-  padding:0.5rem 1rem;border-radius:100px;transition:all .2s;
-}
-.nav-links a:hover{color:var(--ink);background:var(--surface-line);}
-.nav-links a.active{color:var(--surface);background:var(--ink);}
-.nav-cta{
-  margin-left:0.6rem;text-decoration:none;
-  background:var(--indigo);color:#fff;font-size:0.84rem;font-weight:600;
-  padding:0.55rem 1.25rem;border-radius:100px;
-  box-shadow:0 6px 18px rgba(71,64,212,0.28);
-  transition:all .2s;
-}
-.nav-cta:hover{background:var(--indigo-deep);transform:translateY(-1px);}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;}
-.hamburger span{width:22px;height:2px;background:var(--ink);border-radius:2px;}
-.mobile-nav{display:none;flex-direction:column;background:var(--surface);border-bottom:1px solid var(--border);padding:0.5rem 2rem 1.2rem;}
-.mobile-nav.open{display:flex;}
-.mobile-nav a{padding:0.75rem 0;border-bottom:1px solid var(--border-soft);text-decoration:none;color:var(--ink-soft);font-size:0.95rem;}
-.mobile-nav a.active{color:var(--indigo);font-weight:600;}
-
-/* ============ SECTION SCAFFOLDING ============ */
-section{padding:5.5rem 0;position:relative;}
-section.alt{background:var(--paper-alt);}
-.eyebrow{
-  font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;
-  color:var(--indigo);margin-bottom:0.9rem;display:flex;align-items:center;gap:0.6rem;
-}
-.eyebrow::before{content:'';width:22px;height:1px;background:var(--indigo);display:inline-block;}
-.eyebrow::after{content:'';width:5px;height:5px;border-radius:50%;background:var(--teal);display:inline-block;}
-
-/* page-top aperture mark used on inner pages for visual consistency w/ home hero */
-.page-mark{
-  width:52px;height:52px;border-radius:50%;margin-bottom:1.4rem;
-  background:conic-gradient(from 210deg,var(--indigo),var(--teal),var(--amber),var(--rose),var(--indigo));
-  padding:4px;
-}
-.page-mark .in{width:100%;height:100%;border-radius:50%;background:var(--paper);}
-h1,h2,h3,h4{font-family:'Fraunces',serif;letter-spacing:-0.02em;color:var(--ink);}
-.sec-title{font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:700;margin-bottom:1rem;max-width:760px;}
-.sec-title em{font-style:italic;font-weight:500;color:var(--indigo);}
-.sec-lede{color:var(--ink-soft);max-width:640px;font-size:1.02rem;font-weight:400;margin-bottom:3rem;}
-
-/* aperture divider — signature motif */
-.aperture-rule{
-  width:64px;height:64px;margin-bottom:2rem;position:relative;
-}
-.aperture-rule svg{width:100%;height:100%;}
-
-/* ============ BUTTONS ============ */
-.btn{
-  display:inline-flex;align-items:center;gap:0.5rem;
-  padding:0.85rem 1.7rem;border-radius:100px;
-  font-weight:600;font-size:0.9rem;text-decoration:none;
-  transition:all .22s;border:1px solid transparent;cursor:pointer;
-}
-.btn-solid{background:var(--ink);color:var(--paper);}
-.btn-solid:hover{background:var(--indigo);transform:translateY(-2px);box-shadow:0 10px 26px rgba(71,64,212,0.25);}
-.btn-outline{border-color:var(--border);color:var(--ink);background:transparent;}
-.btn-outline:hover{border-color:var(--ink);background:var(--surface);}
-.btn-teal{background:var(--teal);color:#fff;}
-.btn-teal:hover{background:#0a7367;transform:translateY(-2px);}
-
-/* ============ HERO (home) ============ */
-.hero{padding:4.5rem 0 5rem;}
-.hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:3.5rem;align-items:center;}
-.hero-kicker{
-  display:inline-flex;align-items:center;gap:0.5rem;
-  background:var(--indigo-soft);color:var(--indigo-deep);
-  border-radius:100px;padding:0.4rem 1rem 0.4rem 0.7rem;font-size:0.76rem;font-weight:600;
-  margin-bottom:1.6rem;letter-spacing:0.02em;
-}
-.hero-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);}
-h1.hero-h1{font-size:clamp(2.6rem,5.4vw,4.2rem);font-weight:700;line-height:1.02;margin-bottom:1.4rem;}
-h1.hero-h1 .accent{font-style:italic;font-weight:500;
-  background:linear-gradient(100deg,var(--indigo),var(--teal));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.hero-role-row{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.7rem;}
-.chip{font-size:0.8rem;font-weight:600;padding:0.4rem 0.95rem;border-radius:100px;border:1px solid transparent;}
-.chip-indigo{background:var(--indigo-soft);color:var(--indigo-deep);}
-.chip-teal{background:var(--teal-soft);color:#0a6b5f;}
-.chip-amber{background:var(--amber-soft);color:#8a5a10;}
-.hero-bio{color:var(--ink-soft);font-size:1.04rem;max-width:560px;margin-bottom:2.2rem;}
-.hero-bio strong{color:var(--ink);font-weight:600;}
-.hero-cta-row{display:flex;gap:0.9rem;flex-wrap:wrap;margin-bottom:2.2rem;}
-.hero-store-row{display:flex;gap:0.6rem;flex-wrap:wrap;}
-.store-badge{
-  display:flex;align-items:center;gap:0.4rem;
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:100px;padding:0.4rem 0.9rem;font-size:0.76rem;font-weight:600;color:var(--ink-soft);
-  text-decoration:none;transition:all .2s;
-}
-.store-badge:hover{border-color:var(--indigo);color:var(--indigo);}
-
-/* portrait card w/ aperture ring */
-.portrait-card{position:relative;display:flex;flex-direction:column;align-items:center;}
-.orbit-deco{position:absolute;top:50%;left:50%;width:440px;height:440px;transform:translate(-50%,-56%);z-index:0;pointer-events:none;opacity:0.9;}
-.orbit-deco circle.ring{fill:none;stroke-width:1;}
-.orbit-deco .r1{stroke:rgba(71,64,212,0.28);stroke-dasharray:2 6;animation:spin 40s linear infinite;transform-origin:center;}
-.orbit-deco .r2{stroke:rgba(13,140,124,0.24);stroke-dasharray:1 5;animation:spin 55s linear infinite reverse;transform-origin:center;}
-.orbit-deco .node{animation:pulse 2.4s ease-in-out infinite;}
-@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-.portrait-ring{position:relative;z-index:1;}
-.portrait-ring{
-  position:relative;width:min(320px,86%);aspect-ratio:1/1;border-radius:50%;
-  padding:10px;
-  background:conic-gradient(from 210deg, var(--indigo), var(--teal), var(--amber), var(--rose), var(--indigo));
-}
-.portrait-ring .inner{
-  width:100%;height:100%;border-radius:50%;overflow:hidden;background:var(--surface);
-  border:6px solid var(--paper);
-}
-.portrait-ring .inner img{width:100%;height:100%;object-fit:cover;}
-.portrait-caption{margin-top:1.3rem;text-align:center;}
-.portrait-caption b{display:block;font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;}
-.portrait-caption span{font-family:'IBM Plex Mono',monospace;font-size:0.74rem;color:var(--ink-faint);letter-spacing:0.05em;}
-.avail-pill{
-  margin-top:1rem;display:flex;align-items:center;gap:0.5rem;
-  background:var(--teal-soft);color:#0a6b5f;border-radius:100px;
-  padding:0.45rem 1rem;font-size:0.76rem;font-weight:600;
-}
-.avail-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 1.6s infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
-
-/* ============ STAT STRIP ============ */
-.stat-strip{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  border:1px solid var(--border);border-radius:var(--radius);
-  background:var(--surface);overflow:hidden;box-shadow:var(--shadow);
-}
-.stat-cell{padding:1.6rem 1rem;text-align:center;border-right:1px solid var(--border-soft);}
-.stat-cell:last-child{border-right:none;}
-.stat-num{font-family:'Fraunces',serif;font-weight:700;font-size:2.1rem;line-height:1;margin-bottom:0.4rem;}
-.stat-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.66rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-faint);}
-
-/* ============ CARDS ============ */
-.grid-3{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.3rem;}
-.grid-2{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:1.3rem;}
-.card{
-  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-  padding:1.8rem 1.7rem 1.7rem;transition:all .28s;position:relative;overflow:hidden;
-}
-.card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--indigo),var(--teal),var(--amber));
-  transform:scaleX(0);transform-origin:left;transition:transform .35s ease;
-}
-.card:hover::before{transform:scaleX(1);}
-.card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:transparent;}
-.c-ico{
-  width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;
-  font-size:1.3rem;margin-bottom:1.1rem;position:relative;
-}
-.c-ico::after{content:'';position:absolute;inset:0;border-radius:13px;border:1px solid currentColor;opacity:0.18;}
-.c-ico.i{background:var(--indigo-soft);color:var(--indigo);}
-.c-ico.t{background:var(--teal-soft);color:var(--teal);}
-.c-ico.a{background:var(--amber-soft);color:var(--amber);}
-.c-ico.r{background:var(--rose-soft);color:var(--rose);}
-.card h3{font-size:1.02rem;font-weight:700;margin-bottom:0.5rem;}
-.card p{color:var(--ink-soft);font-size:0.88rem;font-weight:400;}
-.tag-row{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:1rem;}
-.tag{font-family:'IBM Plex Mono',monospace;font-size:0.64rem;padding:0.25rem 0.6rem;border-radius:5px;letter-spacing:0.02em;}
-.tag-i{background:var(--indigo-soft);color:var(--indigo-deep);}
-.tag-t{background:var(--teal-soft);color:#0a6b5f;}
-.tag-a{background:var(--amber-soft);color:#8a5a10;}
-.tag-r{background:var(--rose-soft);color:#8f2d40;}
-
-/* ============ TABS ============ */
-.tab-row{display:inline-flex;gap:0.35rem;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:0.35rem;margin-bottom:2.6rem;flex-wrap:wrap;}
-.tab-btn{
-  border:none;background:transparent;padding:0.65rem 1.3rem;border-radius:100px;
-  font-family:'Inter',sans-serif;font-weight:600;font-size:0.85rem;color:var(--ink-soft);cursor:pointer;transition:all .22s;
-}
-.tab-btn.on{background:var(--ink);color:var(--paper);}
-.tab-panel{display:none;}
-.tab-panel.on{display:block;animation:fade .35s ease;}
-@keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-
-/* ============ SKILL BARS ============ */
-.sk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.6rem;}
-.sk-card h4{font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1.3rem;font-family:'IBM Plex Mono',monospace;font-weight:600;}
-.sk{margin-bottom:1.05rem;}
-.sk-row{display:flex;justify-content:space-between;margin-bottom:0.35rem;font-size:0.84rem;}
-.sk-n{font-weight:500;color:var(--ink);}
-.sk-p{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--ink-faint);}
-.sk-bar{height:6px;background:var(--paper-alt);border-radius:4px;overflow:hidden;}
-.sk-fill{height:100%;border-radius:4px;}
-.fi{background:linear-gradient(90deg,var(--indigo),#7a72e8);}
-.ft{background:linear-gradient(90deg,var(--teal),#4fc2b3);}
-.fa{background:linear-gradient(90deg,var(--amber),#e0a13d);}
-
-/* ============ TIMELINE ============ */
-.tl{position:relative;padding-left:2.4rem;}
-.tl::before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:1.5px;background:linear-gradient(180deg,var(--indigo),var(--teal),var(--amber));}
-.tl-item{position:relative;margin-bottom:2.6rem;}
-.tl-item:last-child{margin-bottom:0;}
-.tl-dot{position:absolute;left:-2.15rem;top:0.3rem;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2.5px solid var(--indigo);}
-.tl-dot.t{border-color:var(--teal);}
-.tl-dot.a{border-color:var(--amber);}
-.tl-when{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.06em;color:var(--ink-faint);margin-bottom:0.4rem;text-transform:uppercase;}
-.tl-role{font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;margin-bottom:0.1rem;}
-.tl-co{font-size:0.86rem;font-weight:600;margin-bottom:0.55rem;}
-.tl-co.i{color:var(--indigo);}
-.tl-co.t{color:#0a6b5f;}
-.tl-co.a{color:#8a5a10;}
-.tl-body{color:var(--ink-soft);font-size:0.88rem;max-width:640px;}
-
-/* ============ PROJECTS ============ */
-.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.4rem;}
-.pj{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .28s;display:flex;flex-direction:column;}
-.pj:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
-.pj-top{height:118px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;border-bottom:1px solid var(--border-soft);overflow:hidden;}
-.pj-top::before{
-  content:'';position:absolute;inset:0;
-  background-image:radial-gradient(circle,rgba(28,26,22,0.06) 1px, transparent 1px);
-  background-size:14px 14px;
-}
-.pj-top *{position:relative;z-index:1;}
-.pj-plat{position:absolute;top:0.7rem;right:0.7rem;font-family:'IBM Plex Mono',monospace;font-size:0.6rem;background:rgba(255,255,255,0.75);padding:0.2rem 0.55rem;border-radius:100px;letter-spacing:0.04em;text-transform:uppercase;font-weight:600;color:var(--ink-soft);}
-.pj-body{padding:1.4rem;flex:1;display:flex;flex-direction:column;}
-.pj-body h3{font-size:1rem;font-weight:700;margin-bottom:0.4rem;}
-.pj-body p{color:var(--ink-soft);font-size:0.85rem;flex:1;}
-.pj-link{display:inline-flex;align-items:center;gap:0.4rem;margin-top:1.1rem;font-size:0.78rem;font-weight:700;text-decoration:none;letter-spacing:0.03em;color:var(--indigo);transition:gap .2s;}
-.pj-link::after{content:'→';}
-.pj-link:hover{gap:0.65rem;}
-.pj-note{font-size:0.78rem;color:var(--ink-faint);margin-top:1.1rem;font-style:italic;}
-
-/* ============ ACHIEVEMENTS ============ */
-.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
-.ach{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.05rem 1.3rem;display:flex;align-items:center;gap:1rem;transition:all .22s;}
-.ach:hover{border-color:var(--amber);transform:translateX(4px);}
-.ach-ico{font-size:1.5rem;flex-shrink:0;}
-.ach-txt strong{display:block;font-size:0.9rem;font-family:'Fraunces',serif;font-weight:700;}
-.ach-txt span{font-size:0.76rem;color:var(--ink-faint);}
-
-/* ============ CONTACT / INFO BOXES ============ */
-.info-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem;}
-.info-box h4{font-family:'IBM Plex Mono',monospace;font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:0.9rem;}
-.info-r{display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;border-bottom:1px solid var(--border-soft);font-size:0.85rem;gap:1rem;}
-.info-r:last-child{border:none;}
-.info-r span:first-child{color:var(--ink-faint);}
-.info-r span:last-child{font-family:'IBM Plex Mono',monospace;font-size:0.74rem;color:var(--indigo-deep);text-align:right;}
-.con-link{display:flex;align-items:center;gap:0.8rem;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.9rem 1.15rem;font-size:0.87rem;font-weight:500;transition:all .22s;}
-.con-link:hover{border-color:var(--indigo);color:var(--indigo);background:var(--indigo-soft);}
-
-/* ============ CTA BAND ============ */
-.cta-band{
-  border-radius:24px;padding:3.2rem 2.8rem;
-  background:linear-gradient(120deg,var(--ink) 0%,#2a2660 100%);
-  color:var(--paper);display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;
-}
-.cta-band h3{color:#fff;font-size:1.7rem;margin-bottom:0.5rem;}
-.cta-band p{color:rgba(255,255,255,0.72);max-width:440px;font-size:0.95rem;}
-.cta-band .btn-solid{background:#fff;color:var(--ink);}
-.cta-band .btn-solid:hover{background:var(--teal-soft);}
-
-/* ============ FOOTER ============ */
-footer{border-top:1px solid var(--border);padding:2.2rem 0;}
-.foot-inner{max-width:1180px;margin:0 auto;padding:0 2.4rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
-footer p{color:var(--ink-faint);font-size:0.8rem;}
-.foot-links{display:flex;gap:1.3rem;}
-.foot-links a{color:var(--ink-faint);text-decoration:none;font-size:0.8rem;transition:color .2s;}
-.foot-links a:hover{color:var(--indigo);}
-
-/* ============ RESPONSIVE ============ */
-@media(max-width:900px){
-  .nav-links,.nav-cta{display:none;}
-  .hamburger{display:flex;}
-  .hero-grid{grid-template-columns:1fr;}
-  .portrait-card{order:-1;}
-  .stat-strip{grid-template-columns:1fr 1fr;}
-  .stat-cell:nth-child(2n){border-right:none;}
-  .stat-cell{border-bottom:1px solid var(--border-soft);}
-  .con-grid{grid-template-columns:1fr!important;}
-  .cta-band{flex-direction:column;text-align:center;}
-}
-@media(max-width:600px){
-  .wrap,.nav-inner,.foot-inner{padding:0 1.3rem;}
-  section{padding:3.6rem 0;}
-  .grid-3,.grid-2,.proj-grid,.ach-grid{grid-template-columns:1fr;}
-}
-
-</style>
+<meta name="description" content="VR, MR, WebXR, multiplayer and mobile projects by Muhammad Anees, including AI + XR work with Convai agents and a VR project featured on 7NEWS Australia."/>
+<meta name="author" content="Muhammad Anees"/>
+<meta property="og:title" content="Projects — Muhammad Anees"/>
+<meta property="og:description" content="VR, MR, WebXR, multiplayer and mobile projects by Muhammad Anees, including AI + XR work with Convai agents and a VR project featured on 7NEWS Australia."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://aneesvr016.github.io/My-Profile-/projects.html"/>
+<meta property="og:image" content="https://aneesvr016.github.io/My-Profile-/assets/profile.png"/>
+<link rel="icon" href="assets/profile.png"/>
+<link rel="stylesheet" href="assets/style.css"/>
 </head>
 <body>
-
 <header class="site-nav">
   <div class="nav-inner">
-    <a href="index.html" class="brand">
+    <a href="index.html" class="brand" aria-label="Muhammad Anees, home">
       <div class="brand-mark"><span>MA</span></div>
-      <div class="brand-text"><b>Muhammad Anees</b><small>XR Developer · Data Scientist</small></div>
+      <div class="brand-text"><b>Muhammad Anees</b><small>XR Developer · AI Researcher</small></div>
     </a>
-    <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="projects.html" class="active">Projects</a>
-      <a href="skills.html">Skills</a>
-    </nav>
-    <a href="mailto:animalik272@gmail.com" class="nav-cta">Hire Me ↗</a>
-    <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    <nav class="nav-links" aria-label="Main"><a href="index.html">Home</a><a href="projects.html" class="active" aria-current="page">Projects</a><a href="research.html">Research</a><a href="about.html">About</a><a href="skills.html">Skills</a></nav>
+    <a href="assets/Muhammad_Anees_CV.pdf" class="nav-cta" download>Download CV ↓</a>
+    <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav"><span></span><span></span><span></span></button>
   </div>
-  <div class="mobile-nav" id="mobileNav">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="projects.html" class="active">Projects</a>
-    <a href="skills.html">Skills</a>
-  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile"><a href="index.html">Home</a><a href="projects.html" class="active" aria-current="page">Projects</a><a href="research.html">Research</a><a href="about.html">About</a><a href="skills.html">Skills</a><a href="assets/Muhammad_Anees_CV.pdf" download>Download CV ↓</a></nav>
 </header>
-
-<section style="padding-bottom:2rem;">
+<main>
+<section class="page-head">
   <div class="wrap">
-    <div class="page-mark"><div class="in"></div></div>
     <div class="eyebrow">Portfolio</div>
-    <h1 class="sec-title">VR, MR, AR &amp; WebXR Projects, <em>live across multiple platforms</em></h1>
-    <p class="sec-lede">A selection of published and in-progress work spanning VR, Mixed Reality, AR, multiplayer, WebXR and mobile — plus the healthcare ML research from my MS thesis.</p>
-
-    <div class="tab-row" id="tabRow">
-      <button class="tab-btn on" data-cat="all">All</button>
-      <button class="tab-btn" data-cat="vrmr">VR &amp; MR</button>
-      <button class="tab-btn" data-cat="webxr">AR &amp; WebXR/VR</button>
-      <button class="tab-btn" data-cat="mobile">Mobile Apps</button>
-      <button class="tab-btn" data-cat="data">Data Science</button>
-      <button class="tab-btn" data-cat="holo">HoloLens</button>
-    </div>
-
-    <div class="proj-grid" id="projGrid">
-
-      <div class="pj" data-cat="vrmr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--indigo-soft),var(--teal-soft));">🥽<span class="pj-plat">Meta Quest</span></div>
-        <div class="pj-body">
-          <h3>Violet Flame VR Experience</h3>
-          <p>Immersive VR experience published live on Meta Quest — full cycle from concept through Unity development, optimization and store deployment.</p>
-          <div class="tag-row"><span class="tag tag-i">VR</span><span class="tag tag-i">Unity</span><span class="tag tag-i">Meta Quest</span></div>
-          <a href="https://www.meta.com/experiences/6738439822877580" target="_blank" class="pj-link">View on Meta Quest</a>
-        </div>
+    <h1 class="sec-title">Shipped XR work across <em>headsets, browsers and phones</em></h1>
+    <p class="sec-lede">VR, Mixed Reality, multiplayer, WebXR and mobile titles I built and published, plus my machine-learning research. I was the lead developer on the featured AI + XR projects.</p>
+  </div>
+</section>
+<section class="tight" style="padding-top:0;">
+  <div class="wrap">
+    <a class="video-band" href="https://drive.google.com/drive/folders/14fCjlWRmGfCeL58mP4B6tp8ceVHRvntV" target="_blank" rel="noopener" style="text-decoration:none;">
+      <div class="play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M7 4.5v15l12-7.5z"/></svg></div>
+      <div><h3>Video portfolio</h3><p>Gameplay recordings and walkthroughs of my VR, MR and WebXR projects, collected in one folder.</p></div>
+      <span class="btn btn-light">Watch videos →</span>
+    </a>
+    <div class="filter-row" id="filterRow" role="group" aria-label="Filter projects"></div>
+    <div class="proj-grid" id="projGrid"></div>
+  </div>
+</section>
+<section class="alt">
+  <div class="wrap">
+    <div class="eyebrow">Spotlight</div>
+    <h2 class="sec-title">The AI + XR projects in <em>detail</em></h2>
+    
+    <article class="feature">
+      <div class="feature-art art-medvr"><span data-icon="spark"></span><span class="plat">Meta Quest · VR + AI</span></div>
+      <div class="feature-body">
+        <h3>MEDVR AI — Medical Training Lab</h3>
+        <div class="feature-meta">Lead developer · Unity · Convai · Live on Meta Quest</div>
+        <p>A VR medical training room where a conversational AI agent guides the trainee by voice, explaining the environment, the equipment and the training workflow.</p>
+        <ul class="feature-points">
+          <li>Integrated a Convai conversational agent that talks with the player in real time</li>
+          <li>Physics-based interaction with medical instruments, surgical bed, surgical light and in-world UI</li>
+        </ul>
+        <div class="why"><b>Research angle:</b> conversational agents as adaptive tutors in immersive clinical training.</div>
+        <div class="feature-foot"><a class="link" href="https://www.meta.com/experiences/medvr-ai-medical-training-lab/1381644995025840/" target="_blank" rel="noopener">View on Meta Quest</a></div>
       </div>
-
-      <div class="pj" data-cat="vrmr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--indigo-soft),var(--amber-soft));">🕹️<span class="pj-plat">Meta Quest</span></div>
-        <div class="pj-body">
-          <h3>Nexus Arcade</h3>
-          <p>Multi-game VR arcade experience on Meta Quest, actively maintained with regular updates and an expanding content library.</p>
-          <div class="tag-row"><span class="tag tag-i">VR Arcade</span><span class="tag tag-i">Unity</span><span class="tag tag-i">Meta Quest</span></div>
-          <a href="https://www.meta.com/en-gb/experiences/nexus-arcade/6962116033836064/" target="_blank" class="pj-link">View on Meta Quest</a>
-        </div>
+    </article>
+    <article class="feature">
+      <div class="feature-art art-arch"><span data-icon="spark"></span><span class="plat">WebXR · Multiplayer + AI</span></div>
+      <div class="feature-body">
+        <h3>Archimedes — Multiplayer Science Lab</h3>
+        <div class="feature-meta">Lead developer · WebXR · Multiplayer · Convai</div>
+        <p>A browser-based multiplayer learning world where an AI-driven Archimedes character talks with players and leads them through hands-on physics experiments.</p>
+        <ul class="feature-points">
+          <li>Shared multiplayer sessions where players run several experiments together</li>
+          <li>Archimedes’ Screw: the AI character assembles it first, then players assemble the parts and turn the handle to lift water</li>
+        </ul>
+        <div class="why"><b>Research angle:</b> AI characters and collaborative play for learning in shared virtual spaces.</div>
+        <div class="feature-foot"><a class="link" href="https://saltysharks.itch.io/archimedes" target="_blank" rel="noopener">Play on itch.io</a></div>
       </div>
-
-      <div class="pj" data-cat="vrmr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--teal-soft),var(--indigo-soft));">🧘<span class="pj-plat">Meta Quest</span></div>
-        <div class="pj-body">
-          <h3>Mindful Moments MR</h3>
-          <p>Mixed Reality wellness application blending real-world and virtual environments for immersive mindfulness sessions.</p>
-          <div class="tag-row"><span class="tag tag-i">Mixed Reality</span><span class="tag tag-t">Wellness</span><span class="tag tag-i">Meta Quest</span></div>
-          <a href="https://www.meta.com/experiences/mindful-moments/24210209858630331/" target="_blank" class="pj-link">View on Meta Quest</a>
-        </div>
+    </article>
+    <article class="feature">
+      <div class="feature-art art-bbb"><span data-icon="trophy"></span><span class="plat">VR · Sports Science</span></div>
+      <div class="feature-body">
+        <h3>Brains Boots &amp; Beyond VR</h3>
+        <div class="feature-meta">Lead developer · Unity · Featured on national TV</div>
+        <p>Decision-training VR for athletes: players step onto a game-realistic virtual field, read the play, decide under pressure and see the outcome. Built for Australia’s National Science Week through a partnership of Concinnity, the University of Southern Queensland (UniSQ) and the Western Clydesdales.</p>
+        <ul class="feature-points">
+          <li>Immersive field environment, avatar systems and decision-logic scenarios, deployed on headsets</li>
+          <li>Training the mental side of sport that physical drills cannot reach</li>
+        </ul>
+        <div class="why"><b>Research angle:</b> measuring decision-making and cognitive load under pressure in VR.</div>
+        <div class="feature-foot"><span class="press">Featured on 7NEWS Australia</span><a class="link" href="https://www.youtube.com/watch?v=gzjs31G0H6Q" target="_blank" rel="noopener">Watch the news feature</a><a class="link" href="https://saltysharks.itch.io/football-mindset-experience" target="_blank" rel="noopener">Try the WebXR version</a></div>
       </div>
-
-      <div class="pj" data-cat="vrmr webxr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--amber-soft),var(--indigo-soft));">🏺<span class="pj-plat">Meta Quest</span></div>
-        <div class="pj-body">
-          <h3>Pharaoh's Vault Escape Room</h3>
-          <p>Ancient-Egypt-themed VR puzzle escape room built for Meta Quest — environment design, puzzle logic and full Unity interaction system.</p>
-          <div class="tag-row"><span class="tag tag-i">VR</span><span class="tag tag-a">Puzzle Design</span><span class="tag tag-i">Meta Quest</span></div>
-          <a href="https://www.meta.com/experiences/pharaohs-vault-escape-room/1129026526966891/" target="_blank" class="pj-link">View on Meta Quest</a>
-        </div>
+    </article>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="cta-band">
+      <div>
+        <h3>Building an XR product, or a research group working on AI + XR?</h3>
+        <p>Open to XR / Unity developer roles and to fully funded PhD positions in AI, Data Science and Extended Reality.</p>
       </div>
-
-      <div class="pj" data-cat="webxr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--teal-soft),var(--amber-soft));">🌐<span class="pj-plat">WebXR</span></div>
-        <div class="pj-body">
-          <h3>Pharaoh's Vault — WebXR Build</h3>
-          <p>Browser-playable WebXR version of the escape room, published on itch.io — no headset or install required, runs straight from the browser.</p>
-          <div class="tag-row"><span class="tag tag-t">WebXR</span><span class="tag tag-t">Browser-Based</span><span class="tag tag-i">Unity</span></div>
-          <a href="https://saltysharks.itch.io/pharaohs-vault-escape-room" target="_blank" class="pj-link">Play on itch.io</a>
-        </div>
+      <div class="cta-actions">
+        <a href="mailto:animalik272@gmail.com" class="btn btn-light">Email me</a>
+        <a href="assets/Muhammad_Anees_CV.pdf" class="btn btn-ghost-light" download>Download CV</a>
       </div>
-
-      <div class="pj" data-cat="mobile">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--amber-soft),var(--teal-soft));">🍎<span class="pj-plat">App Store</span></div>
-        <div class="pj-body">
-          <h3>Logic Escape</h3>
-          <p>Puzzle escape-room game live on the Apple App Store, available globally on iOS — puzzle design, Unity build and App Store publishing handled end-to-end.</p>
-          <div class="tag-row"><span class="tag tag-a">iOS</span><span class="tag tag-a">Puzzle Game</span></div>
-          <a href="https://apps.apple.com/pk/app/logic-escape/id6761766461" target="_blank" class="pj-link">View on App Store</a>
-        </div>
-      </div>
-
-      <div class="pj" data-cat="mobile">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--indigo-soft),var(--teal-soft));">🧭<span class="pj-plat">App Store</span></div>
-        <div class="pj-body">
-          <h3>MyCre Adventures</h3>
-          <p>Adventure mobile app published on the Apple App Store — contributed to interactive features and gameplay systems.</p>
-          <div class="tag-row"><span class="tag tag-a">iOS</span><span class="tag tag-i">Adventure</span></div>
-          <a href="https://apps.apple.com/us/app/mycre-adventures/id6717614238" target="_blank" class="pj-link">View on App Store</a>
-        </div>
-      </div>
-
-      <div class="pj" data-cat="mobile">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--teal-soft),var(--indigo-soft));">🛒<span class="pj-plat">Play Store</span></div>
-        <div class="pj-body">
-          <h3>Cart Carriage</h3>
-          <p>Android mobile game published on Google Play by Koncept Solution — complete storyline, Unity animations and optimized performance.</p>
-          <div class="tag-row"><span class="tag tag-t">Android</span><span class="tag tag-i">Unity</span></div>
-          <a href="https://play.google.com/store/apps/details?id=com.KonceptSol.cartcarriage" target="_blank" class="pj-link">View on Play Store</a>
-        </div>
-      </div>
-
-
-      <div class="pj" data-cat="vrmr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--teal-soft),var(--indigo-soft));">🧠<span class="pj-plat">Meta Quest</span></div>
-        <div class="pj-body">
-          <h3>MEDVR AI — Medical Training Lab</h3>
-          <p>Immersive medical training experience combining VR with an AI-powered agent to explain the medical environment, equipment and training workflow.</p>
-          <div class="tag-row"><span class="tag tag-i">VR</span><span class="tag tag-t">AI</span><span class="tag tag-i">Meta Quest</span></div>
-          <a href="https://www.meta.com/experiences/medvr-ai-medical-training-lab/1381644995025840/?require_login=true" target="_blank" rel="noopener noreferrer" class="pj-link">View on Meta Quest</a>
-        </div>
-      </div>
-
-      <div class="pj" data-cat="webxr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--indigo-soft),var(--teal-soft));">🦈<span class="pj-plat">WebXR</span></div>
-        <div class="pj-body">
-          <h3>Great White Dive Adventure</h3>
-          <p>Immersive WebXR underwater experience designed around a great white shark dive adventure.</p>
-          <div class="tag-row"><span class="tag tag-t">WebXR</span><span class="tag tag-i">VR</span><span class="tag tag-t">Education</span></div>
-          <a href="https://worlds.saltysharks.io/great-white-dive-adventure/" target="_blank" rel="noopener noreferrer" class="pj-link">Launch Experience</a>
-        </div>
-      </div>
-
-      <div class="pj" data-cat="webxr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--teal-soft),var(--indigo-soft));">🐋<span class="pj-plat">WebXR</span></div>
-        <div class="pj-body">
-          <h3>Manta Ray Shoals</h3>
-          <p>Immersive WebXR marine experience exploring manta rays and their underwater environment.</p>
-          <div class="tag-row"><span class="tag tag-t">WebXR</span><span class="tag tag-t">Marine</span><span class="tag tag-i">Interactive</span></div>
-          <a href="https://worlds.saltysharks.io/manta-ray-shoals/" target="_blank" rel="noopener noreferrer" class="pj-link">Launch Experience</a>
-        </div>
-      </div>
-
-      <div class="pj" data-cat="webxr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--amber-soft),var(--teal-soft));">🦆<span class="pj-plat">WebXR</span></div>
-        <div class="pj-body">
-          <h3>Platypus Virtual World</h3>
-          <p>Interactive WebXR virtual-world experience centered around the platypus and its environment.</p>
-          <div class="tag-row"><span class="tag tag-t">WebXR</span><span class="tag tag-a">Virtual World</span><span class="tag tag-t">Education</span></div>
-          <a href="https://worlds.saltysharks.io/platypus-virtual-world/" target="_blank" rel="noopener noreferrer" class="pj-link">Launch Experience</a>
-        </div>
-      </div>
-
-      <div class="pj" data-cat="webxr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--amber-soft),var(--indigo-soft));">🏺<span class="pj-plat">WebXR</span></div>
-        <div class="pj-body">
-          <h3>Pyramids of Giza</h3>
-          <p>Immersive WebXR exploration experience bringing the Pyramids of Giza into an interactive virtual environment.</p>
-          <div class="tag-row"><span class="tag tag-t">WebXR</span><span class="tag tag-a">History</span><span class="tag tag-i">3D Experience</span></div>
-          <a href="https://worlds.saltysharks.io/pyramids-of-giza/" target="_blank" rel="noopener noreferrer" class="pj-link">Launch Experience</a>
-        </div>
-      </div>
-
-      <div class="pj" data-cat="webxr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--teal-soft),var(--amber-soft));">🫁<span class="pj-plat">WebXR</span></div>
-        <div class="pj-body">
-          <h3>Respiratory System</h3>
-          <p>Interactive WebXR educational experience focused on exploring the human respiratory system in 3D.</p>
-          <div class="tag-row"><span class="tag tag-t">WebXR</span><span class="tag tag-t">Medical</span><span class="tag tag-i">3D Learning</span></div>
-          <a href="https://worlds.saltysharks.io/respiratory-system/" target="_blank" rel="noopener noreferrer" class="pj-link">Launch Experience</a>
-        </div>
-      </div>
-
-      <div class="pj" data-cat="webxr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--amber-soft),var(--teal-soft));">🪨<span class="pj-plat">WebXR</span></div>
-        <div class="pj-body">
-          <h3>Rocks &amp; Soil</h3>
-          <p>Interactive WebXR educational experience for exploring rocks, soil and related earth-science concepts.</p>
-          <div class="tag-row"><span class="tag tag-a">WebXR</span><span class="tag tag-a">Earth Science</span><span class="tag tag-t">Education</span></div>
-          <a href="https://worlds.saltysharks.io/rocks-soil/" target="_blank" rel="noopener noreferrer" class="pj-link">Launch Experience</a>
-        </div>
-      </div>
-
-      <div class="pj" data-cat="webxr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--teal-soft),var(--amber-soft));">🐢<span class="pj-plat">WebXR</span></div>
-        <div class="pj-body">
-          <h3>Turtle Beach</h3>
-          <p>Immersive WebXR marine-life experience focused on turtles and their beach environment.</p>
-          <div class="tag-row"><span class="tag tag-t">WebXR</span><span class="tag tag-t">Marine</span><span class="tag tag-a">Education</span></div>
-          <a href="https://worlds.saltysharks.io/turtle-beach/" target="_blank" rel="noopener noreferrer" class="pj-link">Launch Experience</a>
-        </div>
-      </div>
-
-      <div class="pj" data-cat="webxr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--indigo-soft),var(--rose-soft));">🦴<span class="pj-plat">WebXR</span></div>
-        <div class="pj-body">
-          <h3>Skeleton System</h3>
-          <p>Interactive WebXR educational experience for exploring the human skeletal system in an immersive 3D environment.</p>
-          <div class="tag-row"><span class="tag tag-i">WebXR</span><span class="tag tag-r">Medical</span><span class="tag tag-i">3D Learning</span></div>
-          <a href="https://worlds.saltysharks.io/skeleton-system/" target="_blank" rel="noopener noreferrer" class="pj-link">Launch Experience</a>
-        </div>
-      </div>
-
-      <div class="pj" data-cat="webxr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--indigo-soft),var(--teal-soft));">🦈<span class="pj-plat">WebXR</span></div>
-        <div class="pj-body">
-          <h3>Whale Shark Station</h3>
-          <p>Immersive WebXR marine experience centered on whale sharks and underwater exploration.</p>
-          <div class="tag-row"><span class="tag tag-i">WebXR</span><span class="tag tag-t">Marine</span><span class="tag tag-t">Interactive</span></div>
-          <a href="https://worlds.saltysharks.io/whale-shark-station/" target="_blank" rel="noopener noreferrer" class="pj-link">Launch Experience</a>
-        </div>
-      </div>
-
-      <div class="pj" data-cat="webxr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--teal-soft),var(--indigo-soft));">🐠<span class="pj-plat">WebXR</span></div>
-        <div class="pj-body">
-          <h3>Oceans Aquarium</h3>
-          <p>Interactive WebXR aquarium experience designed for immersive exploration of ocean life.</p>
-          <div class="tag-row"><span class="tag tag-t">WebXR</span><span class="tag tag-t">Marine</span><span class="tag tag-i">Virtual Aquarium</span></div>
-          <a href="https://worlds.saltysharks.io/oceans-aquarium/" target="_blank" rel="noopener noreferrer" class="pj-link">Launch Experience</a>
-        </div>
-      </div>
-
-      <div class="pj" data-cat="webxr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--amber-soft),var(--rose-soft));">🏛️<span class="pj-plat">WebXR</span></div>
-        <div class="pj-body">
-          <h3>Pharaoh's Escape Room</h3>
-          <p>Ancient-Egypt-themed WebXR escape-room experience featuring interactive exploration and puzzle-based gameplay.</p>
-          <div class="tag-row"><span class="tag tag-a">WebXR</span><span class="tag tag-a">Escape Room</span><span class="tag tag-i">Interactive</span></div>
-          <a href="https://worlds.saltysharks.io/pharaohs_escape_room/" target="_blank" rel="noopener noreferrer" class="pj-link">Launch Experience</a>
-        </div>
-      </div>
-
-      <div class="pj" data-cat="webxr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--indigo-soft),var(--amber-soft));">🚤<span class="pj-plat">WebXR</span></div>
-        <div class="pj-body">
-          <h3>Sub-Racer</h3>
-          <p>Interactive WebXR submarine racing experience combining underwater environments with action-oriented gameplay.</p>
-          <div class="tag-row"><span class="tag tag-i">WebXR</span><span class="tag tag-t">Racing</span><span class="tag tag-i">Interactive</span></div>
-          <a href="https://worlds.saltysharks.io/Sub-racer/" target="_blank" rel="noopener noreferrer" class="pj-link">Launch Experience</a>
-        </div>
-      </div>
-
-      <div class="pj" data-cat="webxr">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--teal-soft),var(--amber-soft));">⚽<span class="pj-plat">WebXR</span></div>
-        <div class="pj-body">
-          <h3>Football Mindset Experience</h3>
-          <p>Interactive WebXR experience focused on football mindset, engagement and immersive sports-based learning.</p>
-          <div class="tag-row"><span class="tag tag-t">WebXR</span><span class="tag tag-a">Sports</span><span class="tag tag-i">Interactive</span></div>
-          <a href="https://worlds.saltysharks.io/football_mindset_experience/" target="_blank" rel="noopener noreferrer" class="pj-link">Launch Experience</a>
-        </div>
-      </div>
-
-      <div class="pj" data-cat="data">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--teal-soft),var(--teal-soft));">🏥<span class="pj-plat">Research</span></div>
-        <div class="pj-body">
-          <h3>Healthcare ML Thesis</h3>
-          <p>MS thesis: SVM, Random Forest, Gradient Boosting, KNN, Naïve Bayes and Feed-Forward Neural Networks applied to healthcare data analysis in Python.</p>
-          <div class="tag-row"><span class="tag tag-t">ML</span><span class="tag tag-t">Deep Learning</span><span class="tag tag-a">Healthcare AI</span></div>
-          <a href="https://drive.google.com/drive/folders/14fCjlWRmGfCeL58mP4B6tp8ceVHRvntV" target="_blank" class="pj-link">View Portfolio Drive</a>
-        </div>
-      </div>
-
-      <div class="pj" data-cat="holo">
-        <div class="pj-top" style="background:linear-gradient(135deg,var(--indigo-soft),var(--rose-soft));">🔷<span class="pj-plat">HoloLens</span></div>
-        <div class="pj-body">
-          <h3>HoloLens Mixed Reality</h3>
-          <p>Currently extending my Mixed Reality expertise from Meta Quest to Microsoft HoloLens — building enterprise-style spatial-computing prototypes and MR interaction systems.</p>
-          <div class="tag-row"><span class="tag tag-i">Mixed Reality</span><span class="tag tag-r">HoloLens</span><span class="tag tag-i">Spatial Computing</span></div>
-          <p class="pj-note">In development — details available on request.</p>
-        </div>
-      </div>
-
-    </div>
-
-    <div style="margin-top:2.5rem;">
-      <a href="https://drive.google.com/drive/folders/14fCjlWRmGfCeL58mP4B6tp8ceVHRvntV" target="_blank" class="btn btn-outline">📁 See the Full Portfolio Drive</a>
     </div>
   </div>
 </section>
-
+</main>
 <footer>
   <div class="foot-inner">
-    <p>© 2026 Muhammad Anees — XR Developer · Data Scientist · Islamabad, Pakistan</p>
+    <p>© <span id="year">2026</span> Muhammad Anees · XR Developer &amp; AI Researcher · Islamabad, Pakistan</p>
     <div class="foot-links">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="projects.html">Projects</a>
-      <a href="skills.html">Skills</a>
+      <a href="mailto:animalik272@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/muhammad-anees-b72404210" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://drive.google.com/drive/folders/14fCjlWRmGfCeL58mP4B6tp8ceVHRvntV" target="_blank" rel="noopener">Video Portfolio</a>
+      <a href="assets/Muhammad_Anees_CV.pdf" download>CV</a>
     </div>
   </div>
 </footer>
-
-<script>
-function toggleMenu(){document.getElementById('mobileNav').classList.toggle('open');}
-
-document.querySelectorAll('#tabRow .tab-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    document.querySelectorAll('#tabRow .tab-btn').forEach(b=>b.classList.remove('on'));
-    btn.classList.add('on');
-    const cat = btn.dataset.cat;
-    document.querySelectorAll('#projGrid .pj').forEach(pj=>{
-      const cats = pj.dataset.cat.split(' ');
-      pj.style.display = (cat==='all' || cats.includes(cat)) ? 'flex' : 'none';
-    });
-  });
-});
-</script>
+<script src="assets/main.js"></script>
 </body>
 </html>

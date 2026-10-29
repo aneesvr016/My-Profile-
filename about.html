@@ -4,569 +4,131 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>About — Muhammad Anees</title>
-<meta name="description" content="About Muhammad Anees — XR Developer and Data Scientist based in Islamabad, Pakistan. Education, experience timeline, achievements and contact details."/>
-<style>
-/* ============================================================
-   MUHAMMAD ANEES — PORTFOLIO
-   Design tokens: warm paper light theme, aperture/portal motif
-============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
-
-:root{
-  /* backgrounds */
-  --paper:#faf7f1;
-  --paper-alt:#f2ece0;
-  --surface:#ffffff;
-  --surface-line:#efe9dd;
-
-  /* ink */
-  --ink:#1c1a16;
-  --ink-soft:#5c574d;
-  --ink-faint:#948d80;
-
-  /* accents */
-  --indigo:#4740d4;
-  --indigo-deep:#332c9e;
-  --indigo-soft:#edecfb;
-  --teal:#0d8c7c;
-  --teal-soft:#e4f4f0;
-  --amber:#b6791f;
-  --amber-soft:#faf0dd;
-  --rose:#b23a52;
-  --rose-soft:#f9e9ec;
-
-  --border:rgba(28,26,22,0.12);
-  --border-soft:rgba(28,26,22,0.07);
-  --radius:16px;
-  --radius-sm:10px;
-  --shadow:0 10px 34px rgba(60,50,20,0.08);
-  --shadow-lg:0 24px 60px rgba(50,40,20,0.12);
-}
-
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{
-  font-family:'Inter',sans-serif;
-  background:var(--paper);
-  color:var(--ink);
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-}
-a{color:inherit;}
-img{display:block;max-width:100%;}
-ul{list-style:none;}
-
-/* texture: faint paper grain */
-body::before{
-  content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-}
-/* mesh: soft color wash so the theme reads immediately, even in light mode */
-body::after{
-  content:'';position:fixed;inset:0;z-index:-3;pointer-events:none;
-  background:
-    radial-gradient(ellipse 60% 45% at 85% -8%, rgba(71,64,212,0.10) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at -5% 18%, rgba(13,140,124,0.09) 0%, transparent 55%),
-    radial-gradient(ellipse 45% 35% at 60% 95%, rgba(182,121,31,0.08) 0%, transparent 55%),
-    var(--paper);
-}
-
-.wrap{max-width:1180px;margin:0 auto;padding:0 2.4rem;}
-
-/* ============ NAV ============ */
-header.site-nav{
-  position:sticky;top:0;z-index:500;
-  background:rgba(250,247,241,0.86);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--border-soft);
-}
-.nav-inner{
-  max-width:1180px;margin:0 auto;padding:0 2.4rem;
-  height:76px;display:flex;align-items:center;justify-content:space-between;
-}
-.brand{display:flex;align-items:center;gap:0.8rem;text-decoration:none;}
-.brand-mark{
-  width:42px;height:42px;border-radius:50%;
-  background:conic-gradient(from 200deg, var(--indigo), var(--teal), var(--amber), var(--indigo));
-  display:flex;align-items:center;justify-content:center;position:relative;
-}
-.brand-mark::after{
-  content:'';position:absolute;inset:3px;border-radius:50%;background:var(--paper);
-}
-.brand-mark span{
-  position:relative;z-index:1;font-family:'Fraunces',serif;font-weight:700;font-size:1rem;color:var(--ink);
-}
-.brand-text{display:flex;flex-direction:column;line-height:1.15;}
-.brand-text b{font-family:'Fraunces',serif;font-weight:700;font-size:1.02rem;letter-spacing:-0.01em;}
-.brand-text small{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint);}
-
-.nav-links{display:flex;align-items:center;gap:0.3rem;}
-.nav-links a{
-  text-decoration:none;color:var(--ink-soft);font-size:0.86rem;font-weight:500;
-  padding:0.5rem 1rem;border-radius:100px;transition:all .2s;
-}
-.nav-links a:hover{color:var(--ink);background:var(--surface-line);}
-.nav-links a.active{color:var(--surface);background:var(--ink);}
-.nav-cta{
-  margin-left:0.6rem;text-decoration:none;
-  background:var(--indigo);color:#fff;font-size:0.84rem;font-weight:600;
-  padding:0.55rem 1.25rem;border-radius:100px;
-  box-shadow:0 6px 18px rgba(71,64,212,0.28);
-  transition:all .2s;
-}
-.nav-cta:hover{background:var(--indigo-deep);transform:translateY(-1px);}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;}
-.hamburger span{width:22px;height:2px;background:var(--ink);border-radius:2px;}
-.mobile-nav{display:none;flex-direction:column;background:var(--surface);border-bottom:1px solid var(--border);padding:0.5rem 2rem 1.2rem;}
-.mobile-nav.open{display:flex;}
-.mobile-nav a{padding:0.75rem 0;border-bottom:1px solid var(--border-soft);text-decoration:none;color:var(--ink-soft);font-size:0.95rem;}
-.mobile-nav a.active{color:var(--indigo);font-weight:600;}
-
-/* ============ SECTION SCAFFOLDING ============ */
-section{padding:5.5rem 0;position:relative;}
-section.alt{background:var(--paper-alt);}
-.eyebrow{
-  font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;
-  color:var(--indigo);margin-bottom:0.9rem;display:flex;align-items:center;gap:0.6rem;
-}
-.eyebrow::before{content:'';width:22px;height:1px;background:var(--indigo);display:inline-block;}
-.eyebrow::after{content:'';width:5px;height:5px;border-radius:50%;background:var(--teal);display:inline-block;}
-
-/* page-top aperture mark used on inner pages for visual consistency w/ home hero */
-.page-mark{
-  width:52px;height:52px;border-radius:50%;margin-bottom:1.4rem;
-  background:conic-gradient(from 210deg,var(--indigo),var(--teal),var(--amber),var(--rose),var(--indigo));
-  padding:4px;
-}
-.page-mark .in{width:100%;height:100%;border-radius:50%;background:var(--paper);}
-h1,h2,h3,h4{font-family:'Fraunces',serif;letter-spacing:-0.02em;color:var(--ink);}
-.sec-title{font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:700;margin-bottom:1rem;max-width:760px;}
-.sec-title em{font-style:italic;font-weight:500;color:var(--indigo);}
-.sec-lede{color:var(--ink-soft);max-width:640px;font-size:1.02rem;font-weight:400;margin-bottom:3rem;}
-
-/* aperture divider — signature motif */
-.aperture-rule{
-  width:64px;height:64px;margin-bottom:2rem;position:relative;
-}
-.aperture-rule svg{width:100%;height:100%;}
-
-/* ============ BUTTONS ============ */
-.btn{
-  display:inline-flex;align-items:center;gap:0.5rem;
-  padding:0.85rem 1.7rem;border-radius:100px;
-  font-weight:600;font-size:0.9rem;text-decoration:none;
-  transition:all .22s;border:1px solid transparent;cursor:pointer;
-}
-.btn-solid{background:var(--ink);color:var(--paper);}
-.btn-solid:hover{background:var(--indigo);transform:translateY(-2px);box-shadow:0 10px 26px rgba(71,64,212,0.25);}
-.btn-outline{border-color:var(--border);color:var(--ink);background:transparent;}
-.btn-outline:hover{border-color:var(--ink);background:var(--surface);}
-.btn-teal{background:var(--teal);color:#fff;}
-.btn-teal:hover{background:#0a7367;transform:translateY(-2px);}
-
-/* ============ HERO (home) ============ */
-.hero{padding:4.5rem 0 5rem;}
-.hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:3.5rem;align-items:center;}
-.hero-kicker{
-  display:inline-flex;align-items:center;gap:0.5rem;
-  background:var(--indigo-soft);color:var(--indigo-deep);
-  border-radius:100px;padding:0.4rem 1rem 0.4rem 0.7rem;font-size:0.76rem;font-weight:600;
-  margin-bottom:1.6rem;letter-spacing:0.02em;
-}
-.hero-kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);}
-h1.hero-h1{font-size:clamp(2.6rem,5.4vw,4.2rem);font-weight:700;line-height:1.02;margin-bottom:1.4rem;}
-h1.hero-h1 .accent{font-style:italic;font-weight:500;
-  background:linear-gradient(100deg,var(--indigo),var(--teal));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.hero-role-row{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.7rem;}
-.chip{font-size:0.8rem;font-weight:600;padding:0.4rem 0.95rem;border-radius:100px;border:1px solid transparent;}
-.chip-indigo{background:var(--indigo-soft);color:var(--indigo-deep);}
-.chip-teal{background:var(--teal-soft);color:#0a6b5f;}
-.chip-amber{background:var(--amber-soft);color:#8a5a10;}
-.hero-bio{color:var(--ink-soft);font-size:1.04rem;max-width:560px;margin-bottom:2.2rem;}
-.hero-bio strong{color:var(--ink);font-weight:600;}
-.hero-cta-row{display:flex;gap:0.9rem;flex-wrap:wrap;margin-bottom:2.2rem;}
-.hero-store-row{display:flex;gap:0.6rem;flex-wrap:wrap;}
-.store-badge{
-  display:flex;align-items:center;gap:0.4rem;
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:100px;padding:0.4rem 0.9rem;font-size:0.76rem;font-weight:600;color:var(--ink-soft);
-  text-decoration:none;transition:all .2s;
-}
-.store-badge:hover{border-color:var(--indigo);color:var(--indigo);}
-
-/* portrait card w/ aperture ring */
-.portrait-card{position:relative;display:flex;flex-direction:column;align-items:center;}
-.orbit-deco{position:absolute;top:50%;left:50%;width:440px;height:440px;transform:translate(-50%,-56%);z-index:0;pointer-events:none;opacity:0.9;}
-.orbit-deco circle.ring{fill:none;stroke-width:1;}
-.orbit-deco .r1{stroke:rgba(71,64,212,0.28);stroke-dasharray:2 6;animation:spin 40s linear infinite;transform-origin:center;}
-.orbit-deco .r2{stroke:rgba(13,140,124,0.24);stroke-dasharray:1 5;animation:spin 55s linear infinite reverse;transform-origin:center;}
-.orbit-deco .node{animation:pulse 2.4s ease-in-out infinite;}
-@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-.portrait-ring{position:relative;z-index:1;}
-.portrait-ring{
-  position:relative;width:min(320px,86%);aspect-ratio:1/1;border-radius:50%;
-  padding:10px;
-  background:conic-gradient(from 210deg, var(--indigo), var(--teal), var(--amber), var(--rose), var(--indigo));
-}
-.portrait-ring .inner{
-  width:100%;height:100%;border-radius:50%;overflow:hidden;background:var(--surface);
-  border:6px solid var(--paper);
-}
-.portrait-ring .inner img{width:100%;height:100%;object-fit:cover;}
-.portrait-caption{margin-top:1.3rem;text-align:center;}
-.portrait-caption b{display:block;font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;}
-.portrait-caption span{font-family:'IBM Plex Mono',monospace;font-size:0.74rem;color:var(--ink-faint);letter-spacing:0.05em;}
-.avail-pill{
-  margin-top:1rem;display:flex;align-items:center;gap:0.5rem;
-  background:var(--teal-soft);color:#0a6b5f;border-radius:100px;
-  padding:0.45rem 1rem;font-size:0.76rem;font-weight:600;
-}
-.avail-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 1.6s infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
-
-/* ============ STAT STRIP ============ */
-.stat-strip{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  border:1px solid var(--border);border-radius:var(--radius);
-  background:var(--surface);overflow:hidden;box-shadow:var(--shadow);
-}
-.stat-cell{padding:1.6rem 1rem;text-align:center;border-right:1px solid var(--border-soft);}
-.stat-cell:last-child{border-right:none;}
-.stat-num{font-family:'Fraunces',serif;font-weight:700;font-size:2.1rem;line-height:1;margin-bottom:0.4rem;}
-.stat-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.66rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--ink-faint);}
-
-/* ============ CARDS ============ */
-.grid-3{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.3rem;}
-.grid-2{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:1.3rem;}
-.card{
-  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-  padding:1.8rem 1.7rem 1.7rem;transition:all .28s;position:relative;overflow:hidden;
-}
-.card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--indigo),var(--teal),var(--amber));
-  transform:scaleX(0);transform-origin:left;transition:transform .35s ease;
-}
-.card:hover::before{transform:scaleX(1);}
-.card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:transparent;}
-.c-ico{
-  width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;
-  font-size:1.3rem;margin-bottom:1.1rem;position:relative;
-}
-.c-ico::after{content:'';position:absolute;inset:0;border-radius:13px;border:1px solid currentColor;opacity:0.18;}
-.c-ico.i{background:var(--indigo-soft);color:var(--indigo);}
-.c-ico.t{background:var(--teal-soft);color:var(--teal);}
-.c-ico.a{background:var(--amber-soft);color:var(--amber);}
-.c-ico.r{background:var(--rose-soft);color:var(--rose);}
-.card h3{font-size:1.02rem;font-weight:700;margin-bottom:0.5rem;}
-.card p{color:var(--ink-soft);font-size:0.88rem;font-weight:400;}
-.tag-row{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:1rem;}
-.tag{font-family:'IBM Plex Mono',monospace;font-size:0.64rem;padding:0.25rem 0.6rem;border-radius:5px;letter-spacing:0.02em;}
-.tag-i{background:var(--indigo-soft);color:var(--indigo-deep);}
-.tag-t{background:var(--teal-soft);color:#0a6b5f;}
-.tag-a{background:var(--amber-soft);color:#8a5a10;}
-.tag-r{background:var(--rose-soft);color:#8f2d40;}
-
-/* ============ TABS ============ */
-.tab-row{display:inline-flex;gap:0.35rem;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:0.35rem;margin-bottom:2.6rem;flex-wrap:wrap;}
-.tab-btn{
-  border:none;background:transparent;padding:0.65rem 1.3rem;border-radius:100px;
-  font-family:'Inter',sans-serif;font-weight:600;font-size:0.85rem;color:var(--ink-soft);cursor:pointer;transition:all .22s;
-}
-.tab-btn.on{background:var(--ink);color:var(--paper);}
-.tab-panel{display:none;}
-.tab-panel.on{display:block;animation:fade .35s ease;}
-@keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-
-/* ============ SKILL BARS ============ */
-.sk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.6rem;}
-.sk-card h4{font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1.3rem;font-family:'IBM Plex Mono',monospace;font-weight:600;}
-.sk{margin-bottom:1.05rem;}
-.sk-row{display:flex;justify-content:space-between;margin-bottom:0.35rem;font-size:0.84rem;}
-.sk-n{font-weight:500;color:var(--ink);}
-.sk-p{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--ink-faint);}
-.sk-bar{height:6px;background:var(--paper-alt);border-radius:4px;overflow:hidden;}
-.sk-fill{height:100%;border-radius:4px;}
-.fi{background:linear-gradient(90deg,var(--indigo),#7a72e8);}
-.ft{background:linear-gradient(90deg,var(--teal),#4fc2b3);}
-.fa{background:linear-gradient(90deg,var(--amber),#e0a13d);}
-
-/* ============ TIMELINE ============ */
-.tl{position:relative;padding-left:2.4rem;}
-.tl::before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:1.5px;background:linear-gradient(180deg,var(--indigo),var(--teal),var(--amber));}
-.tl-item{position:relative;margin-bottom:2.6rem;}
-.tl-item:last-child{margin-bottom:0;}
-.tl-dot{position:absolute;left:-2.15rem;top:0.3rem;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2.5px solid var(--indigo);}
-.tl-dot.t{border-color:var(--teal);}
-.tl-dot.a{border-color:var(--amber);}
-.tl-when{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.06em;color:var(--ink-faint);margin-bottom:0.4rem;text-transform:uppercase;}
-.tl-role{font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;margin-bottom:0.1rem;}
-.tl-co{font-size:0.86rem;font-weight:600;margin-bottom:0.55rem;}
-.tl-co.i{color:var(--indigo);}
-.tl-co.t{color:#0a6b5f;}
-.tl-co.a{color:#8a5a10;}
-.tl-body{color:var(--ink-soft);font-size:0.88rem;max-width:640px;}
-
-/* ============ PROJECTS ============ */
-.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.4rem;}
-.pj{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .28s;display:flex;flex-direction:column;}
-.pj:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
-.pj-top{height:118px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;border-bottom:1px solid var(--border-soft);overflow:hidden;}
-.pj-top::before{
-  content:'';position:absolute;inset:0;
-  background-image:radial-gradient(circle,rgba(28,26,22,0.06) 1px, transparent 1px);
-  background-size:14px 14px;
-}
-.pj-top *{position:relative;z-index:1;}
-.pj-plat{position:absolute;top:0.7rem;right:0.7rem;font-family:'IBM Plex Mono',monospace;font-size:0.6rem;background:rgba(255,255,255,0.75);padding:0.2rem 0.55rem;border-radius:100px;letter-spacing:0.04em;text-transform:uppercase;font-weight:600;color:var(--ink-soft);}
-.pj-body{padding:1.4rem;flex:1;display:flex;flex-direction:column;}
-.pj-body h3{font-size:1rem;font-weight:700;margin-bottom:0.4rem;}
-.pj-body p{color:var(--ink-soft);font-size:0.85rem;flex:1;}
-.pj-link{display:inline-flex;align-items:center;gap:0.4rem;margin-top:1.1rem;font-size:0.78rem;font-weight:700;text-decoration:none;letter-spacing:0.03em;color:var(--indigo);transition:gap .2s;}
-.pj-link::after{content:'→';}
-.pj-link:hover{gap:0.65rem;}
-.pj-note{font-size:0.78rem;color:var(--ink-faint);margin-top:1.1rem;font-style:italic;}
-
-/* ============ ACHIEVEMENTS ============ */
-.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
-.ach{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.05rem 1.3rem;display:flex;align-items:center;gap:1rem;transition:all .22s;}
-.ach:hover{border-color:var(--amber);transform:translateX(4px);}
-.ach-ico{font-size:1.5rem;flex-shrink:0;}
-.ach-txt strong{display:block;font-size:0.9rem;font-family:'Fraunces',serif;font-weight:700;}
-.ach-txt span{font-size:0.76rem;color:var(--ink-faint);}
-
-/* ============ CONTACT / INFO BOXES ============ */
-.info-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem;}
-.info-box h4{font-family:'IBM Plex Mono',monospace;font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:0.9rem;}
-.info-r{display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;border-bottom:1px solid var(--border-soft);font-size:0.85rem;gap:1rem;}
-.info-r:last-child{border:none;}
-.info-r span:first-child{color:var(--ink-faint);}
-.info-r span:last-child{font-family:'IBM Plex Mono',monospace;font-size:0.74rem;color:var(--indigo-deep);text-align:right;}
-.con-link{display:flex;align-items:center;gap:0.8rem;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.9rem 1.15rem;font-size:0.87rem;font-weight:500;transition:all .22s;}
-.con-link:hover{border-color:var(--indigo);color:var(--indigo);background:var(--indigo-soft);}
-
-/* ============ CTA BAND ============ */
-.cta-band{
-  border-radius:24px;padding:3.2rem 2.8rem;
-  background:linear-gradient(120deg,var(--ink) 0%,#2a2660 100%);
-  color:var(--paper);display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;
-}
-.cta-band h3{color:#fff;font-size:1.7rem;margin-bottom:0.5rem;}
-.cta-band p{color:rgba(255,255,255,0.72);max-width:440px;font-size:0.95rem;}
-.cta-band .btn-solid{background:#fff;color:var(--ink);}
-.cta-band .btn-solid:hover{background:var(--teal-soft);}
-
-/* ============ FOOTER ============ */
-footer{border-top:1px solid var(--border);padding:2.2rem 0;}
-.foot-inner{max-width:1180px;margin:0 auto;padding:0 2.4rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
-footer p{color:var(--ink-faint);font-size:0.8rem;}
-.foot-links{display:flex;gap:1.3rem;}
-.foot-links a{color:var(--ink-faint);text-decoration:none;font-size:0.8rem;transition:color .2s;}
-.foot-links a:hover{color:var(--indigo);}
-
-/* ============ RESPONSIVE ============ */
-@media(max-width:900px){
-  .nav-links,.nav-cta{display:none;}
-  .hamburger{display:flex;}
-  .hero-grid{grid-template-columns:1fr;}
-  .portrait-card{order:-1;}
-  .stat-strip{grid-template-columns:1fr 1fr;}
-  .stat-cell:nth-child(2n){border-right:none;}
-  .stat-cell{border-bottom:1px solid var(--border-soft);}
-  .con-grid{grid-template-columns:1fr!important;}
-  .cta-band{flex-direction:column;text-align:center;}
-}
-@media(max-width:600px){
-  .wrap,.nav-inner,.foot-inner{padding:0 1.3rem;}
-  section{padding:3.6rem 0;}
-  .grid-3,.grid-2,.proj-grid,.ach-grid{grid-template-columns:1fr;}
-}
-
-</style>
+<meta name="description" content="Education, experience, awards and contact details for Muhammad Anees, XR developer and data scientist in Islamabad, Pakistan."/>
+<meta name="author" content="Muhammad Anees"/>
+<meta property="og:title" content="About — Muhammad Anees"/>
+<meta property="og:description" content="Education, experience, awards and contact details for Muhammad Anees, XR developer and data scientist in Islamabad, Pakistan."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://aneesvr016.github.io/My-Profile-/about.html"/>
+<meta property="og:image" content="https://aneesvr016.github.io/My-Profile-/assets/profile.png"/>
+<link rel="icon" href="assets/profile.png"/>
+<link rel="stylesheet" href="assets/style.css"/>
 </head>
 <body>
-
 <header class="site-nav">
   <div class="nav-inner">
-    <a href="index.html" class="brand">
+    <a href="index.html" class="brand" aria-label="Muhammad Anees, home">
       <div class="brand-mark"><span>MA</span></div>
-      <div class="brand-text"><b>Muhammad Anees</b><small>XR Developer · Data Scientist</small></div>
+      <div class="brand-text"><b>Muhammad Anees</b><small>XR Developer · AI Researcher</small></div>
     </a>
-    <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="about.html" class="active">About</a>
-      <a href="projects.html">Projects</a>
-      <a href="skills.html">Skills</a>
-    </nav>
-    <a href="mailto:animalik272@gmail.com" class="nav-cta">Hire Me ↗</a>
-    <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    <nav class="nav-links" aria-label="Main"><a href="index.html">Home</a><a href="projects.html">Projects</a><a href="research.html">Research</a><a href="about.html" class="active" aria-current="page">About</a><a href="skills.html">Skills</a></nav>
+    <a href="assets/Muhammad_Anees_CV.pdf" class="nav-cta" download>Download CV ↓</a>
+    <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav"><span></span><span></span><span></span></button>
   </div>
-  <div class="mobile-nav" id="mobileNav">
-    <a href="index.html">Home</a>
-    <a href="about.html" class="active">About</a>
-    <a href="projects.html">Projects</a>
-    <a href="skills.html">Skills</a>
-  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile"><a href="index.html">Home</a><a href="projects.html">Projects</a><a href="research.html">Research</a><a href="about.html" class="active" aria-current="page">About</a><a href="skills.html">Skills</a><a href="assets/Muhammad_Anees_CV.pdf" download>Download CV ↓</a></nav>
 </header>
-
-<!-- ============ INTRO ============ -->
-<section style="padding-bottom:3rem;">
+<main>
+<section class="page-head">
   <div class="wrap">
-    <div class="page-mark"><div class="in"></div></div>
-    <div class="eyebrow">About Me</div>
-    <h1 class="sec-title">From classroom teacher to <em>XR developer</em> to Data Scientist — now aiming for a PhD.</h1>
-    <p class="sec-lede" style="margin-bottom:0;max-width:760px;">
-      I'm Muhammad Anees, an XR developer and data scientist based in Islamabad, Pakistan. Over the last 5+ years
-      I've shipped 100+ VR, Mixed Reality, AR, multiplayer and WebXR experiences on Meta Quest, the App Store and Google Play,
-      and I'm currently extending that skill set into Microsoft HoloLens. Alongside my development career I completed an
-      MS in Data Science, and I'm now seeking a PhD position in Data Science &amp; AI to research at the intersection of
-      intelligent systems and immersive technology.
-    </p>
+    <div class="eyebrow">About</div>
+    <h1 class="sec-title">From classroom teacher to XR developer to <em>AI researcher</em></h1>
+    <p class="sec-lede">I’m Muhammad Anees, an XR developer and data scientist based in Islamabad, Pakistan. Over five years I have shipped VR, Mixed Reality, AR, multiplayer and WebXR experiences on Meta Quest, the App Store, Google Play and the web, and I am now extending into Microsoft HoloLens. Alongside that career I completed an MS in Data Science, and I want to spend the next stage of my career researching how AI can make immersive technology adaptive and genuinely useful.</p>
   </div>
 </section>
 
-<!-- ============ EDUCATION ============ -->
 <section class="alt">
   <div class="wrap">
     <div class="eyebrow">Education</div>
-    <h2 class="sec-title">Academic <em>Background</em></h2>
-    <div class="grid-2">
+    <h2 class="sec-title">Academic <em>background</em></h2>
+    <div class="grid-2" style="margin-top:1.6rem;">
       <div class="card">
-        <div class="c-ico t">🎓</div>
+        <div class="c-ico t" data-icon="flask"></div>
         <h3>MS Data Science</h3>
-        <p>Bahria University, Islamabad, Pakistan — CGPA 3.25/4 (75%) · Completed 2024</p>
-        <p style="margin-top:0.8rem;"><strong>Thesis:</strong> "Amend complementary and integrative health approaches for untangling prevalent health issues" — applying SVM, Random Forest, Gradient Boosting, KNN, Naïve Bayes and Feed-Forward Neural Networks to healthcare data in Python.</p>
-        <div class="tag-row"><span class="tag tag-t">Machine Learning</span><span class="tag tag-t">Deep Learning</span><span class="tag tag-t">NLP</span></div>
+        <p>Bahria University, Islamabad · 2024 · CGPA 3.20 / 4.00</p>
+        <p><b>Thesis:</b> Amend Complementary and Integrative Health Approaches for Untangling Prevalent Health Issues. Compared SVC, Random Forest, Gradient Boosting, KNN, Multinomial Naïve Bayes and a Neural Network; best accuracy 97.62%.</p>
+        <div style="margin-top:1rem;"><a class="link" href="research.html#thesis">Thesis details</a></div>
       </div>
       <div class="card">
-        <div class="c-ico i">🎓</div>
+        <div class="c-ico i" data-icon="cube"></div>
         <h3>BS Information Technology</h3>
-        <p>International Islamic University, Islamabad, Pakistan — CGPA 3.52/4 (77%) · Aug 2017 – Aug 2021 · 3rd Position Holder</p>
-        <p style="margin-top:0.8rem;"><strong>Final Year Project:</strong> Smart Builders — House Estimation &amp; Care App, built with React Native and a Firebase backend.</p>
-        <div class="tag-row"><span class="tag tag-i">React Native</span><span class="tag tag-i">Firebase</span><span class="tag tag-i">Mobile Dev</span></div>
+        <p>International Islamic University, Islamabad · 2017–2021 · CGPA 3.52 / 4.00</p>
+        <p><b>3rd Position</b> in BSIT and <b>Distinct Student Award</b>. Final-year project: Smart Builders, a house estimation and care app built with React Native and Firebase.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ EXPERIENCE TIMELINE ============ -->
 <section id="experience">
   <div class="wrap">
-    <div class="eyebrow">Career Timeline</div>
-    <h2 class="sec-title">5+ Years of <em>Hands-On Experience</em></h2>
-    <div class="tl">
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-when">June 2025 — Present · Current Role</div>
-        <div class="tl-role">VR &amp; AR Developer</div>
-        <div class="tl-co i">Quantum Edge LLC</div>
-        <div class="tl-body">Building and publishing VR &amp; AR games live on Meta Quest and Google Play. Full development cycle: storyline creation, Unity scripting, animations, API integration, client meetings and store publishing.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-when">May 2023 — June 2025</div>
-        <div class="tl-role">VR &amp; MR Developer</div>
-        <div class="tl-co i">FI Consultancy, Islamabad</div>
-        <div class="tl-body">Developed VR and Mixed Reality experiences for the Meta Quest platform — prototyping, scripting, Unity animations and live deployment. Recognized as <strong>Employee of the Month (2024)</strong>.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-when">April 2022 — June 2023</div>
-        <div class="tl-role">Co-Lead Game Developer</div>
-        <div class="tl-co i">Koncept Solution IT Company, Rawalpindi</div>
-        <div class="tl-body">Led a game development team delivering titles to Google Play — storyline, Unity mechanics, scripting, environment design and team coordination. Earned <strong>Employee of the Month</strong>.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot a"></div>
-        <div class="tl-when">August 2021 — February 2022</div>
-        <div class="tl-role">Computer Science &amp; Math Teacher</div>
-        <div class="tl-co a">APS Chagmalai, SWTD</div>
-        <div class="tl-body">Taught Computer Science, Mathematics and Science. Received the <strong>Best Teacher Award</strong> for classroom performance and student engagement.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot t"></div>
-        <div class="tl-when">January 2021 — August 2021</div>
-        <div class="tl-role">React Native Intern</div>
-        <div class="tl-co t">Enabling Systems (Pvt) Ltd, Rawalpindi</div>
-        <div class="tl-body">Completed final-year project during this internship — a full construction cost estimator mobile app built with React Native and a Firebase backend.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot t"></div>
-        <div class="tl-when">September 2017 — August 2020</div>
-        <div class="tl-role">WordPress Developer &amp; Freelancer</div>
-        <div class="tl-co t">Self-Employed</div>
-        <div class="tl-body">Developed client websites on WordPress while building core programming and web development fundamentals through real freelance projects.</div>
-      </div>
+    <div class="eyebrow">Experience</div>
+    <h2 class="sec-title">Five years of <em>shipping</em></h2>
+    <div class="tl" style="margin-top:2rem;">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-when">June 2025 — Present</div><div class="tl-role">VR / AR Developer</div><div class="tl-co">Quantum Edge LLC</div><div class="tl-body">Lead development of VR, AR and immersive applications in Unity: scripting, interaction systems, animation, API and AI-agent integration, prototyping and optimisation. Design, test and publish for Meta Quest and mobile.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-when">May 2023 — June 2025</div><div class="tl-role">VR / MR Developer</div><div class="tl-co">FI Consultancy, Islamabad</div><div class="tl-body">Built VR and Mixed Reality applications in Unity, including immersive environments, interactions and animation; debugging, performance optimisation and Meta Quest deployment. Employee of the Month, 2024.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-when">April 2022 — June 2023</div><div class="tl-role">Co-Lead Game Developer</div><div class="tl-co">Koncept Solutions International, Rawalpindi</div><div class="tl-body">Co-led Unity game development (gameplay systems, environments, animation, scripting) and shipped titles to Google Play. Employee of the Month, 2023.</div></div>
+      <div class="tl-item"><div class="tl-dot a"></div><div class="tl-when">August 2021 — February 2022</div><div class="tl-role">Teacher — Computer Science, Mathematics &amp; Science</div><div class="tl-co" style="color:var(--amber-deep)">APS Chagmalai, SWTD</div><div class="tl-body">Taught programming and analytical subjects. Best Teacher Award, 2022.</div></div>
+      <div class="tl-item"><div class="tl-dot t"></div><div class="tl-when">January 2021 — August 2021</div><div class="tl-role">React Native Intern</div><div class="tl-co" style="color:var(--teal-deep)">Enabling Systems (Pvt.) Ltd., Rawalpindi</div><div class="tl-body">Built a construction cost-estimation mobile app with React Native and Firebase (final-year project).</div></div>
+      <div class="tl-item"><div class="tl-dot t"></div><div class="tl-when">2017 — 2020</div><div class="tl-role">WordPress Developer / Freelancer</div><div class="tl-co" style="color:var(--teal-deep)">Independent</div><div class="tl-body">Built client websites with WordPress.</div></div>
     </div>
   </div>
 </section>
 
-<!-- ============ ACHIEVEMENTS ============ -->
 <section class="alt">
   <div class="wrap">
-    <div class="eyebrow">Recognition</div>
-    <h2 class="sec-title">Achievements <em>&amp; Awards</em></h2>
-    <div class="ach-grid">
-      <div class="ach"><div class="ach-ico">🥇</div><div class="ach-txt"><strong>Employee of the Month</strong><span>FI Consultancy, Islamabad — 2024</span></div></div>
-      <div class="ach"><div class="ach-ico">🏆</div><div class="ach-txt"><strong>Employee of the Month</strong><span>Koncept Solutions International — 2023</span></div></div>
-      <div class="ach"><div class="ach-ico">👨‍🏫</div><div class="ach-txt"><strong>Best Teacher Award</strong><span>APS Chagmalai, SWTD — 2022</span></div></div>
-      <div class="ach"><div class="ach-ico">🥉</div><div class="ach-txt"><strong>3rd Position Holder — BSIT</strong><span>International Islamic University, Islamabad — 2021</span></div></div>
-      <div class="ach"><div class="ach-ico">⭐</div><div class="ach-txt"><strong>Distinct Student Award</strong><span>International Islamic University, Islamabad — 2021</span></div></div>
-      <div class="ach"><div class="ach-ico">🌍</div><div class="ach-txt"><strong>International Workshop — Programming &amp; Web Dev</strong><span>IIU Islamabad — October 2020</span></div></div>
-      <div class="ach"><div class="ach-ico">🤖</div><div class="ach-txt"><strong>Seminar — AI &amp; Machine Learning</strong><span>Bahria University, Islamabad — October 2023</span></div></div>
-      <div class="ach"><div class="ach-ico">❤️</div><div class="ach-txt"><strong>Polio Plus Chair — Rotaract Club</strong><span>Rawalpindi City — 2021–2023</span></div></div>
+    <div class="eyebrow">Recognition &amp; service</div>
+    <h2 class="sec-title">Awards, training and <em>community</em></h2>
+    <div class="ach-grid" style="margin-top:1.6rem;">
+      <div class="ach"><strong>Project featured on 7NEWS Australia</strong><span>Brains Boots &amp; Beyond VR · 2026</span></div>
+      <div class="ach"><strong>Employee of the Month</strong><span>FI Consultancy · 2024</span></div>
+      <div class="ach"><strong>Employee of the Month</strong><span>Koncept Solutions International · 2023</span></div>
+      <div class="ach"><strong>Best Teacher Award</strong><span>APS Chagmalai, SWTD · 2022</span></div>
+      <div class="ach"><strong>3rd Position, BSIT</strong><span>International Islamic University Islamabad · 2021</span></div>
+      <div class="ach"><strong>Distinct Student Award</strong><span>International Islamic University Islamabad · 2021</span></div>
+      <div class="ach"><strong>Seminar on AI &amp; Machine Learning</strong><span>Bahria University Islamabad · 2023</span></div>
+      <div class="ach"><strong>International Workshop on Programming, Mobile &amp; Web</strong><span>IIUI · October 2020</span></div>
+      <div class="ach"><strong>Member &amp; Polio Plus Chair</strong><span>Rotaract Club of Rawalpindi City · 2021–2023</span></div>
+      <div class="ach"><strong>Volunteer</strong><span>Qalam Movement · Taleem o Tarbiat Foundation · Musa Khar Welfare Trust</span></div>
     </div>
   </div>
 </section>
 
-<!-- ============ CONTACT ============ -->
 <section id="contact">
   <div class="wrap">
-    <div class="eyebrow">Get In Touch</div>
-    <h2 class="sec-title">Let's <em>Connect</em></h2>
-    <p class="sec-lede">Available for XR developer roles, Data Science &amp; ML positions, and PhD research opportunities worldwide.</p>
-    <div class="grid-2 con-grid" style="grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;">
-      <div style="display:flex;flex-direction:column;gap:0.6rem;">
-        <a href="mailto:animalik272@gmail.com" class="con-link">✉️ animalik272@gmail.com</a>
-        <a href="mailto:anikhan272@gmail.com" class="con-link">📧 anikhan272@gmail.com</a>
-        <a href="tel:+923357428855" class="con-link">📞 +92 335 742 8855 (WhatsApp)</a>
-        <a href="tel:+923446772741" class="con-link">📱 +92 344 677 2741</a>
-        <a href="https://www.linkedin.com/in/muhammad-aneesb72404210" target="_blank" class="con-link">🔗 LinkedIn — muhammad-aneesb72404210</a>
-        <a href="https://drive.google.com/drive/folders/14fCjlWRmGfCeL58mP4B6tp8ceVHRvntV" target="_blank" class="con-link">📁 Google Drive Portfolio</a>
+    <div class="eyebrow">Contact</div>
+    <h2 class="sec-title">Let’s <em>talk</em></h2>
+    <p class="sec-lede">Open to XR developer roles, Data Science and ML positions, and PhD opportunities worldwide.</p>
+    <div class="grid-2" style="align-items:start;">
+      <div class="con-list">
+        <a class="con-link" href="mailto:animalik272@gmail.com">animalik272@gmail.com<small>Email</small></a>
+        <a class="con-link" href="https://wa.me/923357428855" target="_blank" rel="noopener">+92 335 742 8855<small>WhatsApp</small></a>
+        <a class="con-link" href="https://www.linkedin.com/in/muhammad-anees-b72404210" target="_blank" rel="noopener">linkedin.com/in/muhammad-anees-b72404210<small>LinkedIn</small></a>
+        <a class="con-link" href="https://drive.google.com/drive/folders/14fCjlWRmGfCeL58mP4B6tp8ceVHRvntV" target="_blank" rel="noopener">Project videos (Google Drive)<small>Portfolio</small></a>
+        <a class="con-link" href="assets/Muhammad_Anees_CV.pdf" download>Muhammad_Anees_CV.pdf<small>Download</small></a>
       </div>
-      <div style="display:flex;flex-direction:column;gap:1rem;">
-        <div class="info-box">
-          <h4>Personal Info</h4>
-          <div class="info-r"><span>Location</span><span>Islamabad, Pakistan</span></div>
-          <div class="info-r"><span>Nationality</span><span>Pakistani</span></div>
-          <div class="info-r"><span>Languages</span><span>English · Urdu · Saraiki</span></div>
-        </div>
-        <div class="info-box">
-          <h4>Education Snapshot</h4>
-          <div class="info-r"><span>MS Data Science</span><span>Bahria Univ. · 2024</span></div>
-          <div class="info-r"><span>BSIT (3rd Position)</span><span>IIU Islamabad · 2021</span></div>
-        </div>
+      <div class="info-box">
+        <h4>At a glance</h4>
+        <div class="info-r"><span>Location</span><span>Islamabad, Pakistan</span></div>
+        <div class="info-r"><span>Nationality</span><span>Pakistani</span></div>
+        <div class="info-r"><span>Languages</span><span>English · Urdu · Saraiki</span></div>
+        <div class="info-r"><span>MS Data Science</span><span>Bahria University · 2024</span></div>
+        <div class="info-r"><span>BS IT</span><span>IIUI · 2021 · 3rd Position</span></div>
+        <div class="info-r"><span>Availability</span><span>Full-time roles · PhD intake</span></div>
       </div>
     </div>
   </div>
 </section>
-
+</main>
 <footer>
   <div class="foot-inner">
-    <p>© 2026 Muhammad Anees — XR Developer · Data Scientist · Islamabad, Pakistan</p>
+    <p>© <span id="year">2026</span> Muhammad Anees · XR Developer &amp; AI Researcher · Islamabad, Pakistan</p>
     <div class="foot-links">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="projects.html">Projects</a>
-      <a href="skills.html">Skills</a>
+      <a href="mailto:animalik272@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/muhammad-anees-b72404210" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://drive.google.com/drive/folders/14fCjlWRmGfCeL58mP4B6tp8ceVHRvntV" target="_blank" rel="noopener">Video Portfolio</a>
+      <a href="assets/Muhammad_Anees_CV.pdf" download>CV</a>
     </div>
   </div>
 </footer>
-
-<script>
-function toggleMenu(){document.getElementById('mobileNav').classList.toggle('open');}
-</script>
+<script src="assets/main.js"></script>
 </body>
 </html>
